@@ -1,7 +1,8 @@
 #!/bin/bash
-PWD=`pwd`
-DIR_NAME=$(dirname "$PWD") 
-cd $DIR_NAME
+
+PWD="$( cd "$( dirname "$0"  )" && pwd  )"
+DIR=$(dirname "$PWD") 
+cd $DIR
 git add .
 git commit -m "update"
 git push -u origin master

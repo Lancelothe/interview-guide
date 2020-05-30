@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+# 进入到项目根目录
+PWD="$( cd "$( dirname "$0"  )" && pwd  )"
+DIR=$(dirname "$PWD") 
+cd $DIR
+
 echo '开始执行命令'
 
 # 进入生成的文件夹
@@ -9,6 +14,11 @@ cd ./vuepress_config
 # 初始化一个仓库，仅仅是做了一个初始化的操作，项目里的文件还没有被跟踪
 echo "执行命令：git init\n"
 git init
+
+# 设置新仓库提交使用的用户名和邮箱
+echo "设置用户名和邮箱"
+git config user.name "lancelothe"
+git config user.email "whoami.ace@gmail.com"
 
 # 保存所有的修改
 echo "执行命令：git add -A"
