@@ -1,0 +1,32 @@
+{
+    "title": "Interview-Guide",
+    "author": "lancelot",
+    "description": "Interview-Guide",
+    "language": "zh-hans",
+    "plugins": [
+        "-diy-introduction",
+        "back-to-top-button",
+        "chapter-fold",
+        "code",
+        "splitter",
+        "-lunr",
+        "-search",
+        "search-pro",
+        "pageview-count",
+        "anchor-navigation-ex",
+        "github"
+    ],
+    "pluginsConfig": {
+        "introduction-text": "介绍",
+        "anchor-navigation-ex": {
+            "showLevel": false,
+            "showGoTop": false
+        },
+        "github": {
+            "url": "https://github.com/Lancelothe"
+        }
+    },
+    "styles": {
+        "website": "styles/website.css"
+    }
+}
