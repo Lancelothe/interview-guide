@@ -4,7 +4,7 @@
 
 类的个生命周期如下图：
 
-![img](https://upload-images.jianshu.io/upload_images/14923529-ac753500687cf9d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/classloader-1.png)
 为支持运行时绑定，解析过程在某些情况下可在初始化之后再开始，除解析过程外的其他加载过程必须按照如图顺序开始。
 
 ##### 加载
@@ -118,7 +118,7 @@ JVM 中内置了三个重要的 ClassLoader，除了 BootstrapClassLoader 其他
 
 每一个类都有一个对应它的类加载器。系统中的 ClassLoder 在协同工作的时候会默认使用 **双亲委派模型** 。即在类加载的时候，系统会首先判断当前类是否被加载过。已经被加载的类会直接返回，否则才会尝试加载。加载的时候，首先会把该请求委派该父类加载器的 `loadClass()` 处理，因此所有的请求最终都应该传送到顶层的启动类加载器 `BootstrapClassLoader` 中。当父类加载器无法处理时，才由自己来处理。当父类加载器为null时，会使用启动类加载器 `BootstrapClassLoader` 作为父类加载器。
 
-![ClassLoader](https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/classloader_WPS%E5%9B%BE%E7%89%87.png)
+![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/classloader-2.png)
 
 每个类加载都有一个父类加载器，我们通过下面的程序来验证。
 
