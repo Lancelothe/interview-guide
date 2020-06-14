@@ -34,7 +34,7 @@
 
 [Redis实现限流器Lua脚本 \| INCEPTION](https://ljd0620.github.io/2019/02/24/Redis%E5%AE%9E%E7%8E%B0%E9%99%90%E6%B5%81%E5%99%A8Lua%E8%84%9A%E6%9C%AC/#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
 
-🌰[Redis \- Lua 脚本 \- replicate_commands](https://juejin.im/post/5c83776d5188257df30c9d39)
+[Redis \- Lua 脚本 \- replicate_commands](https://juejin.im/post/5c83776d5188257df30c9d39)
 
 [Redis · 引擎特性 · Lua脚本新姿势](http://mysql.taobao.org/monthly/2019/01/06/)
 
