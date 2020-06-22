@@ -6,6 +6,7 @@
 select * from orders_history where type = 8 and id >= (
     select id from orders_history where type = 8 limit 100000,1
 ) limit 100;
+# 子查询走主键ID聚簇索引比较快的找出深分页的那个主键ID，然后再查别的
 ```
 
 [sql优化之大数据量分页查询（mysql） \- 杨冠标 \- 博客园](https://www.cnblogs.com/yanggb/p/11058707.html)
@@ -99,7 +100,6 @@ mysql会一直向右匹配直到遇到范围查询（>、<、between、like）�
 SELECT [column1],[column2],…. FROM [TABLE] ORDER BY [sort];
 #2. WHERE + ORDER BY的索引优化，联合索引(columnX,sort)来实现order by 优化
 SELECT [column1],[column2],…. FROM [TABLE] WHERE [columnX] = [value] ORDER BY [sort];
-
 #3. WHERE+ 多个字段ORDER BY，联合索引(uid,x,y)实现order by的优化
 SELECT * FROM [table] WHERE uid=1 ORDER x,y LIMIT 0,10;
 ```
@@ -160,8 +160,6 @@ SELECT * FROM t1 ORDER BY YEAR(logindate) LIMIT 0,10;
 离散型的计算公式：count(distinct col) : count(col)，离散型越高，选择型越好。
 - 最左匹配原则并且优先创建联合索引原则
 - 覆盖索引
-
-#### 
 
 #### 前缀索引
 
@@ -229,7 +227,7 @@ FROM payment
 
 由于需要预留和辅助空间，扣掉后不能超过3500，取个“整数”就是 (1024bytes*3=3072bytes)
 
-[MySQL 中索引的长度的限制\_数据库\_weixin\_34335458的博客\-CSDN博客](
+[MySQL 中索引的长度的限制](https://blog.csdn.net/weixin_34335458/article/details/94673168)
 
 ## varchar
 
@@ -279,7 +277,18 @@ char在取值的时候会把存值后面的空格去除掉，varchar 如果后�
 
 不同的字符集字符和字节换算是不同的，拉丁字符换算规律1字符=1字节，utf8是1字符3字节，gbk是1字符2字节；
 
-https://blog.csdn.net/weixin_34335458/article/details/94673168)
+#### 与char的区别
+
+char(n)	固定长度，最多28−128−1个字符，28−128−1个字节
+varchar(n)	可变长度，最多216−1216−1个字符，216−1216−1个字节
+
+ 取数据的时候，char类型的要用trim()去掉多余的空格，而varchar是不需要的。
+
+char的存储方式是，对英文字符（ASCII）占用1个字节，对一个汉字占用两个字节；而varchar的存储方式是，对每个英文字符占用2个字节，汉字也占用2个字节，两者的存储数据都非unicode的字符数据。
+
+存储的容量不同
+对 char 来说，最多能存放的字符个数 255，和编码无关。
+而 varchar 呢，最多能存放 65532 个字符。varchar的最大有效长度由最大行大小和使用的字符集确定。整体最大长度是 65,532字节
 
 ## redo log 、 undo log、bin log
 
@@ -350,13 +359,15 @@ InnoDB的redo log是固定大小的，比如可以配置为一组4个文件，�
    然后你会发现，如果需要用这个binlog来恢复临时库的话，由于这个语句的binlog丢失，这个临时库就会少了这一次更新，恢复出来的这一行c的值就是0，与原库的值不同。
 2. **先写binlog后写redo log**。如果在binlog写完之后crash，由于redo log还没写，崩溃恢复以后这个事务无效，所以这一行c的值是0。但是binlog里面已经记录了"把c从0改成1"这个日志。所以，在之后用binlog来恢复的时候就多了一个事务出来，恢复出来的这一行c的值就是1，与原库的值不同。
 
- 
-
-**注意**
+ **注意**
 
 redo log用于保证crash-safe能力。innodb_flush_log_at_trx_commit这个参数设置成1的时候，表示每次事务的redo log都直接持久化到磁盘。这个参数建议你设置成1，这样可以保证MySQL异常重启之后数据不丢失。
 
 sync_binlog这个参数设置成1的时候，表示每次事务的binlog都持久化到磁盘。这个参数建议你设置成1，这样可以保证MySQL异常重启之后binlog不丢失。
+
+[详细分析MySQL事务日志\(redo log和undo log\) \- 骏马金龙 \- 博客园](https://www.cnblogs.com/f-ck-need-u/p/9010872.html)
+
+[MySQL之Redo Log \- 知乎](https://zhuanlan.zhihu.com/p/86555990)
 
 ### undo log（**回滚日志**）
 
@@ -381,7 +392,7 @@ MVCC实现的是读写不阻塞，读的时候只要返回前一个版本的数�
 
  (2)主库推送二进制文件binlog中的事件到从库的中继日志relay log,之后从库根据中继日志重做数据库变更操作。通过逻辑复制，以此来达到数据一致。
 
-​    Mysql通过3个线程来完成主从库之间的数据复制：其中BinLog Dump线程跑在主库上，I/O线程和SQl线程跑在从库上。当从库启动复制（start slave）时，首先创建I/O线程连接主库，主库随后创建Binlog Dump线程读取数据库事件并发给I/O线程，I/O线程获取到数据库事件更新到从库的中继日志Realy log中去，之后从库上的SQl线程读取中继日志relay log 中更新的数据库事件并应用。
+​    Mysql通过3个线程来完成主从库之间的数据复制：其中BinLog Dump线程跑在主库上，I/O线程和SQL线程跑在从库上。当从库启动复制（start slave）时，首先创建I/O线程连接主库，主库随后创建Binlog Dump线程读取数据库事件并发给I/O线程，I/O线程获取到数据库事件更新到从库的中继日志Realy log中去，之后从库上的SQL线程读取中继日志relay log 中更新的数据库事件并应用。
 
  ![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/mysql-master-slave.png)
 
@@ -414,8 +425,6 @@ SQL线程负责读取relay log中的内容，解析成具体的操作并执行�
 #### 主从不一致的情况
 
 ![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/mysql-inconformity.png)
-
-
 
 [详细分析MySQL事务日志\(redo log和undo log\) \- 后端 \- 掘金](https://juejin.im/entry/5ba0a254e51d450e735e4a1f)
 
@@ -549,9 +558,47 @@ MVCC 使用了一种不同的手段，每个连接到数据库的读者，**在�
 - 事务级别 
   - 针对于`Repeatable read`隔离级别
 
+### **各种事务隔离级别下的Read view 工作方式**
+
+RC(read commit) 级别下同一个事务里面的每一次查询都会获得一个新的read view副本。这样就可能造成同一个事务里前后读取数据可能不一致的问题（幻读）
+
+![img](https://pic3.zhimg.com/80/v2-0c77f30980dc7e45f5aaac8a574e8672_1440w.jpg)
+
+
+
+RR(重复读)级别下的一个事务里只会获取一次read view副本，从而保证每次查询的数据都是一样的。
+
+![img](https://pic1.zhimg.com/80/v2-82eeabba61c97def5d19aeb3cb77182c_1440w.jpg)
+
+
+
+READ_UNCOMMITTED 级别的事务不会获取read view 副本。
+
+### **快照读和当前读**
+
+
+
+**快照读**
+
+快照读是指读取数据时不是读取最新版本的数据，而是基于历史版本读取的一个快照信息（mysql读取undo log历史版本) ，快照读可以使普通的SELECT 读取数据时不用对表数据进行加锁，从而解决了因为对数据库表的加锁而导致的两个如下问题
+
+1、解决了因加锁导致的修改数据时无法对数据读取问题;
+
+2、解决了因加锁导致读取数据时无法对数据进行修改的问题;
+
+
+
+**当前读**
+
+当前读是读取的数据库最新的数据，当前读和快照读不同，因为要读取最新的数据而且要保证事务的隔离性，所以当前读是需要对数据进行加锁的（Update delete insert select ....lock in share mode select for update 为当前读）
+
 [【MySQL（5）\| 五分钟搞清楚 MVCC 机制】 \- 掘金](https://juejin.im/post/5c68a4056fb9a049e063e0ab)
 
+[MYSQL MVCC实现原理 \- 简书](https://www.jianshu.com/p/f692d4f8a53e)
 
+[MySQL InnoDB MVCC 机制的原理及实现 \- 知乎](https://zhuanlan.zhihu.com/p/64576887)
+
+[innodb MVCC实现原理 \- 知乎](https://zhuanlan.zhihu.com/p/52977862)
 
 ## 底层表的存储结构
 

@@ -742,18 +742,61 @@ java -XX:+PrintFlagsFinal -version
 
 | 选项/默认值                          | 说明                                                         |
 | ------------------------------------ | ------------------------------------------------------------ |
-| -XX:+UseG1GC                         | 使用 G1 (Garbage First) 垃圾收集器                           |
-| -XX:MaxGCPauseMillis=n               | 设置最大GC停顿时间(GC pause time)指标(target). 这是一个软性指标(soft goal), JVM 会尽量去达成这个目标. |
-| -XX:InitiatingHeapOccupancyPercent=n | 启动并发GC周期时的堆内存占用百分比. G1之类的垃圾收集器用它来触发并发GC周期,基于整个堆的使用率,而不只是某一代内存的使用比. 值为 0 则表示"一直执行GC循环". 默认值为 45. |
-| -XX:NewRatio=n                       | 新生代与老生代(new/old generation)的大小比例(Ratio). 默认值为 2. |
-| -XX:SurvivorRatio=n                  | eden/survivor 空间大小的比例(Ratio). 默认值为 8.             |
-| -XX:MaxTenuringThreshold=n           | 提升年老代的最大临界值(tenuring threshold). 默认值为 15.     |
+| -XX:+UseG1GC                         | 使用  G1 (Garbage First) 垃圾收集器                          |
+| -XX:MaxGCPauseMillis=n               | 设置最大GC停顿时间(GC  pause time)指标(target). 这是一个软性指标(soft goal), JVM 会尽量去达成这个目标. |
+| -XX:InitiatingHeapOccupancyPercent=n | 启动并发GC周期时的堆内存占用百分比.  G1之类的垃圾收集器用它来触发并发GC周期,基于整个堆的使用率,而不只是某一代内存的使用比. 值为 0 则表示"一直执行GC循环".  默认值为 45. |
+| -XX:NewRatio=n                       | 新生代与老生代(new/old  generation)的大小比例(Ratio). 默认值为 2. |
+| -XX:SurvivorRatio=n                  | eden/survivor  空间大小的比例(Ratio). 默认值为 8.            |
+| -XX:MaxTenuringThreshold=n           | 提升年老代的最大临界值(tenuring  threshold). 默认值为 15.    |
 | -XX:ParallelGCThreads=n              | 设置垃圾收集器在并行阶段使用的线程数,默认值随JVM运行的平台不同而不同. |
-| -XX:ConcGCThreads=n                  | 并发垃圾收集器使用的线程数量. 默认值随JVM运行的平台不同而不同. |
-| -XX:G1ReservePercent=n               | 设置堆内存保留为假天花板的总量,以降低提升失败的可能性. 默认值是 10. |
-| -XX:G1HeapRegionSize=n               | 使用G1时Java堆会被分为大小统一的的区(region)。此参数可以指定每个heap区的大小. 默认值将根据 heap size 算出最优解. 最小值为 1Mb, 最大值为 32Mb. |
+| -XX:ConcGCThreads=n                  | 并发垃圾收集器使用的线程数量.  默认值随JVM运行的平台不同而不同. |
+| -XX:G1ReservePercent=n               | 设置堆内存保留为假天花板的总量,以降低提升失败的可能性.  默认值是 10. |
+| -XX:G1HeapRegionSize=n               | G1内堆内存区块大小<br />G1将堆内存默认均分为2048块，1M<region<32 M，当应用频繁分配大对象时，可以考虑调整这个阈值，因为G1的Humongous区域只能存放一个大对象，适当调整Region大小，尽量让其刚好超过大对象的两倍大小，这样就能充分利用Region的空间。<br />(Xms + Xmx ) /2 / 2048 , 不大于32M，不小于1M，且为2的指数 |
+| -XX:G1MixedGCCountTarget             | 一次global  concurrent marking之后，最多执行Mixed GC的次数.默认值8次 |
+| -XX:G1NewSizePercent                 | 初始化年轻代占用整个堆内存的百分比，新生代占堆的最小比例，默认5% |
+| -XX:G1MaxNewSizePercent              | 新生代占堆的最大比例，默认60%                                |
+| -XX:+ParallelRefProcEnabled          | 并行处理Reference，加快处理速度，缩短耗时                    |
+| -XX:G1OldCSetRegionThresholdPercent  | Mixed GC每次回收Region的数量一次Mixed GC中能被选入CSet的最多old generation region数量比列。默认值10% |
+
+[jvm实用调优参数（G1）\_点滴之积\-CSDN博客\_jvm g1 参数](https://blog.csdn.net/qq_27529917/article/details/86664677)
+
+[JVM 参数说明（持续更新） \- Rayn——做今天最好的自己 \- OSCHINA](https://my.oschina.net/Rayn/blog/842868)
+
+[G1 Garbage Collector 及JVM 参数说明（持续更新） \- Rayn——做今天最好的自己 \- OSCHINA](https://my.oschina.net/Rayn/blog/1510535)
 
 
+
+### 参数调优案例
+
+#### **Full GC调优Tips：**
+
+1. 如果可能是大对象太多造成的，可以`gc+heap=info`查看humongous regions个数。可以增加通过`-XX:G1HeapRegionSize`增加Region Size，避免老年代中的大对象占用过多的内存。
+2. 增加heap大小，对应的效果G1可以有更多的时间去完成`Concurrent Marking`。
+3. 增加`Concurrent Marking`的线程，通过`-XX:ConcGCThreads`设置。
+4. 强制mark阶段提早进行。因为在Mark阶段之前，G1会根据应用程序之前的行为，去确定`the Initiating Heap Occupancy Percent`(`IHOP`)阈值大小，比如是否需要执行`initial Mark`，以及后续`CleanUp`阶段的`space-reclamation phase`；如果服务流量突然增加或者其他行为改变的话，那么基于之前的预测的阈值就会不准确，可以采取下面的思路：
+   1. 可以增加G1在`IHOP`分析过程中的所需要的内存空间，通过`-XX:G1ReservePercent`来设置，提高预测的效率。
+   2. 关闭G1的自动`IHOP`分析机制，`-XX:-G1UseAdaptiveIHOP`，然后手动的指定这个阈值大小，`-XX:InitiatingHeapOccupancyPercent`。这样就省去了每次预测的一个时间消耗。
+5. Full gc可能是系统中的humongous object比较多，系统找不到一块连续的regions区域来分配。可以通过`-XX:G1HeapRegionSize`增加region size，或者将整个heap调大。
+
+#### Mixed GC或者Young GC调优
+
+###### Reference Object Processing时间消耗比较久
+
+gc日志中可以看`Ref Proc`和`Ref Enq`，`Ref Proc`G1根据不同引用类型对象的要求去更新对应的referents；`Ref Enq`G1如果实际引用对象已经不可达了，那么就会将这些引用对象加入对应的引用队列中。如果这一过程比较长，可以考虑将这个过程开启并行，通过`-XX:+ParallelRefProcEnabled`。
+
+###### `young-only`回收较久
+
+主要原因是`Collection Set`中有太多的存活对象需要拷贝。可以通过gc日志中的`Evacuate Collection Set`看到对应的时间，可以增加young geenration的最小大小，通过`-XX:G1NewSizePercent`。 也可能是某一个瞬间，幸存下来的对象一下子有很多，这种情况会造成gc停顿时间猛涨，一般应对这种情况通过`-XX:G1MaxNewSizePercent`这个参数，增加young generation最大空间。
+
+###### `Mixed`回收时间较久
+
+通过开启`gc+ergo+cset=trace`，如果是`predicated young regions`花费比较长，可以针对上文中的方法。如果是`predicated old regions`比较长，则可以通过以下方法：
+
+- 增加`-XX:G1MixedGCCountTarget`这个参数，将old generation的regions分散到较多的Collection（上文有解释）中，增加`-XX:G1MixedGCCountTarget`参数值。避免单次处理较大块的Collection。
+
+https://juejin.im/post/5ed32ec96fb9a0480659e547
+
+---
 
 [CMS的CMSInitiatingOccupancyFraction默认值是多少？又是如何使用的？ \- 代码先锋网](https://www.codeleading.com/article/12901198022/)
 

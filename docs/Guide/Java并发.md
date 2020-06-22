@@ -266,8 +266,7 @@ synchronized 是依赖于 JVM 实现的，前面我们也讲到了 虚拟机团�
 
 ![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/volatile关键字的可见性.png)
 
-<span style="color:red">**对于volatile变量，读操作时JMM会把工作内存中对应的值设为无效，要求线程从主内存中读取数据;写操作时JMM会把工作内存中对应的数据刷新到主内存中，这种情况下，其它线程就可以读取变量的最新值**</span>
-
+<div style="color:red">对于volatile变量，读操作时JMM会把工作内存中对应的值设为无效，要求线程从主内存中读取数据; 写操作时JMM会把工作内存中对应的数据刷新到主内存中，这种情况下，其它线程就可以读取变量的最新值</div>
 ### 底层实现：
 
 ```bash
@@ -333,13 +332,13 @@ lock前缀指令其实就相当于一个内存屏障。内存屏障是一组CPU�
 
 **方式一：通过构造方法实现** 
 
-![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/ThreadPoolExecutor构造方法.png) **方式二：通过Executor 框架的工具类Executors来实现** 我们可以创建三种类型的ThreadPoolExecutor：
+![ThreadPoolExecutor构造方法.png](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/ThreadPoolExecutor构造方法.png) **方式二：通过Executor 框架的工具类Executors来实现** 我们可以创建三种类型的ThreadPoolExecutor：
 
 - **FixedThreadPool** ： 该方法返回一个固定线程数量的线程池。该线程池中的线程数量始终不变。当有一个新的任务提交时，线程池中若有空闲线程，则立即执行。若没有，则新的任务会被暂存在一个任务队列中，待有线程空闲时，便处理在任务队列中的任务。
 - **SingleThreadExecutor：** 方法返回一个只有一个线程的线程池。若多余一个任务被提交到该线程池，任务会被保存在一个任务队列中，待线程空闲，按先入先出的顺序执行队列中的任务。
 - **CachedThreadPool：** 该方法返回一个可根据实际情况调整线程数量的线程池。线程池的线程数量不确定，但若有空闲线程可以复用，则会优先使用可复用的线程。若所有线程均在工作，又有新的任务提交，则会创建新的线程处理任务。所有线程在当前任务执行完毕后，将返回线程池进行复用。
 
-对应Executors工具类中的方法如图所示： ![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/Executor框架的工具类.png)
+对应Executors工具类中的方法如图所示： ![Executor框架的工具类](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/Executor框架的工具类.png)
 
 #### ThreadPoolExecutor构造函数重要参数分析
 
@@ -387,6 +386,8 @@ lock前缀指令其实就相当于一个内存屏障。内存屏障是一组CPU�
 说白了整个 `Worker` 的生命周期大致可以理解为：线程池干活了（`execute()` / `submit()`），然后就是正式干活了（`runWorker()`），使用 `getTask()` 获取任务（中间会有一系列的判断（`corePoolSize` 是否达到，任务队列是否满了，线程池是否达到了 `maximumPoolSize`，超时等），如果没有 task 了，就进行后期的扫尾工作并且从 `workers` 中移除 worker。
 
 [线程池中的空余线程是如何被回收的](https://mp.weixin.qq.com/s?__biz=MzU1OTgyMDc3Mg==&mid=2247483834&idx=1&sn=db7cec29acba533cce79ec476b224a82&chksm=fc103b31cb67b2273e97e1b6836664286a99c36e196027e32cc0d45f21e690b41e70a285b1cb&token=347054940&lang=zh_CN#rd)
+
+怎么回收核心线程：
 
 1. allowCoreThreadTimeOut设置为true
 2. 调用shutdown方法

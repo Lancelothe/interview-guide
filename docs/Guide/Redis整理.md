@@ -93,14 +93,14 @@ typedef struct zset {
 
 ![](https://redisbook.readthedocs.io/en/latest/_images/graphviz-66d218f87c15bc835d88c696af175d2ba39ae420.svg)
 
-通过使用字典结构， 并将 `member` 作为键， `score` 作为值， 有序集可以在 O(1)O(1) 复杂度内：
+通过使用字典结构， 并将 `member` 作为键， `score` 作为值， 有序集可以在 O(1) 复杂度内：
 
 - 检查给定 `member` 是否存在于有序集（被很多底层函数使用）；
 - 取出 `member` 对应的 `score` 值（实现 [ZSCORE](http://redis.readthedocs.org/en/latest/sorted_set/zscore.html#zscore) 命令）。
 
 另一方面， 通过使用跳跃表， 可以让有序集支持以下两种操作：
 
-- 在 O(logN)O(log⁡N) 期望时间、 O(N)O(N) 最坏时间内根据 `score` 对 `member` 进行定位（被很多底层函数使用）；
+- 在 O(log⁡N) 期望时间、 O(N) 最坏时间内根据 `score` 对 `member` 进行定位（被很多底层函数使用）；
 - 范围性查找和处理操作，这是（高效地）实现 [ZRANGE](http://redis.readthedocs.org/en/latest/sorted_set/zrange.html#zrange) 、 [ZRANK](http://redis.readthedocs.org/en/latest/sorted_set/zrank.html#zrank) 和 [ZINTERSTORE](http://redis.readthedocs.org/en/latest/sorted_set/zinterstore.html#zinterstore) 等命令的关键。
 
 通过同时使用字典和跳跃表， 有序集可以高效地实现按成员查找和按顺序查找两种操作。
@@ -132,10 +132,10 @@ int zslRandomLevel(void) {
 
 跳跃表节点的level数组可以包含多个元素，每个元素都包含一个指向其他节点的指针，程序可以通过这些层来加快访问其他节点的速度，一般来说，层的数量越多，访问其他节点的速度就越快。
 
-  每次创建一个新跳跃表节点的时候，程序根据幂次定律(power law，越大的数出现的概率越小)随机生成一个介于1和32之间的值作为level数组的大小，这个大小就是层的“高度”。
+  每次创建一个新跳跃表节点的时候，程序根据**幂次定律(power law，越大的数出现的概率越小)**随机生成一个介于1和32之间的值作为level数组的大小，这个大小就是层的“高度”。
 
   下图分别展示了三个高度为1层、3层和5层的节点，因为C语言的数组索引总是从0开始的，所以节点的第一层是level[0]，而第二层是level[1]，依次类推。
-![redis-level](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/redis-high.png)
+![redis-level](http://image-hosting-lan.oss-cn-beijing.aliyuncs.com/redis-high.png)
 
 ### redis为什么采用跳表而不是红黑树
 
@@ -206,6 +206,11 @@ Redis 内存淘汰的机制有以下几种方案可供选择：
 ## Redis为什么快？
 
 单线程为什么就快了？
+
+- 纯内存
+- 单线程（原子性、避免线程切换浪费资源）
+- IO多路复用
+- 合理的数据结构（dict）
 
 [Redis为什么是单线程，高并发快的3大原因详解 \- 知乎](https://zhuanlan.zhihu.com/p/58038188)
 
@@ -295,9 +300,9 @@ Redis 内存淘汰的机制有以下几种方案可供选择：
 
 ## 集群
 
-持久化的原理
+### 持久化的原理
 
-主从复制原理
+### 主从复制原理
 
 ### 哨兵模式的原理
 
@@ -392,7 +397,7 @@ Redis主节点的配置信息中，它所负责的哈希槽是通过一张bitmap
 
 综上所述，作者决定取16384个槽，不多不少，刚刚好！
 
-### Redis-Sentinel和Redis Cluster对比
+### Redis-Sentinel 和 Redis Cluster对比
 
 **Redis-Sentinel**
 

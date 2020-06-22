@@ -122,6 +122,8 @@ java.util包下的集合类都是快速失败的，不能在多线程下发生�
 
 [HashMap面试题解答 \- windpoplar \- 博客园](https://www.cnblogs.com/windpoplar/p/11901486.html)
 
+[面试：HashMap 夺命二十一问！](https://mp.weixin.qq.com/s/7fcdGEPmpmvxylP2e7RBqQ)
+
 ### 扰动函数
 
 **HashMap 通过 key 的 hashCode 经过扰动函数处理过后得到 hash 值，然后通过 (n - 1) & hash 判断当前元素存放的位置（这里的 n 指的是数组的长度），如果当前位置存在元素的话，就判断该元素与要存入的元素的 hash 值以及 key 是否相同，如果相同的话，直接覆盖，不相同就通过拉链法解决冲突。**

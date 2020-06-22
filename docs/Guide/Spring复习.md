@@ -86,7 +86,7 @@ Spring 时代我们一般通过 XML 文件来配置 Bean，后来开发人员觉
 
 **Spring IoC的初始化过程：**
 
-![Spring IoC的初始化过程](https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-7/SpringIOC%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B.png)
+![SpringIOC初始化过程](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/SpringIOC初始化过程.png)
 
 IoC源码阅读
 
@@ -238,7 +238,7 @@ singletonObjects：单例对象的cache
 
  Spring中共有两种bean，一种为普通bean，另一种则为工厂bean（FactoryBean）。
 
-BeanFactory给具体的IOC容器的实现提供了规范，实现 BeanFactory 接口的类 表明此类事一个工厂，作用就是配置、新建、管理 各种Bean。
+BeanFactory给具体的IOC容器的实现提供了规范，实现 BeanFactory 接口的类 表明此类是一个工厂，作用就是配置、新建、管理 各种Bean。
 
 另一个接口ApplicationContext接口，他是BeanFactory的派生。BeanFactorty接口提供了配置框架及基本功能，但是无法支持spring的aop功能和web应用。
  ApplicationContext支持aop web，因为他继承多种接口如 （1）国际化资源接口 （2）资源加载接口 （3）事件发布接口
