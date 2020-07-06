@@ -67,12 +67,12 @@
 * [Elastic-Job原理](docs/Guide/Elastic-Job原理.md)
 
 ## 设计模式
-* [单例模式](docs/DesignPatterns/单例模式.md)
-* [工厂模式](docs/DesignPatterns/工厂模式.md)
-* [模板方法模式](docs/DesignPatterns/模板方法模式.md)
-* [策略模式](docs/DesignPatterns/策略模式.md)
-* [观察者模式](docs/DesignPatterns/观察者模式.md)
-* [责任链模式](docs/DesignPatterns/责任链模式.md)
+* [单例模式](docs/DesignPatterns/1-单例模式.md)
+* [工厂模式](docs/DesignPatterns/2-工厂模式.md)
+* [模板方法模式](docs/DesignPatterns/6-模板方法模式.md)
+* [策略模式](docs/DesignPatterns/4-策略模式.md)
+* [观察者模式](docs/DesignPatterns/7-观察者模式.md)
+* [责任链模式](docs/DesignPatterns/5-职责链模式.md)
 
 ## 面试
 * [面试常见问题回答（主观题）](docs/Guide/面试常见问题回答（主观题）.md)
