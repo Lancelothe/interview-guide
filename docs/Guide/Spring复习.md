@@ -146,6 +146,100 @@ singletonObjects：单例对象的cache
 
 [【死磕 Spring】\- IOC 之循环依赖处理 \- Java 技术驿站\-Java 技术驿站](http://cmsblogs.com/?p=2887)
 
+## IOC容器的加载过程
+
+简单概括：
+
+1. 刷新预处理
+
+2. 将配置信息解析，注册到BeanFactory
+
+3. 设置bean的类加载器
+
+4. 如果有第三方想再bean加载注册完成后，初始化前做点什么(例如修改属性的值，修改bean的scope为单例或者多例。)，提供了相应的模板方法，后面还调用了这个方法的实现，并且把这些个实现类注册到对应的容器中
+
+5. 初始化当前的事件广播器
+
+6. 初始化所有的bean
+
+7. 广播applicationcontext初始化完成。
+
+   ```java
+   //来自于AbstractApplicationContext
+   public void refresh() throws BeansException, IllegalStateException {
+      //进行加锁处理
+      synchronized (this.startupShutdownMonitor) {
+          // 进行刷新容器的准备工作，比如设定容器开启时间，标记容器已启动状态等等
+          prepareRefresh();
+   
+          // 让子类来刷新创建容器
+          // 这步比较关键，这步完成后，配置文件就会解析成一个个 Bean 定义，注册到 BeanFactory 中，
+          // 当然，这里说的 Bean 还没有初始化，只是配置信息都提取出来了，
+          // 注册也只是将这些信息都保存到了注册中心(说到底核心是一个 beanName-> beanDefinition 的 map)
+          ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
+   
+          // 设置 BeanFactory 的类加载器，添加几个 BeanPostProcessor，手动注册几个特殊的 bean
+          prepareBeanFactory(beanFactory);
+   
+          try {
+              // 这里需要知道 BeanFactoryPostProcessor 这个知识点，
+              //Bean 如果实现了此接口，那么在容器初始化以后，Spring 会负责调用里面的 postProcessBeanFactory 方法。
+              // 这里是提供给子类的扩展点，到这里的时候，所有的 Bean 都加载、注册完成了，但是都还没有初始化
+              // 具体的子类可以在这步的时候添加一些特殊的 BeanFactoryPostProcessor 的实现类或做点什么事
+              postProcessBeanFactory(beanFactory);
+   
+              // 调用 BeanFactoryPostProcessor 各个实现类的 postProcessBeanFactory(factory) 方法
+              invokeBeanFactoryPostProcessors(beanFactory);
+   
+              // 注册 BeanPostProcessor 的实现类，注意看和 BeanFactoryPostProcessor 的区别
+              // 此接口两个方法: postProcessBeforeInitialization 和 postProcessAfterInitialization
+              // 两个方法分别在 Bean 初始化之前和初始化之后得到执行。注意，到这里 Bean 还没初始化
+              registerBeanPostProcessors(beanFactory);
+   
+              // 初始化当前 ApplicationContext 的 MessageSource
+              initMessageSource();
+   
+              // 初始化当前 ApplicationContext 的事件广播器
+              initApplicationEventMulticaster();
+   
+              // 从方法名就可以知道，典型的模板方法(钩子方法)，
+              // 具体的子类可以在这里初始化一些特殊的 Bean（在初始化 singleton beans 之前）
+              onRefresh();
+   
+              // 注册事件监听器，监听器需要实现 ApplicationListener 接口
+              registerListeners();
+   
+              // 初始化所有的 singleton beans（lazy-init 的除外）
+              // 重点方法将会在下一个章节进行说明
+              finishBeanFactoryInitialization(beanFactory);
+   
+              // 最后，广播事件，ApplicationContext 初始化完成
+              finishRefresh();
+              }
+              catch (BeansException ex) {
+                  if (logger.isWarnEnabled()) {
+                      logger.warn("Exception encountered during context initialization - cancelling refresh attempt: " + ex);
+                  }
+                      // 销毁已经初始化的 singleton 的 Beans，以免有些 bean 会一直占用资源
+                      destroyBeans();
+   
+                      // Reset 'active' flag.
+                      cancelRefresh(ex);
+   
+                      // 把异常往外抛
+                      throw ex;
+                }
+                finally {
+                  // Reset common introspection caches in Spring's core, since we
+                  // might not ever need metadata for singleton beans anymore...
+                  resetCommonCaches();
+                }
+        }
+   }
+   ```
+
+   
+
 ## IOC容器是怎么工作的
 
 1. Bean的概念：Bean就是由Spring容器初始化、装配及管理的对象，除此之外，bean就与应用程序中的其他对象没什么区别了。

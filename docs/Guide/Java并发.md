@@ -183,7 +183,7 @@ public class SynchronizedDemo2 {
 
 synchronized 修饰的方法并没有 monitorenter 指令和 monitorexit 指令，取得代之的确实是 ACC_SYNCHRONIZED 标识，该标识指明了该方法是一个同步方法，JVM 通过该 ACC_SYNCHRONIZED 访问标志来辨别一个方法是否声明为同步方法，从而执行相应的同步调用。
 
-### JDK1.6 之后对synchronized锁f的底层优化
+### JDK1.6 之后对synchronized锁的底层优化
 
 JDK1.6 对锁的实现引入了大量的优化，如偏向锁、轻量级锁、自旋锁、适应性自旋锁、锁消除、锁粗化等技术来减少锁操作的开销。
 
@@ -228,6 +228,8 @@ JDK1.6 对锁的实现引入了大量的优化，如偏向锁、轻量级锁、�
 原则上，我们在编写代码的时候，总是推荐将同步块的作用范围限制得尽量小，——直在共享数据的实际作用域才进行同步，这样是为了使得需要同步的操作数量尽可能变小，如果存在锁竞争，那等待线程也能尽快拿到锁。
 
 大部分情况下，上面的原则都是没有问题的，但是如果一系列的连续操作都对同一个对象反复加锁和解锁，那么会带来很多不必要的性能消耗。
+
+### MESI
 
 ### synchronized 和ReentrantLock 的区别
 
@@ -666,15 +668,138 @@ AQS的全称为（AbstractQueuedSynchronizer），这个类在java.util.concurre
 
 AQS是一个用来构建锁和同步器的框架，使用AQS能简单且高效地构造出应用广泛的大量的同步器，比如我们提到的ReentrantLock，Semaphore，其他的诸如ReentrantReadWriteLock，SynchronousQueue，FutureTask等等皆是基于AQS的。当然，我们自己也能利用AQS非常轻松容易地构造出符合我们自己需求的同步器。
 
+### AQS原理
+
+**AQS 核心思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占用，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，这个机制 AQS 是用 CLH 队列锁实现的，即将暂时获取不到锁的线程加入到队列中。**
+
+> CLH(Craig,Landin,and Hagersten)队列是一个虚拟的双向队列（虚拟的双向队列即不存在队列实例，仅存在结点之间的关联关系）。AQS 是将每条请求共享资源的线程封装成一个 CLH 锁队列的一个结点（Node）来实现锁的分配。
+
+看个 AQS(AbstractQueuedSynchronizer)原理图：
+
+![enter image description here](https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E5%A4%87%EF%BC%9A%E5%B9%B6%E5%8F%91%E7%9F%A5%E8%AF%86%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BB%93/CLH.png)
+
+AQS 使用一个 int 成员变量state来表示同步状态，通过内置的 FIFO 队列来完成获取资源线程的排队工作。AQS 使用 CAS 对该同步状态进行原子操作实现对其值的修改。当state>0时表示已经获取了锁，当state = 0时表示释放了锁。它提供了三个方法（getState()、setState(int newState)、compareAndSetState(int expect,int update)）来对同步状态state进行操作，当然AQS可以确保对state的操作是安全的。
+
+```java
+private volatile int state;//共享变量，使用volatile修饰保证线程可见性
+```
+
+状态信息通过 protected 类型的`getState`，`setState`，`compareAndSetState`进行操作
+
+```java
+//返回同步状态的当前值
+protected final int getState() {
+        return state;
+}
+ // 设置同步状态的值
+protected final void setState(int newState) {
+        state = newState;
+}
+//原子地（CAS操作）将同步状态值设置为给定值update如果当前同步状态的值等于expect（期望值）
+protected final boolean compareAndSetState(int expect, int update) {
+        return unsafe.compareAndSwapInt(this, stateOffset, expect, update);
+}
+```
+
+#### 主要方法
+
+AQS的设计是基于**模板方法模式**的，它有一些方法必须要子类去实现的，它们主要有：
+
+- isHeldExclusively()：该线程是否正在独占资源。只有用到condition才需要去实现它。
+- tryAcquire(int)：独占方式。尝试获取资源，成功则返回true，失败则返回false。
+- tryRelease(int)：独占方式。尝试释放资源，成功则返回true，失败则返回false。
+- tryAcquireShared(int)：共享方式。尝试获取资源。负数表示失败；0表示成功，但没有剩余可用资源；正数表示成功，且有剩余资源。
+- tryReleaseShared(int)：共享方式。尝试释放资源，如果释放后允许唤醒后续等待结点返回true，否则返回false。
+
+#### 获取资源
+
+这里会涉及到两个变化
+
+- 新的线程封装成Node节点追加到同步队列中，设置prev节点以及修改当前节点的前置节点的next节点指向自己
+- 通过CAS讲tail重新指向新的尾部节点
+
+
+
+#### 释放资源
+
+head节点表示获取锁成功的节点，当头结点在释放同步状态时，会唤醒后继节点，如果后继节点获得锁成功，会把自己设置为头结点。
+
+这个过程也是涉及到两个变化
+
+- 修改head节点指向下一个获得锁的节点
+- 新的获得锁的节点，将prev的指针指向null
+
+这里有一个小的变化，就是设置head节点不需要用CAS，原因是设置head节点是由获得锁的线程来完成的，而同步锁只能由一个线程获得，所以不需要CAS保证，只需要把head节点设置为原首节点的后继节点，并且断开原head节点的next引用即可
+
+
+
+### 资源共享方式
+
+资源有两种共享模式，或者说两种同步方式：
+
+- 独占模式（Exclusive）：资源是独占的，一次只能一个线程获取。如ReentrantLock。
+- 共享模式（Share）：同时可以被多个线程获取，具体的资源个数可以通过参数指定。如Semaphore/CountDownLatch。
+
+一般来说，自定义同步器要么是独占方法，要么是共享方式，他们也只需实现`tryAcquire-tryRelease`、`tryAcquireShared-tryReleaseShared`中的一种即可。但 AQS 也支持自定义同步器同时实现独占和共享两种方式，如`ReentrantReadWriteLock`。
+
+### 公平锁、非公平锁
+
+基于AQS的锁(比如ReentrantLock)原理大体是这样:
+有一个state变量，初始值为0，假设当前线程为A,每当A获取一次锁，status++. 释放一次，status--.锁会记录当前持有的线程。
+当A线程拥有锁的时候，status>0. B线程尝试获取锁的时候会对这个status有一个CAS(0,1)的操作，尝试几次失败后就挂起线程，进入一个等待队列。
+如果A线程恰好释放，--status==0, A线程会去唤醒等待队列中第一个线程，即刚刚进入等待队列的B线程，B线程被唤醒之后回去检查这个status的值，尝试CAS(0,1),而如果这时恰好C线程也尝试去争抢这把锁。
+
+非公平锁实现：
+C直接尝试对这个status CAS(0,1)操作，并成功改变了status的值，B线程获取锁失败，再次挂起，这就是非公平锁，B在C之前尝试获取锁，而最终是C抢到了锁。
+公平锁：
+C发现有线程在等待队列，直接将自己进入等待队列并挂起,B获取锁。
+
+1. 非公平锁在调用 lock 后，首先就会调用 CAS 进行一次抢锁，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回了。
+2. 非公平锁在 CAS 失败后，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现锁这个时候被释放了（state == 0），非公平锁会直接 CAS 抢锁，但是公平锁会判断等待队列是否有线程处于等待状态，如果有则不去抢锁，乖乖排到后面。
+
+公平锁和非公平锁就这两点区别，如果这两次 CAS 都不成功，那么后面非公平锁和公平锁是一样的，都要进入到阻塞队列等待唤醒。
+
+相对来说，非公平锁会有更好的性能，因为它的吞吐量比较大。当然，非公平锁让获取锁的时间变得更加不确定，可能会导致在阻塞队列中的线程长期处于饥饿状态。
+
+[AQS\-独占与共享\_业精于勤荒于嬉 行成于思毁于随\-CSDN博客\_aqs 独占 共享](https://blog.csdn.net/sinat_34976604/article/details/80970975)
+
+
+
+### ReentrantLock调用过程
+
+ReentrantLock把所有Lock接口的操作都委派到一个Sync类上，该类继承了AbstractQueuedSynchronizer：
+
+```dart
+static abstract class Sync extends AbstractQueuedSynchronizer  
+```
+
+Sync又有两个子类：
+
+```dart
+final static class NonfairSync extends Sync  
+final static class FairSync extends Sync  
+```
+
+显然是为了支持**公平锁和非公平锁**而定义，默认情况下为非公平锁。
+**先理一下Reentrant.lock()方法的调用过程（默认非公平锁）**：
+ ![Reentrant.lock()](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/Reentrant.lock().png)
+
+
+
+ReentrantLock就是使用AQS而实现的一把锁，它实现了可重入锁，公平锁和非公平锁。它有一个内部类用作同步器是Sync，Sync是继承了AQS的一个子类，并且公平锁和非公平锁是继承了Sync的两个子类。ReentrantLock的原理是：假设有一个线程A来尝试获取锁，它会先CAS修改state的值，从0修改到1，如果修改成功，那就说明获取锁成功，设置加锁线程为当前线程。如果此时又有一个线程B来尝试获取锁，那么它也会CAS修改state的值，从0修改到1，因为线程A已经修改了state的值，那么线程B就会修改失败，然后他会判断一下加锁线程是否为自己本身线程，如果是自己本身线程的话它就会将state的值直接加1，这是为了实现锁的可重入。如果加锁线程不是当前线程的话，那么就会将它生成一个Node节点，加入到等待队列的队尾，直到什么时候线程A释放了锁它会唤醒等待队列队头的线程。这里还要分为公平锁和非公平锁，默认为非公平锁，公平锁和非公平锁无非就差了一步。如果是公平锁，此时又有外来线程尝试获取锁，它会首先判断一下等待队列是否有第一个节点，如果有第一个节点，就说明等待队列不为空，有等待获取锁的线程，那么它就不会去同步队列中抢占cpu资源。如果是非公平锁的话，它就不会判断等待队列是否有第一个节点，它会直接前往同步对列中去抢占cpu资源。
+
+  以下是ReentrantLock的原理图解，简单明了：
+
+
+![](https://img-blog.csdnimg.cn/2019043011110613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3Njg1NDU3,size_16,color_FFFFFF,t_70)[深度解析：AQS原理\_qq\_37685457的博客\-CSDN博客\_aqs原理](https://blog.csdn.net/qq_37685457/article/details/89704124)
+
 [扒一扒 ReentrantLock 以及 AQS 实现原理](https://mp.weixin.qq.com/s/jCBrHSVK647bdVIPvJHxOg)
 
 [大白话聊聊Java并发面试问题之谈谈你对AQS的理解？【石杉的架构笔记】](https://mp.weixin.qq.com/s/PAn5oTlvVmjMepmCRdBnkQ)
 
-### 怎么实现公平锁、非公平锁
+[11 AQS · 深入浅出Java多线程](http://concurrent.redspider.group/article/02/11.html)
 
-
-
-
+[深入分析AQS实现原理 \- 并发编程 \- SegmentFault 思否](https://segmentfault.com/a/1190000017372067#item-2-7)
 
 ## 并发辅助类
 
@@ -693,6 +818,50 @@ AQS是一个用来构建锁和同步器的框架，使用AQS能简单且高效�
 [Java并发编程的4个同步辅助类（CountDownLatch、CyclicBarrier、Semaphore、Phaser）](https://www.cnblogs.com/lizhangyong/p/8906774.html)
 
 [Java多线程-ABC三个线程顺序输出的问题 \- 会被淹死的鱼 \- 博客园](https://www.cnblogs.com/icejoywoo/archive/2012/10/15/2724674.html)
+
+### Semaphore
+
+允许多个线程同时访问某个资源。
+
+执行 `acquire` 方法阻塞，直到有一个许可证可以获得然后拿走一个许可证；每个 `release` 方法增加一个许可证，这可能会释放一个阻塞的 acquire 方法。然而，其实并没有实际的许可证这个对象，Semaphore 只是维持了一个可获得许可证的数量。 Semaphore 经常用于限制获取某种资源的线程数量。
+
+Semaphore与CountDownLatch一样，也是共享锁的一种实现。它默认构造AQS的state为permits。当执行任务的线程数量超出permits,那么多余的线程将会被放入阻塞队列Park,并自旋判断state是否大于0。只有当state大于0的时候，阻塞的线程才能继续执行,此时先前执行任务的线程继续执行release方法，release方法使得state的变量会加1，那么自旋的线程便会判断成功。 如此，每次只有最多不超过permits数量的线程能自旋成功，便限制了执行任务线程的数量。
+
+### CountDownLatch(倒计时器)
+
+![Concurrent-CountDownLatch](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/Concurrent-CountDownLatch.png)
+
+以 CountDownLatch 以例，任务分为 N 个子线程去执行，state 也初始化为 N（注意 N 要与线程个数一致）。这 N 个子线程是并行执行的，每个子线程执行完后 countDown()一次，state 会 CAS(Compare and Swap)减 1。等到所有子线程都执行完后(即 state=0)，会 unpark()主调用线程，然后主调用线程就会从 await()函数返回，继续后余动作。
+
+### CyclicBarrier(循环栅栏)
+
+![Concurrent-CyclicBarrier](/Users/lancelot/Documents/Concurrent-CyclicBarrier.png)
+
+CyclicBarrier 和 CountDownLatch 非常类似，它也可以实现线程间的技术等待，但是它的功能比 CountDownLatch 更加复杂和强大。主要应用场景和 CountDownLatch 类似。
+
+> CountDownLatch的实现是基于AQS的，而CycliBarrier是基于 ReentrantLock(ReentrantLock也属于AQS同步器)和 Condition 的.
+
+CyclicBarrier 的字面意思是可循环使用（Cyclic）的屏障（Barrier）。它要做的事情是，让一组线程到达一个屏障（也可以叫同步点）时被阻塞，直到最后一个线程到达屏障时，屏障才会开门，所有被屏障拦截的线程才会继续干活。CyclicBarrier 默认的构造方法是 `CyclicBarrier(int parties)`，其参数表示屏障拦截的线程数量，每个线程调用`await`方法告诉 CyclicBarrier 我已经到达了屏障，然后当前线程被阻塞。
+
+#### CyclicBarrier 和 CountDownLatch 的区别
+
+- CountDownLatch 是计数器，只能使用一次，而 CyclicBarrier 的计数器提供 reset 功能，可以多次使用。
+- 对于 CountDownLatch 来说，重点是“一个线程（多个线程）等待”，而其他的 N 个线程在完成“某件事情”之后，可以终止，也可以等待。而对于 CyclicBarrier，重点是多个线程，在任意一个线程没有完成，所有的线程都必须等待。
+
+### ReentrantReadWriteLock
+
+重入读写锁，它实现了ReadWriteLock接口，在这个类中维护了两个锁，一个是ReadLock，一个是WriteLock，他们都分别实现了Lock接口。读写锁是一种适合读多写少的场景下解决线程安全问题的工具，基本原则是：`读和读不互斥、读和写互斥、写和写互斥`。也就是说涉及到影响数据变化的操作都会存在互斥。
+
+## Java锁有哪些种类
+
+- 公平**锁**/非公平**锁**
+- 可重入**锁**
+- 独享**锁**/共享**锁**
+- 互斥**锁**/读写**锁**
+- 乐观**锁**/悲观**锁**
+- 分段**锁**
+- 偏向**锁**/轻量级**锁**/重量级**锁**
+- 自旋**锁**
 
 ## 乐观锁 与 悲观锁
 

@@ -241,9 +241,54 @@ protected Class<?> loadClass(String name, boolean resolve)
 
 3.代码实现动态增加JDK代理
 
-#### Arthas的jad/mc/redefine一条龙
+Arthas 热更新功能看起来很神奇，实际上离不开 JDK 一些 API，分别为 instrument API 与 attach API。
 
-Arthas里 `jad`/`mc`/`redefine` 一条龙来线上热更新代码，非常强大，但也很危险，需要做好权限管理。
+#### Arthas的jad & mc & redefine一条龙
+
+1. jad 反编译代码
+
+   首先运行 `jad` 命令反编译 class 文件获取源代码,运行命令如下：。
+
+   ```sh
+   jad --source-only com.andyxh.HelloService > /tmp/HelloService.java
+   ```
+
+2. 修改反编译之后的代码
+
+   拿到源代码之后，使用 VIM 等文本编辑工具编辑源代码，加入需要改动的逻辑。
+
+3. 查找 `ClassLoader`
+
+   然后使用 `sc` 命令查找加载修改类的 `ClassLoader`，运行命令如下:
+
+   ```sh
+    $ sc -d  com.andyxh.HelloService | grep classLoaderHash
+    classLoaderHash   4f8e5cde
+   ```
+
+​	这里运行之后将会得到 `ClassLoader` 哈希值。
+
+4. `mc` 内存编译源代码
+
+   使用 mc 命令编译上一步修改保存的源代码，生成最终 `class` 文件。
+
+   ```sh
+   $ mc -c 4f8e5cde  /tmp/HelloService.java  -d /tmp
+   Memory compiler output:
+   /tmp/com/andyxh/HelloService.class
+   Affect(row-cnt:1) cost in 463 ms.
+   ```
+
+5. redefine 热更新代码
+
+   运行 redefine 命令：
+
+   ```sh
+   $ redefine /tmp/com/andyxh/HelloService.class
+   redefine success, size: 1
+   ```
+
+Arthas里 `jad` &`mc` &`redefine` 一条龙来线上热更新代码，非常强大，但也很危险，需要做好权限管理。
 
 比如，线上应用启动帐号是 admin，当用户可以切换到admin，那么
 
@@ -255,6 +300,12 @@ Arthas里 `jad`/`mc`/`redefine` 一条龙来线上热更新代码，非常强大
 
 - 应用的安全主要靠用户权限本身的管理
 - Arthas主要是让jvm redefine更容易了。用户也可以利用其它工具达到同样的效果
+
+使用热更新功能有一些条件限制，我们只能用它来修改方法内部的一些业务代码，如果我们出现了以下任意一种情况，那么热更新就会执行失败：
+
+1. 增加类属性（类字段）；
+2. 增加或删除方法；
+3. 替换正在运行的方法。
 
 
 

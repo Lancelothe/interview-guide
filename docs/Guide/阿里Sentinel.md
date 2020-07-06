@@ -2,9 +2,7 @@
 
 Sentinel 的核心骨架，将不同的 Slot 按照顺序串在一起（责任链模式），从而将不同的功能（限流、降级、系统保护）组合在一起。slot chain 其实可以分为两部分：统计数据构建部分（statistic）和判断部分（rule checking）。核心结构：
 
-![sentinel-slot-chain](https://raw.githubusercontent.com/sentinel-group/sentinel-website/master/docs/zh-cn/img/sentinel-slot-chain-architecture.png)
-
-
+![socsentinel-slot-chain-architecture](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/socsentinel-slot-chain-architecture.png)
 
 sentinel主要是基于7种不同的Slot形成了一个链表，每个Slot都各司其职，自己做完分内的事之后，会把请求传递给下一个Slot，直到在某一个Slot中命中规则后抛出BlockException而终止。
 
@@ -18,7 +16,7 @@ sentinel主要是基于7种不同的Slot形成了一个链表，每个Slot都各
 - 2、规则的持久化，通过实现DataSource接口，可以通过不同的方式对配置的规则进行持久化，默认规则是在内存中的
 - 3、对主流的框架进行适配，包括servlet，dubbo，rRpc等
 
-![7d5addbcda9ef794420dff915629684d4f9f7113](https://yqfile.alicdn.com/7d5addbcda9ef794420dff915629684d4f9f7113.png)
+![sentinel-slot-chain](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/sentinel-slot-chain.png)
 
 [限流降级神器：哨兵\(sentinel\)原理分析\-云栖社区\-阿里云](https://yq.aliyun.com/articles/652782)
 
