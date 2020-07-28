@@ -56,6 +56,24 @@ Linux 相比与其他操作系统（包括其他类 Unix 系统）有很多的�
 
 靠按序申请资源来预防。按某一顺序申请资源，释放资源则反序释放。破坏循环等待条件。
 
+## 线程有哪些基本状态？
+
+Java 线程在运行的生命周期中的指定时刻只可能处于下面6种不同状态的其中一个状态（图源《Java 并发编程艺术》4.1.4节）。
+
+![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/20200211193149.png)
+
+线程在生命周期中并不是固定处于某一个状态而是随着代码的执行在不同状态之间切换。Java 线程状态变迁如下图所示（图源《Java 并发编程艺术》4.1.4节）：
+
+![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/20200211193200.png)
+
+线程创建之后它将处于 **NEW（新建）** 状态，调用 `start()` 方法后开始运行，线程这时候处于 **READY（可运行）** 状态。可运行状态的线程获得了 cpu 时间片（timeslice）后就处于 **RUNNING（运行）** 状态。
+
+> 操作系统隐藏 Java虚拟机（JVM）中的 READY 和 RUNNING 状态，它只能看到 RUNNABLE 状态（图源：[HowToDoInJava](https://howtodoinjava.com/)：[Java Thread Life Cycle and Thread States](https://howtodoinjava.com/java/multi-threading/java-thread-life-cycle-and-thread-states/)），所以 Java 系统一般将这两个状态统称为 **RUNNABLE（运行中）** 状态 。
+
+![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/20200211193237.png)
+
+当线程执行 `wait()`方法之后，线程进入 **WAITING（等待）**状态。进入等待状态的线程需要依靠其他线程的通知才能够返回到运行状态，而 **TIME_WAITING(超时等待)** 状态相当于在等待状态的基础上增加了超时限制，比如通过 `sleep（long millis）`方法或 `wait（long millis）`方法可以将 Java 线程置于 TIMED WAITING 状态。当超时时间到达后 Java 线程将会返回到 RUNNABLE 状态。当线程调用同步方法时，在没有获取到锁的情况下，线程将会进入到 **BLOCKED（阻塞）** 状态。线程在执行 Runnable 的`run()`方法之后将会进入到 **TERMINATED（终止）** 状态。
+
 ## Java线程状态
 
 六种：NEW、RUNNABLE、BLOCKED、WAITING、TIMED_WAITING、TERMINATED
@@ -229,8 +247,6 @@ JDK1.6 对锁的实现引入了大量的优化，如偏向锁、轻量级锁、�
 
 大部分情况下，上面的原则都是没有问题的，但是如果一系列的连续操作都对同一个对象反复加锁和解锁，那么会带来很多不必要的性能消耗。
 
-### MESI
-
 ### synchronized 和ReentrantLock 的区别
 
 **① 两者都是可重入锁**
@@ -295,6 +311,12 @@ lock前缀指令其实就相当于一个内存屏障。内存屏障是一组CPU�
 - **多线程访问volatile关键字不会发生阻塞，而synchronized关键字可能会发生阻塞**
 - **volatile关键字能保证数据的可见性，但不能保证数据的原子性。synchronized关键字两者都能保证。**
 - **volatile关键字主要用于解决变量在多个线程之间的可见性，而 synchronized关键字解决的是多个线程之间访问资源的同步性。**
+
+## MESI
+
+**`MESI`**（`Modified Exclusive Shared Or Invalid`）(也称为伊利诺斯协议，是因为该协议由伊利诺斯州立大学提出）是一种广泛使用的支持写回策略的缓存一致性协议。
+
+### 
 
 ## 线程池
 
@@ -400,7 +422,7 @@ lock前缀指令其实就相当于一个内存屏障。内存屏障是一组CPU�
 
 **如果你创建了一个`ThreadLocal`变量，那么访问这个变量的每个线程都会有这个变量的本地副本，这也是`ThreadLocal`变量名的由来。他们可以使用 `get（）` 和 `set（）` 方法来获取默认值或将其值更改为当前线程所存的副本的值，从而避免了线程安全问题。**
 
-```
+```java
 //与此线程有关的ThreadLocal值。由ThreadLocal类维护
 ThreadLocal.ThreadLocalMap threadLocals = null;
 
@@ -447,8 +469,8 @@ ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
 - 首先需要明确一点：ThreadLocal本身的设计是不会导致内存泄露的，原因更多是使用不当导致的！
 - ThreadLocalMap对象被Thread对象所持有，当线程退出时，Thread类执行清理操作，比如清理ThreadLocalMap；否则该ThreadLocalMap对象的引用并不会被回收。
 
-```
-Copy//先回顾一下：Thread的exit方法
+```java
+//先回顾一下：Thread的exit方法
 /**
   * This method is called by the system to give a Thread
   * a chance to clean up before it actually exits.
@@ -474,8 +496,8 @@ private void exit() {
 - **建议：** 当希望回收对象，最好使用`ThreadLocal.remove()方法`将该变量主动移除，告知JVM执行GC回收
 - **注意：** **ThreadLocal本身不是弱引用的，Entry继承了WeakReference，同时Entry又将自身的key封装成弱引用，所有真正的弱引用是Entry的key，只不过恰好Entry的key是ThreadLocal！！**
 
-```
-Copystatic class Entry extends WeakReference<ThreadLocal<?>> {
+```java
+static class Entry extends WeakReference<ThreadLocal<?>> {
     Object value;
     Entry(ThreadLocal<?> k, Object v) {
         //这里才是真正的弱引用！！
@@ -495,8 +517,8 @@ public class WeakReference<T> extends Reference<T> {
 
 #### 仿ThreadLocalMap结构测试[#](https://www.cnblogs.com/hongdada/p/12108611.html#786156400)
 
-```
-Copypublic class AnalogyThreadLocalDemo {
+```java
+public class AnalogyThreadLocalDemo {
 
     public static void main(String[] args) {
         HashMap map = new HashMap();
@@ -531,8 +553,8 @@ class Obj {
 
 设置VM options:
 
-```
-Copy-verbose:gc
+```java
+-verbose:gc
 -XX:+PrintGCDetails
 -XX:+PrintTenuringDistribution
 -XX:+PrintGCTimeStamps
@@ -540,8 +562,8 @@ Copy-verbose:gc
 
 Output:
 
-```
-Copy0.316: [GC (System.gc()) 
+```java
+0.316: [GC (System.gc()) 
 Desired survivor size 11010048 bytes, new threshold 7 (max 15)
 [PSYoungGen: 7911K->1290K(76288K)] 7911K->1298K(251392K), 0.0025504 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
 0.319: [Full GC (System.gc()) [PSYoungGen: 1290K->0K(76288K)] [ParOldGen: 8K->1194K(175104K)] 1298K->1194K(251392K), [Metaspace: 3310K->3310K(1056768K)], 0.0215288 secs] [Times: user=0.00 sys=0.00, real=0.02 secs] 
@@ -676,7 +698,7 @@ AQS是一个用来构建锁和同步器的框架，使用AQS能简单且高效�
 
 看个 AQS(AbstractQueuedSynchronizer)原理图：
 
-![enter image description here](https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/Java%20%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E5%A4%87%EF%BC%9A%E5%B9%B6%E5%8F%91%E7%9F%A5%E8%AF%86%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BB%93/CLH.png)
+![CLH](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/CLH.png)
 
 AQS 使用一个 int 成员变量state来表示同步状态，通过内置的 FIFO 队列来完成获取资源线程的排队工作。AQS 使用 CAS 对该同步状态进行原子操作实现对其值的修改。当state>0时表示已经获取了锁，当state = 0时表示释放了锁。它提供了三个方法（getState()、setState(int newState)、compareAndSetState(int expect,int update)）来对同步状态state进行操作，当然AQS可以确保对state的操作是安全的。
 
@@ -716,7 +738,7 @@ AQS的设计是基于**模板方法模式**的，它有一些方法必须要子�
 这里会涉及到两个变化
 
 - 新的线程封装成Node节点追加到同步队列中，设置prev节点以及修改当前节点的前置节点的next节点指向自己
-- 通过CAS讲tail重新指向新的尾部节点
+- 通过CAS将tail重新指向新的尾部节点
 
 
 
@@ -782,16 +804,16 @@ final static class FairSync extends Sync
 
 显然是为了支持**公平锁和非公平锁**而定义，默认情况下为非公平锁。
 **先理一下Reentrant.lock()方法的调用过程（默认非公平锁）**：
- ![Reentrant.lock()](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/Reentrant.lock().png)
 
-
+![Reentrant.lock()](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/Reentrant.lock().png)
 
 ReentrantLock就是使用AQS而实现的一把锁，它实现了可重入锁，公平锁和非公平锁。它有一个内部类用作同步器是Sync，Sync是继承了AQS的一个子类，并且公平锁和非公平锁是继承了Sync的两个子类。ReentrantLock的原理是：假设有一个线程A来尝试获取锁，它会先CAS修改state的值，从0修改到1，如果修改成功，那就说明获取锁成功，设置加锁线程为当前线程。如果此时又有一个线程B来尝试获取锁，那么它也会CAS修改state的值，从0修改到1，因为线程A已经修改了state的值，那么线程B就会修改失败，然后他会判断一下加锁线程是否为自己本身线程，如果是自己本身线程的话它就会将state的值直接加1，这是为了实现锁的可重入。如果加锁线程不是当前线程的话，那么就会将它生成一个Node节点，加入到等待队列的队尾，直到什么时候线程A释放了锁它会唤醒等待队列队头的线程。这里还要分为公平锁和非公平锁，默认为非公平锁，公平锁和非公平锁无非就差了一步。如果是公平锁，此时又有外来线程尝试获取锁，它会首先判断一下等待队列是否有第一个节点，如果有第一个节点，就说明等待队列不为空，有等待获取锁的线程，那么它就不会去同步队列中抢占cpu资源。如果是非公平锁的话，它就不会判断等待队列是否有第一个节点，它会直接前往同步对列中去抢占cpu资源。
 
   以下是ReentrantLock的原理图解，简单明了：
 
+![ReentrantLock-AQS](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/ReentrantLock-AQS.png)
 
-![](https://img-blog.csdnimg.cn/2019043011110613.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3Njg1NDU3,size_16,color_FFFFFF,t_70)[深度解析：AQS原理\_qq\_37685457的博客\-CSDN博客\_aqs原理](https://blog.csdn.net/qq_37685457/article/details/89704124)
+[深度解析：AQS原理\_qq\_37685457的博客\-CSDN博客\_aqs原理](https://blog.csdn.net/qq_37685457/article/details/89704124)
 
 [扒一扒 ReentrantLock 以及 AQS 实现原理](https://mp.weixin.qq.com/s/jCBrHSVK647bdVIPvJHxOg)
 
@@ -835,7 +857,7 @@ Semaphore与CountDownLatch一样，也是共享锁的一种实现。它默认构
 
 ### CyclicBarrier(循环栅栏)
 
-![Concurrent-CyclicBarrier](/Users/lancelot/Documents/Concurrent-CyclicBarrier.png)
+![Concurrent-CyclicBarrier](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/Concurrent-CyclicBarrier.png)
 
 CyclicBarrier 和 CountDownLatch 非常类似，它也可以实现线程间的技术等待，但是它的功能比 CountDownLatch 更加复杂和强大。主要应用场景和 CountDownLatch 类似。
 
@@ -851,6 +873,16 @@ CyclicBarrier 的字面意思是可循环使用（Cyclic）的屏障（Barrier�
 ### ReentrantReadWriteLock
 
 重入读写锁，它实现了ReadWriteLock接口，在这个类中维护了两个锁，一个是ReadLock，一个是WriteLock，他们都分别实现了Lock接口。读写锁是一种适合读多写少的场景下解决线程安全问题的工具，基本原则是：`读和读不互斥、读和写互斥、写和写互斥`。也就是说涉及到影响数据变化的操作都会存在互斥。
+
+### CopyOnWriteArrayList
+
+在很多应用场景中，读操作可能会远远大于写操作。由于读操作根本不会修改原有的数据，因此对于每次读取都进行加锁其实是一种资源浪费。我们应该允许多个线程同时访问 List 的内部数据，毕竟读取操作是安全的。
+
+这和我们之前在多线程章节讲过 `ReentrantReadWriteLock` 读写锁的思想非常类似，也就是读读共享、写写互斥、读写互斥、写读互斥。JDK 中提供了 `CopyOnWriteArrayList` 类比相比于在读写锁的思想又更进一步。为了将读取的性能发挥到极致，`CopyOnWriteArrayList` **读取是完全不用加锁的**，并且更厉害的是：写入也不会阻塞读取操作。只有写入和写入之间需要进行同步等待。这样一来，读操作的性能就会大幅度提升。**那它是怎么做的呢？**
+
+`CopyOnWriteArrayList` 类的所有可变操作（add，set 等等）都是通过创建底层数组的新副本来实现的。当 List 需要被修改的时候，我并不修改原有内容，而是对原有数据进行一次复制，将修改的内容写入副本。写完之后，再将修改完的副本替换原来的数据，这样就可以保证写操作不会影响读操作了。
+
+所谓`CopyOnWrite` 也就是说：在计算机，如果你想要对一块内存进行修改时，我们不在原有内存块中进行写操作，而是将内存拷贝一份，在新的内存中进行写操作，写完之后呢，就将指向原来内存指针指向新的内存，原来的内存就可以被回收掉了。
 
 ## Java锁有哪些种类
 

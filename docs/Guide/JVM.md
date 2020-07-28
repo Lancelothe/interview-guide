@@ -69,7 +69,7 @@ Java 虚拟机在执行 Java 程序的过程中会把它管理的内存划分成
 
 **与程序计数器一样，Java 虚拟机栈也是线程私有的，它的生命周期和线程相同，描述的是 Java 方法执行的内存模型，每次方法调用的数据都是通过栈传递的。**
 
-**Java 内存可以粗糙的区分为堆内存（Heap）和栈内存 (Stack),其中栈就是现在说的虚拟机栈，或者说是虚拟机栈中局部变量表部分。** （实际上，Java 虚拟机栈是由一个个栈帧组成，而每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法出口信息。）
+**Java 内存可以粗糙的区分为堆内存（Heap）和栈内存 (Stack)，其中栈就是现在说的虚拟机栈，或者说是虚拟机栈中局部变量表部分。** （实际上，Java 虚拟机栈是由一个个栈帧组成，而每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法出口信息。）
 
 **局部变量表主要存放了编译器可知的各种数据类型**（boolean、byte、char、short、int、float、long、double）、**对象引用**（reference 类型，它不同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置）。
 
@@ -687,11 +687,11 @@ Java 11版本包含一个全新的垃圾收集器ZGC，它由Oracle开发，承�
 
 如果上面那个步骤判断失败了，或者是 -XX:-HandlePromotionFailure“参数没设置，此时就会直接触发一次Full GC,就是对老年代进行垃圾回收，尽量腾出来一些内存空间，然后再执行Minor GC 
 
-如果上面2个步骤都判断成功了，那么就是说可以冒点风险尝试一下Minor GC 此时进行Minor GC,此时进行Minor GC有几种可能：
+如果上面2个步骤都判断成功了，那么就是说可以冒点风险尝试一下Minor GC，此时进行Minor GC有几种可能：
 
 （1）Minor GC过后，剩余的存活对象的大小，是小于Survivor区的大小的，那么此时存活对象进入Survicor区域即可
 
- （2）Minor GC过后，剩余的存活对象的大小是大于Survivor区域的大小，但是是小于老年代可用内存大小的，此时就直接进入老年代即可
+（2）Minor GC过后，剩余的存活对象的大小，是大于Survivor区域的大小，但是是小于老年代可用内存大小的，此时就直接进入老年代即可
 
 （3）Minor GC过后，剩余的存活对象的大小，大于了Survivor区域的大小，也大于了老年代可用内存的大小，此时老年代都放不下这些存活对象了，就会发生Handle Promotion Failure的情况，这个时候就会触发一次Full GC
 
@@ -801,6 +801,16 @@ https://juejin.im/post/5ed32ec96fb9a0480659e547
 [CMS的CMSInitiatingOccupancyFraction默认值是多少？又是如何使用的？ \- 代码先锋网](https://www.codeleading.com/article/12901198022/)
 
 ```
+先说结论：
+MinHeapFreeRatio在JDK1.7是0，所以根据公式计算_initiating_occupancy最终得到的值是100%。
+而MinHeapFreeRatio在JDK1.8是40，根据公式_initiating_occupancy计算得到的值是92%（68%的可能是其他版本计算得到的值了~）
+
+最后来总结一下吧：
+1、CMSInitiatingOccupancyFraction默认值是-1，并不是许多人说的68、92之类的。
+2、CMSInitiatingOccupancyFraction是用来计算老年代最大使用率（_initiating_occupancy）的。大于等于0则直接取百分号，小于0则根据公式来计算。这个_initiating_occupancy需要配合-XX:+UseCMSInitiatingOccupancyOnly来使用。
+3、不同版本最终得到的_initiating_occupancy不同，归根结底应该是不同版本下的MinHeapFreeRatio值不同。
+
+公式：
 void ConcurrentMarkSweepGeneration::init_initiating_occupancy(intx io, uintx tr) {
   assert(io <= 100 && tr <= 100, "Check the arguments");
   if (io >= 0) {
@@ -811,7 +821,6 @@ void ConcurrentMarkSweepGeneration::init_initiating_occupancy(intx io, uintx tr)
                             / 100.0;
   }
 }
-
 
 java -XX:+PrintFlagsFinal -version |grep CMSInitiatingOccupancyFraction 
 

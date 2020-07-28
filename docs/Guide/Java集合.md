@@ -110,7 +110,7 @@ public interface RandomAccess {
 
 每当迭代器使用hashNext()/next()遍历下一个元素之前，都会检测modCount变量是否为expectedmodCount值，是的话就返回遍历；否则抛出异常，终止遍历。
 
-**Tip**：这里异常的抛出条件是检测到 modCount！=expectedmodCount 这个条件。如果集合发生变化时修改modCount值刚好又设置为了expectedmodCount值，则异常不会抛出。
+**Tip**：这里异常的抛出条件是检测到 `modCount != expectedmodCount` 这个条件。如果集合发生变化时修改modCount值刚好又设置为了expectedmodCount值，则异常不会抛出。
 
 java.util包下的集合类都是快速失败的，不能在多线程下发生并发修改（迭代过程中被修改）算是一种安全机制吧。
 
@@ -289,6 +289,8 @@ ConcurrentHashMap 的 get 方法是非常高效的，**因为整个过程都不�
 
 采用了 `CAS + synchronized` 来保证并发安全性。
 
+synchronized 只锁定当前链表或红黑二叉树的首节点，这样只要 hash 不冲突，就不会产生并发，效率又提升 N 倍。
+
 把之前的HashEntry改成了Node，但是作用不变，把值和next采用了volatile去修饰，保证了可见性，并且也引入了红黑树，在链表大于一定值的时候会转换（默认是8）。
 
 `put()`操作步骤：
@@ -300,11 +302,9 @@ ConcurrentHashMap 的 get 方法是非常高效的，**因为整个过程都不�
 5. 如果都不满足，则利用 synchronized 锁写入数据。
 6. 如果数量大于 `TREEIFY_THRESHOLD` 则要转换为红黑树。
 
-
-
 小结：1.8 在 1.7 的数据结构上做了大的改动，采用红黑树之后可以保证查询效率（`O(logn)`），甚至取消了 ReentrantLock 改为了 synchronized，这样可以看出在新版的 JDK 中对 synchronized 优化是很到位的。
 
-## [comparable 和 Comparator的区别](https://snailclimb.gitee.io/javaguide/#/docs/java/collection/Java集合框架常见面试题?id=comparable-和-comparator的区别)
+## [Comparable 和 Comparator 的区别](https://snailclimb.gitee.io/javaguide/#/docs/java/collection/Java集合框架常见面试题?id=comparable-和-comparator的区别)
 
 - comparable接口实际上是出自java.lang包 它有一个 `compareTo(Object obj)`方法用来排序
 - comparator接口实际上是出自 java.util 包它有一个`compare(Object obj1, Object obj2)`方法用来排序
@@ -317,7 +317,7 @@ TreeMap底层是根据红黑树的数据结构构建的，默认是根据key的�
 
 今天有个需求，就是要根据treeMap中的value排序。所以网上看了一下，大致的思路是把TreeMap的EntrySet转换成list，然后使用Collections.sor排序
 
-```
+```java
 List<Map.Entry<String, String>> list = new ArrayList<Map.Entry<String, String>>(map.entrySet());
 Collections.sort(list,new Comparator<Map.Entry<String, String>>() {
 public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
@@ -329,6 +329,5 @@ for (Map.Entry<String, String> entry : list) {
 	System.out.println(entry.getKey()+"---"+entry.getValue());
 }
 ```
-
 
 

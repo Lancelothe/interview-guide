@@ -365,7 +365,7 @@ typedef struct dictht {
 
 哈希表节点使用 `dictEntry` 结构表示， 每个 `dictEntry` 结构都保存着一个键值对：
 
-```
+```c
 typedef struct dictEntry {
 
     // 键
@@ -390,7 +390,7 @@ typedef struct dictEntry {
 
 Redis 中的字典由 `dict.h/dict` 结构表示：
 
-```
+```c
 typedef struct dict {
 
     // 类型特定函数
@@ -414,7 +414,7 @@ typedef struct dict {
 - `type` 属性是一个指向 `dictType` 结构的指针， 每个 `dictType` 结构保存了一簇用于操作特定类型键值对的函数， Redis 会为用途不同的字典设置不同的类型特定函数。
 - 而 `privdata` 属性则保存了需要传给那些类型特定函数的可选参数。
 
-```
+```c
 typedef struct dictType {
 
     // 计算哈希值的函数
@@ -459,8 +459,8 @@ typedef struct dictType {
 **扩展和收缩**哈希表的工作可以通过执行 rehash （重新散列）操作来完成， Redis 对字典的哈希表执行 rehash 的步骤如下：
 
 1. 为字典的`ht[1]`哈希表分配空间， 这个哈希表的空间大小取决于要执行的操作， 以及`ht[0]`当前包含的键值对数量 （也即是`ht[0].used`属性的值）：
-   - 如果执行的是扩展操作， 那么 `ht[1]` 的大小为第一个大于等于 `ht[0].used * 2` 的 2^n （`2` 的 `n` 次方幂）；
-   - 如果执行的是收缩操作， 那么 `ht[1]` 的大小为第一个大于等于 `ht[0].used` 的 2^n 。
+   - 如果执行的是扩展操作， 那么 `ht[1]` 的大小为第一个大于等于 `ht[0].used * 2` 的 2^n^ （`2` 的 `n` 次方幂）；
+   - 如果执行的是收缩操作， 那么 `ht[1]` 的大小为第一个大于等于 `ht[0].used` 的 2^n^ 。
 2. 将保存在 `ht[0]` 中的所有键值对 rehash 到 `ht[1]` 上面： rehash 指的是重新计算键的哈希值和索引值， 然后将键值对放置到 `ht[1]` 哈希表的指定位置上。
 3. 当 `ht[0]` 包含的所有键值对都迁移到了 `ht[1]` 之后 （`ht[0]` 变为空表）， 释放 `ht[0]` ， 将 `ht[1]` 设置为 `ht[0]` ， 并在 `ht[1]` 新创建一个空白哈希表， 为下一次 rehash 做准备。
 

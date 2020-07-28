@@ -1,3 +1,7 @@
+[TOC]
+
+
+
 ## 索引
 
 mysql一次查询只能使用一个索引。如果要对多个字段使用索引，建立复合(联合)索引。
@@ -83,17 +87,41 @@ mysql会一直向右匹配直到遇到范围查询（>、<、between、like）�
 SELECT [column1],[column2],…. FROM [TABLE] ORDER BY [sort];
 #2. WHERE + ORDER BY的索引优化，联合索引(columnX,sort)来实现order by 优化
 SELECT [column1],[column2],…. FROM [TABLE] WHERE [columnX] = [value] ORDER BY [sort];
-#3. WHERE+ 多个字段ORDER BY，联合索引(uid,x,y)实现order by的优化
+#3. WHERE + 多个字段ORDER BY，联合索引(uid,x,y)实现order by的优化
 SELECT * FROM [table] WHERE uid=1 ORDER x,y LIMIT 0,10;
 ```
+
+- ORDER BY 优化
+
+  子句，尽量使用Index方式排序，避免使用FileSort方式排序
+  MySQL支持两种方式的排序，FileSort和Index,Index效率高。它指MySQL扫描索引本身完成排序。FileSort方式效率较低。
+  ORDER BY 满足两种情况，会使用Index方式排序
+  ①ORDER BY语句使用索引最左前列
+  ②**使用WHERE 子句与ORDER BY子句条件列组合满足索引最左前列**
+
+- 提高ORDER BY速度
+
+  提高Order By的速度
+  1. Order By时select *是一个大忌，只Query需要的字段，这点非常重要。在这里的影响是：
+  1.1 当Query的字段大小总和小于max_length_for_sort_data而且排序字段不是TEXT|BLOB类型时，会用改进后的算法--------单路排序，否则用老算法一一多路排序。
+  1.2两种算法的数据都有可能超出sort_buffer的容量，超出之后，会创建tmp文件进行合并排序，导致多次I/O，但是用单路排序 算法的风险会更大一些，所以要提高sort_buffer_size。
+  2. 尝试提高 sort_buffer_size
+  不管用哪种算法，提高这个参数都会提高效率，当然，要根据系统的能力去提高，因为这个参数是针对每个进程的。
+  3. 尝试提高 max_length_for_sort_data
+    提高这个参数，会增加用改进算法的概率。但是如果设的太高，数据总容量超出sort_buffer_size的概率就增大，明显症状是高的磁盘I/O活动和低的处理器使用率。
+
+- GROUP BY 关键字优化
+  1. group by 实质是先排序后分组，遵照索引的最佳左前缀。
+  2. 当无法使用索引列，增大max_length_for_sort_data参数的设置+增大sort_buffer_size参数的设置
+  3. where 高于having，能写在where限定的条件就不要去having去限定了。
+
+[MySql（二十）\-\-为排序使用索引Order By优化\_csdn\_kenneth的博客\-CSDN博客\_mysql 索引排序](https://blog.csdn.net/csdn_kenneth/article/details/82942137)
 
 <div style="color:#C00000">疑问： 
 </br>
 1. where key_1 = 1 and key_2 = 2 order by key_1 走索引吗（a,b,a）情况，索引是联合索引（a,b）
 </br>
-2. order by key_1 desc, key_2 desc 走索引吗，也就是两个DESC的排序
-</br>
-3. 联合索引结构是什么样子：非叶子节点存储联合索引Key还是最左第一个的key ? （好像是存储是联合的key）
+2. 联合索引结构是什么样子：非叶子节点存储联合索引Key还是最左第一个的key ? （好像是存储是联合的key）
 </div>
 
 不走索引的情况
@@ -115,7 +143,7 @@ SELECT * FROM t1 ORDER BY key_part1 DESC, key_part2 ASC;
 SELECT * FROM t1 ORDER BY YEAR(logindate) LIMIT 0,10;
 ```
 
-
+又说法是group by c1 | order by c1，由于没有where的铺垫，不使用任何索引。
 
 ### 分页优化
 
@@ -143,6 +171,8 @@ select * from orders_history where type = 8 and id >= (
 [一本彻底搞懂MySQL索引优化EXPLAIN百科全书 \- 个人文章 \- SegmentFault 思否](https://segmentfault.com/a/1190000021815758)
 
 [Explain详解与索引最佳实践 \- 简书](https://www.jianshu.com/p/a1a56411fa79)
+
+[MySQL中explain执行计划中额外信息字段\(Extra\)详解\_poxiaonie的博客\-CSDN博客\_explain extra](https://blog.csdn.net/poxiaonie/article/details/77757471)
 
 **疑问**：
 
@@ -229,7 +259,168 @@ FROM payment
 
 [MySQL 中索引的长度的限制](https://blog.csdn.net/weixin_34335458/article/details/94673168)
 
+---
 
+## 事务
+
+### 事务的四大特性ACID
+
+**原子性(Atomicity)**
+
+原子性是指事务包含的所有操作要么全部成功,要么全部失败回滚。失败回滚的操作事务,将不能对事务有任何影响。
+
+**一致性(Consistency)**
+
+一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态,也就是说一个事务执行之前和执行之后都必须处于一致性状态。
+例如: A和B进行转账操作,A有200块钱,B有300块钱;当A转了100块钱给B之后,他们2个人的总额还是500块钱,不会改变。
+
+**隔离性(Isolation)**
+
+隔离性是指当多个用户并发访问数据库时,比如同时访问一张表,数据库每一个用户开启的事务,不能被其他事务所做的操作干扰(也就是事务之间的隔离),多个并发事务之间,应当相互隔离。
+例如:同时有T1和T2两个并发事务,从T1角度来看,T2要不在T1执行之前就已经结束,要么在T1执行完成后才开始。将多个事务隔离开,每个事务都不能访问到其他事务操作过程中的状态;就好比上锁操作,只有一个事务做完了,另外一个事务才能执行。
+
+**持久性(Durability)**
+
+持久性是指事务的操作,一旦提交,对于数据库中数据的改变是永久性的,即使数据库发生故障也不能丢失已提交事务所完成的改变。
+
+### 事务的隔离级别
+
+> `mysql`默认的隔离级别是:可重复读。
+>
+> oracle中只支持2个隔离级别:读已提交和串行化, 默认是读已提交。
+>
+> 隔离级别的设置只对当前链接有效;
+
+- **未提交读(READ UNCOMMITTED)**
+
+  未提交事务隔离级别满足一级封锁协议, 即写数据的时候添加一个X锁(排他锁),也就是在写数据的时候不允许其他事务进行写操作,但是读不受限制,读不加锁。
+
+  这样就可以解决了多个人一起写数据而导致了”数据丢失”的问题,但是会引发新的问题——脏读。
+
+  脏读:读取了别人未提交的数据。
+
+- **读已提交(READ COMMITTED)**
+
+  读已提交满足二级封锁协议, 即写数据的时候加上X锁(排他锁),读数据的时候添加S锁(共享锁),且如果一个数据加了X锁就没法加S锁;同理如果加了S锁就没法加X锁,但是一个数据可以同时存在多个S锁(因为只是读数据),并且规定S锁读取数据,一旦读取完成就立刻释放S锁(不管后续是否还有很多其他的操作,只要是读取了S锁的数据后,就立刻释放S锁)。
+
+  这样就解决了脏读的问题,但是又有新的问题出现——不可重复读。
+
+  不可重复读:同一个事务对数据的多次读取的结果不一致。
+
+- **可重复读(REPEATABLE READ)**
+
+  可重复读满足第三级封锁协议, 即对S锁进行修改,之前的S锁是:读取了数据之后就立刻释放S锁,现在修改是:在读取数据的时候加上S锁,但是要直到事务准备提交了才释放该S锁,X锁还是一致。
+
+  这样就解决了不可重复读的问题了,但是又有新的问题出现——幻读。
+
+- **可串行化(SERIALIZABLE)**
+
+  事务只能一件一件的进行,不能并发进行。
+
+| 隔离级别 | 数据丢失 | 脏读 | 不可重复读 | 幻读 |
+| -------- | -------- | ---- | ---------- | ---- |
+| 读未提交 | ❌        | ✅    | ✅          | ✅    |
+| 读已提交 | ❌        | ❌    | ✅          | ✅    |
+| 可重复读 | ❌        | ❌    | ❌          | ✅    |
+| 可串行化 | ❌        | ❌    | ❌          | ❌    |
+
+[mysql专题16 事务隔离级别及ACID知识回顾 \| 一线攻城狮](https://researchlab.github.io/2018/11/07/mysql-16-transaction-isolation-level-and-acid-review/)
+
+[MySQL 事务的四种隔离级别 （图示每一步的操作），非常重要\_码神龙\-CSDN博客\_数据库隔离级别图](https://blog.csdn.net/xiaojin21cen/article/details/89914501)
+
+<span style="color:#C00000">小结下MVCC、快照读、当前读和事务隔离级别（RC、RR）之间的联系：</span>
+
+- 这两个隔离级别的一个很大不同就是：`生成ReadView的时机不同`，READ COMMITTD在每一次进行普通SELECT操作前都会生成一个ReadView，而REPEATABLE READ只在第一次进行普通SELECT操作前生成一个ReadView，数据的可重复读其实就是ReadView的重复使用。
+- 所以为什么RR可重复读就在于上面说的生成ReadView时机不同、并且在更新操作的时候使用的是当前读所以可以对最新数据进行操作。
+
+---
+
+## MVCC机制
+
+> MVCC，Multi-Version Concurrency Control，多版本并发控制。MVCC 是一种并发控制的方法，一般在数据库管理系统中，实现对数据库的并发访问；在编程语言中实现事务内存。
+
+MVCC 使用了一种不同的手段，每个连接到数据库的读者，**在某个瞬间看到的是数据库的一个快照**，写者写操作造成的变化在写操作完成之前（或者数据库事务提交之前）对于其他的读者来说是不可见的。
+
+数据库默认隔离级别：**RR（Repeatable Read，可重复读），MVCC主要适用于Mysql的RC（读取已提交）,RR（可重复读）隔离级别**
+
+**MVCC就是行级锁的一个变种(升级版)**。
+
+在**表锁中我们读写是阻塞**的，基于提升并发性能的考虑，**MVCC一般读写是不阻塞的**(所以说MVCC很多情况下避免了加锁的操作)
+
+- MVCC实现的**读写不阻塞**正如其名：**多版本**并发控制--->通过一定机制生成一个数据请求**时间点的一致性数据快照（Snapshot)**，并用这个快照来提供一定级别（**语句级或事务级**）的**一致性读取**。从用户的角度来看，好像是**数据库可以提供同一数据的多个版本**。
+
+快照有**两个级别**：
+
+- 语句级 
+  - 针对于`Read committed`隔离级别
+- 事务级别 
+  - 针对于`Repeatable read`隔离级别
+
+### 各种事务隔离级别下的Read view 工作方式
+
+RC(read commit) 级别下同一个事务里面的每一次查询都会获得一个新的read view副本。这样就可能造成同一个事务里前后读取数据可能不一致的问题（幻读）
+
+![img](https://pic3.zhimg.com/80/v2-0c77f30980dc7e45f5aaac8a574e8672_1440w.jpg)
+
+RR(重复读)级别下的一个事务里只会获取一次read view副本，从而保证每次查询的数据都是一样的。
+
+![img](https://pic1.zhimg.com/80/v2-82eeabba61c97def5d19aeb3cb77182c_1440w.jpg)
+
+READ_UNCOMMITTED 级别的事务不会获取read view 副本。
+
+所谓的`MVCC（Multi-Version Concurrency Control ，多版本并发控制）`指的就是在使用`读已提交（READ COMMITTD）、可重复读（REPEATABLE READ）`这两种隔离级别的事务在执行普通的SELECT操作时访问记录的版本链的过程，这样子可以使不同事务的读-写、写-读操作并发执行，从而提升系统性能。
+
+这两个隔离级别的一个很大不同就是：`生成ReadView的时机不同`，READ COMMITTD在每一次进行普通SELECT操作前都会生成一个ReadView，而REPEATABLE READ只在第一次进行普通SELECT操作前生成一个ReadView，数据的可重复读其实就是ReadView的重复使用。
+
+### 快照读和当前读
+
+**快照读**
+
+快照读是指读取数据时不是读取最新版本的数据，而是基于历史版本读取的一个快照信息（mysql读取undo log历史版本) ，快照读可以使普通的SELECT 读取数据时不用对表数据进行加锁，从而解决了因为对数据库表的加锁而导致的两个如下问题
+
+1、解决了因加锁导致的修改数据时无法对数据读取问题;
+
+2、解决了因加锁导致读取数据时无法对数据进行修改的问题;
+
+在一个支持MVCC并发控制的系统中，哪些读操作是快照读？哪些操作又是当前读呢？以`mysql` InnoDB为例:
+
+快照读:简单的select操作，属于快照读，不加锁。
+
+```mysql
+select * from table where ?;
+```
+
+当前读:特殊的读操作，插入/更新/删除操作，属于当前读，需要加锁。
+
+```mysql
+select * from table where ? lock in share mode;
+select * from table where ? for update;
+insert into table values (…);
+update table set ? where ?;
+delete from table where ?;
+```
+
+所有以上的语句，都属于当前读，读取记录的最新版本。并且，读取之后，还需要保证其他并发事务不能修改当前记录，对读取记录加锁。其中，除了第一条语句，对读取记录加S锁 (共享锁)外，其他的操作，都加的是X锁 (排它锁)。
+
+对于快照读来说，幻读的解决是依赖mvcc解决。而对于当前读则依赖于gap-lock解决。
+
+**当前读**
+
+当前读是读取的数据库最新的数据，当前读和快照读不同，因为要读取最新的数据而且要保证事务的隔离性，所以当前读是需要对数据进行加锁的（Update delete insert select ....lock in share mode select for update 为当前读）
+
+**总之在RC隔离级别下，是每个快照读都会生成并获取最新的Read View；而在RR隔离级别下，则是同一个事务中的第一个快照读才会创建Read View, 之后的快照读获取的都是同一个Read View。**
+
+[【MySQL（5）\| 五分钟搞清楚 MVCC 机制】 \- 掘金](https://juejin.im/post/5c68a4056fb9a049e063e0ab)
+
+[MYSQL MVCC实现原理 \- 简书](https://www.jianshu.com/p/f692d4f8a53e)
+
+[MySQL InnoDB MVCC 机制的原理及实现 \- 知乎](https://zhuanlan.zhihu.com/p/64576887)
+
+[innodb MVCC实现原理 \- 知乎](https://zhuanlan.zhihu.com/p/52977862)
+
+[阿里面试问MVCC,原来是这么回答的 \- 掘金](https://juejin.im/post/5f030133e51d4534a5415b61?utm_source=gold_browser_extension)
+
+---
 
 ## redo log 、 undo log、bin log
 
@@ -248,7 +439,7 @@ MySQL中有六种日志文件，分别是：重做日志（redo log）、回滚�
 
 `redo log`是MySQL的 InnoDB引擎所特有产生的。
 
-在修改的数据的时候，`binlog`会记载着变更的类容，`redo log`也会记载着变更的内容。（只不过一个存储的是物理变化，一个存储的是逻辑变化）。那他们的写入顺序是什么样的呢？
+在修改的数据的时候，`binlog`会记载着变更的内容，`redo log`也会记载着变更的内容。（只不过一个存储的是物理变化，一个存储的是逻辑变化）。那他们的写入顺序是什么样的呢？
 
 `redo log`**事务开始**的时候，就开始记录每次的变更信息，而`binlog`是在**事务提交**的时候才记录。
 
@@ -373,6 +564,16 @@ SQL线程负责读取relay log中的内容，解析成具体的操作并执行�
 
 ## 锁
 
+### 锁粒度
+
+`mysql`不同存储引擎支持的锁粒度不同, InnoDB存储引擎支持表锁及行锁, InnoDB存储引擎可支持三种行锁定方式, 默认加锁方式是next-key 锁。
+
+1. 行锁(Record Lock):锁直接加在索引记录上面，锁住的是key。 行锁又分为共享锁(S)与排他锁(X);
+2. 间隙锁(Gap Lock):锁定索引记录间隙，确保索引记录的间隙不变。间隙锁是针对事务隔离级别为可重复读或以上级别而已的。
+3. Next-Key Lock: 行锁和间隙锁组合起来就叫Next-Key Lock。
+
+默认情况下，InnoDB工作在可重复读(Repeatable Read)隔离级别下，并且会以Next-Key Lock的方式对数据行进行加锁，这样可以有效防止幻读的发生。Next-Key Lock是行锁和间隙锁的组合，当InnoDB扫描索引记录的时候，会首先对索引记录加上行锁（Record Lock），再对索引记录两边的间隙加上间隙锁（Gap Lock）。加上间隙锁之后，其他事务就不能在这个间隙修改或者插入记录。
+
 首先，从锁的粒度，我们可以分成两大类：
 
 - 表锁
@@ -458,6 +659,8 @@ InnoDB使用间隙锁的目的有两个：
 - 满足恢复和复制的需要
   - MySQL的恢复机制要求：**在一个事务未提交前，其他并发事务不能插入满足其锁定条件的任何记录，也就是不允许出现幻读**
 
+要禁止间隙锁的话，可以把隔离级别降为Read Committed，或者开启参数innodb_locks_unsafe_for_binlog。
+
 ### 死锁
 
 并发的问题就少不了死锁，在MySQL中同样会存在死锁的问题。
@@ -477,71 +680,6 @@ InnoDB使用间隙锁的目的有两个：
 [解决死锁之路（终结篇） \- 再见死锁 \- aneasystone's blog](https://www.aneasystone.com/archives/2018/04/solving-dead-locks-four.html)
 
 [MySQL死锁解决之道 \- 知乎](https://zhuanlan.zhihu.com/p/67793185)
-
-## MVCC机制
-
-> MVCC，Multi-Version Concurrency Control，多版本并发控制。MVCC 是一种并发控制的方法，一般在数据库管理系统中，实现对数据库的并发访问；在编程语言中实现事务内存。
-
-MVCC 使用了一种不同的手段，每个连接到数据库的读者，**在某个瞬间看到的是数据库的一个快照**，写者写操作造成的变化在写操作完成之前（或者数据库事务提交之前）对于其他的读者来说是不可见的。
-
-数据库默认隔离级别：**RR（Repeatable Read，可重复读），MVCC主要适用于Mysql的RC（读取已提交）,RR（可重复读）隔离级别**
-
-**MVCC就是行级锁的一个变种(升级版)**。
-
-在**表锁中我们读写是阻塞**的，基于提升并发性能的考虑，**MVCC一般读写是不阻塞的**(所以说MVCC很多情况下避免了加锁的操作)
-
-- MVCC实现的**读写不阻塞**正如其名：**多版本**并发控制--->通过一定机制生成一个数据请求**时间点的一致性数据快照（Snapshot)**，并用这个快照来提供一定级别（**语句级或事务级**）的**一致性读取**。从用户的角度来看，好像是**数据库可以提供同一数据的多个版本**。
-
-快照有**两个级别**：
-
-- 语句级 
-  - 针对于`Read committed`隔离级别
-- 事务级别 
-  - 针对于`Repeatable read`隔离级别
-
-### 各种事务隔离级别下的Read view 工作方式
-
-RC(read commit) 级别下同一个事务里面的每一次查询都会获得一个新的read view副本。这样就可能造成同一个事务里前后读取数据可能不一致的问题（幻读）
-
-![img](https://pic3.zhimg.com/80/v2-0c77f30980dc7e45f5aaac8a574e8672_1440w.jpg)
-
-
-
-RR(重复读)级别下的一个事务里只会获取一次read view副本，从而保证每次查询的数据都是一样的。
-
-![img](https://pic1.zhimg.com/80/v2-82eeabba61c97def5d19aeb3cb77182c_1440w.jpg)
-
-
-
-READ_UNCOMMITTED 级别的事务不会获取read view 副本。
-
-所谓的`MVCC（Multi-Version Concurrency Control ，多版本并发控制）`指的就是在使用`读已提交（READ COMMITTD）、可重复读（REPEATABLE READ）`这两种隔离级别的事务在执行普通的SELECT操作时访问记录的版本链的过程，这样子可以使不同事务的读-写、写-读操作并发执行，从而提升系统性能。
-
-这两个隔离级别的一个很大不同就是：`生成ReadView的时机不同`，READ COMMITTD在每一次进行普通SELECT操作前都会生成一个ReadView，而REPEATABLE READ只在第一次进行普通SELECT操作前生成一个ReadView，数据的可重复读其实就是ReadView的重复使用。
-
-### 快照读和当前读
-
-**快照读**
-
-快照读是指读取数据时不是读取最新版本的数据，而是基于历史版本读取的一个快照信息（mysql读取undo log历史版本) ，快照读可以使普通的SELECT 读取数据时不用对表数据进行加锁，从而解决了因为对数据库表的加锁而导致的两个如下问题
-
-1、解决了因加锁导致的修改数据时无法对数据读取问题;
-
-2、解决了因加锁导致读取数据时无法对数据进行修改的问题;
-
-
-
-**当前读**
-
-当前读是读取的数据库最新的数据，当前读和快照读不同，因为要读取最新的数据而且要保证事务的隔离性，所以当前读是需要对数据进行加锁的（Update delete insert select ....lock in share mode select for update 为当前读）
-
-[【MySQL（5）\| 五分钟搞清楚 MVCC 机制】 \- 掘金](https://juejin.im/post/5c68a4056fb9a049e063e0ab)
-
-[MYSQL MVCC实现原理 \- 简书](https://www.jianshu.com/p/f692d4f8a53e)
-
-[MySQL InnoDB MVCC 机制的原理及实现 \- 知乎](https://zhuanlan.zhihu.com/p/64576887)
-
-[innodb MVCC实现原理 \- 知乎](https://zhuanlan.zhihu.com/p/52977862)
 
 
 

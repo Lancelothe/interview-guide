@@ -87,6 +87,13 @@ typedef struct zset {
 
 `zset` 同时使用字典和跳跃表两个数据结构来保存有序集元素。
 
+![redis-zset](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/redis-zset.png)
+
+在`Redis`中，`zset`是一个复合结构：
+
+- 使用`hash`来存储`value`和`score`的映射关系
+- 使用跳跃表来提供按照`score`进行排序的功能，同时可以指定`score`范围来获取`value`列表
+
 其中， 元素的成员由一个 `redisObject` 结构表示， 而元素的 `score` 则是一个 `double` 类型的浮点数， 字典和跳跃表两个结构通过将指针共同指向这两个值来节约空间 （不用每个元素都复制两份）。
 
 下图展示了一个 `REDIS_ENCODING_SKIPLIST` 编码的有序集：
@@ -105,11 +112,11 @@ typedef struct zset {
 
 通过同时使用字典和跳跃表， 有序集可以高效地实现按成员查找和按顺序查找两种操作。
 
-### 跳跃列表的实现
+#### 跳跃列表的实现
 
 ![](https://user-gold-cdn.xitu.io/2018/7/27/164d9f96ed4e1a0d?w=1457&h=273&f=png&s=24714)
 
-### 随机层数
+#### 随机层数
 
 对于每一个新插入的节点，都需要调用一个随机算法给它分配一个合理的层数。直观上期望的目标是 50% 的 Level1，25% 的 Level2，12.5% 的 Level3，一直到最顶层`2^-63`，因为这里每一层的晋升概率是 50%。
 
@@ -132,12 +139,27 @@ int zslRandomLevel(void) {
 
 跳跃表节点的level数组可以包含多个元素，每个元素都包含一个指向其他节点的指针，程序可以通过这些层来加快访问其他节点的速度，一般来说，层的数量越多，访问其他节点的速度就越快。
 
-  每次创建一个新跳跃表节点的时候，程序根据**幂次定律(power law，越大的数出现的概率越小)**随机生成一个介于1和32之间的值作为level数组的大小，这个大小就是层的“高度”。
+  每次创建一个新跳跃表节点的时候，程序根据<span style="color:#C00000" font-weight:bold>幂次定律(power law，越大的数出现的概率越小)</span>随机生成一个介于1和32之间的值作为level数组的大小，这个大小就是层的“高度”。
 
   下图分别展示了三个高度为1层、3层和5层的节点，因为C语言的数组索引总是从0开始的，所以节点的第一层是level[0]，而第二层是level[1]，依次类推。
+
 ![redis-level](http://image-hosting-lan.oss-cn-beijing.aliyuncs.com/redis-high.png)
 
-### redis为什么采用跳表而不是红黑树
+#### 元素排名
+
+![](http://zhangtielei.com/assets/photos_redis/skiplist/redis_skiplist_example.png)
+
+假设我们在这个skiplist中查找score=89.0的元素（即Bob的成绩数据），在查找路径中，我们会跨域图中标红的指针，这些指针上面的span值累加起来，就得到了Bob的排名(2+2+1)-1=4（减1是因为rank值以0起始）。需要注意这里算的是从小到大的排名，而如果要算从大到小的排名，只需要用skiplist长度减去查找路径上的span累加值，即6-(2+2+1)=1。
+
+可见，在查找skiplist的过程中，通过累加span值的方式，我们就能很容易算出排名。相反，如果指定排名来查找数据（类似zrange和zrevrange那样），也可以不断累加span并时刻保持累加值不超过指定的排名，通过这种方式就能得到一条O(log n)的查找路径。
+
+[Redis跳跃表 \- 知乎](https://zhuanlan.zhihu.com/p/109946103)
+
+[Redis 的底层数据结构（跳跃表） \- 掘金](https://juejin.im/post/5da1ca58e51d4577fc7b1c5a#heading-0)
+
+[关于SkipList和Redis的实现 \- S\.L's Blog \| S\.L Blog](https://elsef.com/2019/12/05/%E5%85%B3%E4%BA%8ESkipList/)
+
+#### redis为什么采用跳表而不是红黑树
 
 - 在做范围查找的时候，平衡树比skiplist操作要复杂。
 
@@ -151,11 +173,10 @@ int zslRandomLevel(void) {
 
 - 从算法实现难度上来比较，skiplist比平衡树要简单得多。
 
-  
 
-  [为啥 redis 使用跳表\(skiplist\)而不是使用 red\-black？ \- 知乎](https://www.zhihu.com/question/20202931)
+[为啥 redis 使用跳表\(skiplist\)而不是使用 red\-black？ \- 知乎](https://www.zhihu.com/question/20202931)
 
-  [redis——为什么选择了跳表而不是红黑树？\_数据库\_hebtu666\-CSDN博客](https://blog.csdn.net/hebtu666/article/details/102556064)
+[redis——为什么选择了跳表而不是红黑树？\_数据库\_hebtu666\-CSDN博客](https://blog.csdn.net/hebtu666/article/details/102556064)
 
 
 

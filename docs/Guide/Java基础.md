@@ -21,7 +21,7 @@
 
 #### [重写](https://snailclimb.gitee.io/javaguide/#/docs/java/Java基础知识?id=重写)
 
-重写是子类对父类的允许访问的方法的实现过程进行重新编写,发生在子类中，方法名、参数列表必须相同，返回值范围小于等于父类，抛出的异常范围小于等于父类，访问修饰符范围大于等于父类。另外，如果父类方法访问修饰符为 private 则子类就不能重写该方法。**也就是说方法提供的行为改变，而方法的外貌并没有改变。**
+重写是子类对父类的允许访问的方法的实现过程进行重新编写，发生在子类中，方法名、参数列表必须相同，返回值范围小于等于父类，抛出的异常范围小于等于父类，访问修饰符范围大于等于父类。另外，如果父类方法访问修饰符为 private 则子类就不能重写该方法。**也就是说方法提供的行为改变，而方法的外貌并没有改变。**
 
 
 
@@ -49,7 +49,7 @@
 
 
 
-## String StringBuffer 和 StringBuilder 的区别是什么? String 为什么是不可变的 ?
+## String、StringBuffer 和 StringBuilder 的区别是什么? String 为什么是不可变的 ?
 
 **可变性**
 
@@ -151,7 +151,7 @@ hashCode() 的作用是获取哈希码，也称为散列码；它实际上是返
 ### [hashCode（）与equals（）的相关规定](https://snailclimb.gitee.io/javaguide/#/docs/java/Java基础知识?id=hashcode（）与equals（）的相关规定)
 
 1. 如果两个对象相等，则hashcode一定也是相同的
-2. 两个对象相等,对两个对象分别调用equals方法都返回true
+2. 两个对象相等，对两个对象分别调用equals方法都返回true
 3. 两个对象有相同的hashcode值，它们也不一定是相等的
 4. **因此，equals 方法被覆盖过，则 hashCode 方法也必须被覆盖**
 5. hashCode() 的默认行为是对堆上的对象产生独特值。如果没有重写 hashCode()，则该 class 的两个对象无论如何都不会相等（即使这两个对象指向相同的数据）
@@ -162,30 +162,18 @@ hashCode() 的作用是获取哈希码，也称为散列码；它实际上是返
 
 [关于hashCode,你一定听说过会重复，那么你见过2个不同的字符串hashCode值却是相同的吗\_Java\_HD243608836的博客\-CSDN博客](https://blog.csdn.net/HD243608836/article/details/78680119)
 
-## 线程有哪些基本状态？
-
-Java 线程在运行的生命周期中的指定时刻只可能处于下面6种不同状态的其中一个状态（图源《Java 并发编程艺术》4.1.4节）。
-
-![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/20200211193149.png)
-
-线程在生命周期中并不是固定处于某一个状态而是随着代码的执行在不同状态之间切换。Java 线程状态变迁如下图所示（图源《Java 并发编程艺术》4.1.4节）：
-
-![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/20200211193200.png)
-
-线程创建之后它将处于 **NEW（新建）** 状态，调用 `start()` 方法后开始运行，线程这时候处于 **READY（可运行）** 状态。可运行状态的线程获得了 cpu 时间片（timeslice）后就处于 **RUNNING（运行）** 状态。
-
-> 操作系统隐藏 Java虚拟机（JVM）中的 READY 和 RUNNING 状态，它只能看到 RUNNABLE 状态（图源：[HowToDoInJava](https://howtodoinjava.com/)：[Java Thread Life Cycle and Thread States](https://howtodoinjava.com/java/multi-threading/java-thread-life-cycle-and-thread-states/)），所以 Java 系统一般将这两个状态统称为 **RUNNABLE（运行中）** 状态 。
-
-![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/20200211193237.png)
-
-当线程执行 `wait()`方法之后，线程进入 **WAITING（等待）**状态。进入等待状态的线程需要依靠其他线程的通知才能够返回到运行状态，而 **TIME_WAITING(超时等待)** 状态相当于在等待状态的基础上增加了超时限制，比如通过 `sleep（long millis）`方法或 `wait（long millis）`方法可以将 Java 线程置于 TIMED WAITING 状态。当超时时间到达后 Java 线程将会返回到 RUNNABLE 状态。当线程调用同步方法时，在没有获取到锁的情况下，线程将会进入到 **BLOCKED（阻塞）** 状态。线程在执行 Runnable 的`run()`方法之后将会进入到 **TERMINATED（终止）** 状态。
-
 ## 关于final关键字的一些总结
 
 final关键字主要用在三个地方：变量、方法、类。
 
-1. 对于一个final变量，如果是基本数据类型的变量，则其数值一旦在初始化之后便不能更改；如果是引用类型的变量，则在对其初始化之后便不能再让其指向另一个对象。
-2. 当用final修饰一个类时，表明这个类不能被继承。final类中的所有成员方法都会被隐式地指定为final方法。
+1. 当用final修饰一个变量时：
+
+   如果是基本数据类型的变量，则其数值一旦在初始化之后便不能更改；
+
+   如果是引用类型的变量，则在对其初始化之后便不能再让其指向另一个对象。
+
+2. 当用final修饰一个类时：表明这个类不能被继承。final类中的所有成员方法都会被隐式地指定为final方法。
+
 3. 使用final方法的原因有两个。第一个原因是把方法锁定，以防任何继承类修改它的含义；第二个原因是效率。在早期的Java实现版本中，会将final方法转为内嵌调用。但是如果方法过于庞大，可能看不到内嵌调用带来的任何性能提升（现在的Java版本已经不需要使用final方法进行这些优化了）。类中所有的private方法都隐式地指定为final。
 
 ## 异常处理总结
@@ -219,11 +207,11 @@ final关键字主要用在三个地方：变量、方法、类。
 
 如果调用 `f(2)`，返回值将是0，因为finally语句的返回值覆盖了try语句块的返回值。
 
-## Java中有些字段不想序列号怎么办？
+## Java中有些字段不想序列化怎么办？
 
-对于不想进行序列化的变量，使用transient关键字修饰。
+对于不想进行序列化的变量，使用`transient`关键字修饰。
 
-transient关键字的作用是：阻止实例中那些用此关键字修饰的的变量序列化；当对象被反序列化时，被transient修饰的变量值不会被持久化和恢复。transient只能修饰变量，不能修饰类和方法。
+`transient`关键字的作用是：阻止实例中那些用此关键字修饰的的变量序列化；当对象被反序列化时，被`transient`修饰的变量值不会被持久化和恢复。`transient`只能修饰变量，不能修饰类和方法。
 
 ## BIO、NIO、AIO的区别
 

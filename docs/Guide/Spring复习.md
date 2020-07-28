@@ -22,7 +22,20 @@
 
 > PostConstruct `(P)`，afterPropertiesSet `(A)`，init-method `(I)` ---> `PAI （圆周率π）`
 
+InstantiationAwareBeanPostProcessor又代表了Spring的另外一段生命周期：实例化。
+先区别一下Spring Bean的实例化和初始化两个阶段的主要作用：
 
+1、实例化----实例化的过程是一个创建Bean的过程，即调用Bean的构造函数，单例的Bean放入单例池中
+
+2、初始化----初始化的过程是一个赋值的过程，即调用Bean的setter，设置Bean的属性
+
+InstantiationAwareBeanPostProcessor作用的是Bean实例化前后，即：
+
+1、Bean构造出来之前调用postProcessBeforeInstantiation()方法
+
+2、Bean构造出来之后调用postProcessAfterInstantiation()方法
+
+不过通常来讲，我们不会直接实现InstantiationAwareBeanPostProcessor接口，而是会采用继承InstantiationAwareBeanPostProcessorAdapter这个抽象类的方式来使用。
 
 ![](https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/20200215174851.png)
 
@@ -39,6 +52,8 @@
 [请别再问Spring Bean的生命周期了！ \- 简书](https://www.jianshu.com/p/1dec08d290c1)
 
 [Spring Bean 生命周期之“我从哪里来？” 懂得这个很重要 \- 个人文章 \- SegmentFault 思否](https://segmentfault.com/a/1190000019671074)
+
+[Spring解析，加载及实例化Bean的顺序（零配置）\_点滴之积\-CSDN博客\_spring 加载顺序](https://blog.csdn.net/qq_27529917/article/details/79329809)
 
 [Spring\-bean的循环依赖以及解决方式\_Java\_惜暮\-CSDN博客](https://blog.csdn.net/u010853261/article/details/77940767?utm_source=distribute.pc_relevant.none-task)
 
@@ -156,7 +171,7 @@ singletonObjects：单例对象的cache
 
 3. 设置bean的类加载器
 
-4. 如果有第三方想再bean加载注册完成后，初始化前做点什么(例如修改属性的值，修改bean的scope为单例或者多例。)，提供了相应的模板方法，后面还调用了这个方法的实现，并且把这些个实现类注册到对应的容器中
+4. 如果有第三方想在bean加载注册完成后，初始化前做点什么(例如修改属性的值，修改bean的scope为单例或者多例。)，提供了相应的模板方法，后面还调用了这个方法的实现，并且把这些个实现类注册到对应的容器中
 
 5. 初始化当前的事件广播器
 
@@ -309,10 +324,7 @@ singletonObjects：单例对象的cache
 
 1. BeanFactory是spring中最基础的接口。它负责读取读取bean配置文档，管理bean的加载，实例化，维护bean之间的依赖关系，负责bean的生命周期。
 2. ApplicationContext是BeanFactory的子接口，除了提供上述BeanFactory的所有功能外，还提供了更完整的框架功能：如国际化支持，资源访问，事件传递等。常用的获取ApplicationContext的方法： 2.1 FileSystemXmlApplicationContext：从文件系统或者url指定的xml配置文件创建，参数为配置文件名或者文件名数组。 2.2 ClassPathXmlApplicationContext：从classpath的xml配置文件创建，可以从jar包中读取配置文件 2.3 WebApplicationContextUtils：从web应用的根目录读取配置文件，需要先在web.xml中配置，可以配置监听器或者servlet来实现。
-3. ApplicationContext的初始化和BeanFactory有一个重大区别：BeanFactory在初始化容器时，并未实例化Bean，知道第一次访问某个Bean时才实例化Bean；而ApplicationContext则在初始化应用上下文时就实例化所有的单例Bean，因此ApplicationContext的初始化时间会比BeanFactory稍长一些。
-
-
-作者：坚持就是胜利链接：https://juejin.im/post/5e6d993cf265da575b1bd4af来源：掘金著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+3. ApplicationContext的初始化和BeanFactory有一个重大区别：BeanFactory在初始化容器时，并未实例化Bean，直到第一次访问某个Bean时才实例化Bean；而ApplicationContext则在初始化应用上下文时就实例化所有的单例Bean，因此ApplicationContext的初始化时间会比BeanFactory稍长一些。
 
 ## BeanFactory和FactoryBean的区别
 
@@ -330,7 +342,7 @@ singletonObjects：单例对象的cache
 
 ​       它的实现与设计模式中的工厂模式和修饰器模式类似。
 
- Spring中共有两种bean，一种为普通bean，另一种则为工厂bean（FactoryBean）。
+Spring中共有两种bean，一种为普通bean，另一种则为工厂bean（FactoryBean）。
 
 BeanFactory给具体的IOC容器的实现提供了规范，实现 BeanFactory 接口的类 表明此类是一个工厂，作用就是配置、新建、管理 各种Bean。
 
