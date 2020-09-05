@@ -46,7 +46,7 @@ public interface RandomAccess {
 
 2. 确认大小
 
-3. ```
+3. ```java
    // 添加元素之前，先调用ensureCapacityInternal方法
    // 获取默认的容量和传入参数的较大值
    minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
@@ -56,7 +56,7 @@ public interface RandomAccess {
 
 3. grow方法
 
-   ```
+   ```java
    // grow()代码里————我们知道位运算的速度远远快于整除运算，整句运算式的结果就是将新容量更新为旧容量的1.5倍，
    int newCapacity = oldCapacity + (oldCapacity >> 1);
    ```
@@ -242,9 +242,22 @@ loadFactor是装载因子，表示HashMap满的程度，默认值为0.75f，设�
 ### 解决Hash冲突的几种方法：
 
 1. 拉链法
+
+   每个哈希表节点都有一个next指针，多个哈希表节点可以用next指针构成一个单向链表，被分配到同一个索引上的多个节点可以用这个单向链表连接起来。
+
 2. 开放定址法
+
+   一旦发生了冲突，就去寻找下一个空的散列地址，只要散列表足够大，空的散列地址总能找到，并将记录存入 。
+   公式为：fi(key) = (f(key)+di) MOD m (di=1,2,3,……,m-1) 
+
 3. 再哈希法
+
+   又叫双哈希法，有多个不同的Hash函数，当发生冲突时，使用第二个，第三个，….，等哈希函数
+   计算地址，直到无冲突。虽然不易发生聚集，但是增加了计算时间。
+
 4. 建立公共溢出区
+
+   将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表。
 
 [全网把Map中的hash\(\)分析的最透彻的文章，别无二家。](https://mp.weixin.qq.com/s?__biz=MzI3NzE0NjcwMg==&mid=2650120877&idx=1&sn=401bb7094d41918f1a6e142b6c66aaac&chksm=f36bbf8cc41c369aa44c319942b06ca0f119758b22e410e8f705ba56b9ac6d4042fe686dbed4&scene=21#wechat_redirect)
 

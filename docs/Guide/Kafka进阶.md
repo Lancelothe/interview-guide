@@ -1,8 +1,8 @@
 ## Kafka的各种选举
 
-我们对Kafka的Leader选举概念有时候会有混淆。
+在kafka里有很多Leader，我们常常会对这些Leader选举概念有混淆，下面将分别讲一下三种不同身份的Leader。
 
-1. 集群中的Leader——KafkaController
+1. Broker集群中的Leader——KafkaController
 
    概念：
 
@@ -24,9 +24,9 @@
 
    历史问题改进：
 
-   在kafka中多个broker构成的集群里，Leader的选举是利用zk的抢占写/controller临时节点数据是否成功判断的，在zk的/controller节点会保存相关的broker.id的信息和变动的epoch次数信息。
+   在kafka中多个broker构成的集群里，Leader的选举是利用zk的抢占写`/controller`临时节点数据是否成功判断的，在zk的`/controller`节点会保存相关的broker.id的信息和变动的epoch次数信息。
 
-   如果网络问题或者异常情况宕机，集群的leader也就是/controller所在broker节点挂掉会发生什么呢？
+   如果网络问题或者异常情况宕机，集群的leader也就是`/controller`所在broker节点挂掉会发生什么呢？
 
    在早期版本，对于分区和副本的状态的管理依赖于zookeeper的Watcher和队列，每个broker都会在zookeeper注册Watcher，所以zookeeper就会出现大量的Watcher，如果宕机的broker上的partition很多比较多，会造成多个Watcher触发，造成集群内大规模调整；每一个replica都要去再次zookeeper上注册监视器，当集群规模很大的时候，zookeeper负担很重。这种设计很容易出现脑裂和羊群效应以及zookeeper集群过载。
 
@@ -38,7 +38,7 @@
 
    [Leader副本的选举](##kafka leader副本所在broker挂了，leader副本如何选举)
 
-   基本思路是按照AR集合中副本的顺序查找第一个存活的副本，并且这个副本在ISR集合中。一个分区的AR集合在分配的时候就被指定，并且只要不发生重分配的情况，集合内部副本的顺序是保持不变的，而分区的ISR集合中副本的顺序可能会改变。注意这里是根据AR的顺序而不是ISR的顺序进行选举的。这个说起来比较抽象，有兴趣的读者可以手动关闭/开启某个集群中的broker来观察一下具体的变化。
+   基本思路是按照**AR集合**中副本的顺序查找第一个存活的副本，并且这个副本在ISR集合中。一个分区的AR集合在分配的时候就被指定，并且只要不发生重分配的情况，集合内部副本的顺序是保持不变的，而分区的ISR集合中副本的顺序可能会改变。注意这里是根据AR的顺序而不是ISR的顺序进行选举的。这个说起来比较抽象，有兴趣的读者可以手动关闭/开启某个集群中的broker来观察一下具体的变化。
 
    还有一些情况也会发生分区leader的选举，比如当分区进行重分配（reassign）的时候也需要执行leader的选举动作。这个思路比较简单：从重分配的AR列表中找到第一个存活的副本，且这个副本在目前的ISR列表中。3
 
@@ -106,7 +106,7 @@ producer端加上参数 reties=3， 重试发送三次（默认100ms重试一次
 
 1、Kafka 中分成两类副本：领导者副本（Leader Replica）和追随者副本（Follower Replica）。每个分区在创建时都要选举一个副本，称为领导者副本，其余的副本自动称为追随者副本。
 
-2、Kafka 中，追随者副本是不对外提供服务的。追随者副本不处理客户端请求，它唯一的任务就是从领导者副本，所有的读写请求都必须发往领导者副本所在的 Broker，由该 Broker 负责处理。（因此目前kafka只能享受到副本机制带来的第 1 个好处，也就是提供数据冗余实现高可用性和高持久性）
+2、Kafka 中，**追随者副本是不对外提供服务的**。追随者副本不处理客户端请求，它唯一的任务就是从领导者副本，所有的读写请求都必须发往领导者副本所在的 Broker，由该 Broker 负责处理。（因此目前kafka只能享受到副本机制带来的第 1 个好处，也就是提供数据冗余实现高可用性和高持久性）
 
 3、领导者副本所在的 Broker 宕机时，Kafka 依托于 ZooKeeper 提供的监控功能能够实时感知到，并立即开启新一轮的领导者选举，从追随者副本中选一个作为新的领导者。老 Leader 副本重启回来后，只能作为追随者副本加入到集群中。
 
@@ -142,7 +142,7 @@ Kafka 引入了 In-sync Replicas，也就是所谓的 ISR 副本集合。ISR 中
 
 一个分布式系统通常只能同时满足一致性（Consistency）、可用性（Availability）、分区容错性（Partition tolerance）中的两个。显然，在这个问题上，Kafka 赋予你选择 C 或 A 的权利。
 
-强烈建议不要开启unclean leader election，毕竟我们还可以通过其他的方式来提升高可用性。如果为了这点儿高可用性的改善，牺牲了数据一致性，那就非常不值当了。
+**强烈建议不要开启unclean leader election，毕竟我们还可以通过其他的方式来提升高可用性。如果为了这点儿高可用性的改善，牺牲了数据一致性，那就非常不值当了。**
 
 ps1：leader副本的选举也可以理解为分区leader的选举
 

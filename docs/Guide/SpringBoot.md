@@ -137,7 +137,7 @@
 
 ### 如何确定Spring Boot默认加载的是Tomcat容器
 
-其实在上面的getWebServer() 选择 TomcatServletWebServerFactory 实现的接口这里有疑问，为什么这里选择用Tomcat的实现，不选择其他的呢？虽然我们都知道Spring Boot的默认Web容器是Tomcat，但是如果确认呢。
+其实在上面的getWebServer() 选择 TomcatServletWebServerFactory 实现的接口这里有疑问，为什么这里选择用Tomcat的实现，不选择其他的呢？虽然我们都知道Spring Boot的默认Web容器是Tomcat，但是如何确认呢。
 
 这里就要结合自动配置这里的东西里。既然能自动引入Web配置在启动时选择Tomcat作为自己的默认启动容器，必然是和依赖的配置有关，我们找到了引入的Maven里spring-boot-starter-parent里的spring-boot-starter依赖，然后发现我们的Maven依赖里有这样的依赖引入。
 
@@ -161,7 +161,7 @@
 关键点：
 
 1. `ImportSelector` 该接口的方法的返回值都会被纳入到spring容器管理中
-2. `SpringFactoriesLoader` 该类可以从classpath中搜索所有`META-INF/spring.factories`配置文件，并读取配置。同理，其实Spring框架本身也提供了几个名字为@Enable开头的Annotation定义。比如@EnableScheduling、`@EnableCaching`、`@EnableMBeanExport`等，`@EnableAutoConfiguration`的理念和这些注解其实是一脉相承的。
+2. `SpringFactoriesLoader` 该类可以从classpath中搜索所有`META-INF/spring.factories`配置文件，并读取配置。同理，其实Spring框架本身也提供了几个名字为@Enable开头的Annotation定义。比如`@EnableScheduling`、`@EnableCaching`、`@EnableMBeanExport`等，`@EnableAutoConfiguration`的理念和这些注解其实是一脉相承的。
 
 观察`@EnableAutoConfiguration`可以发现，这里Import了`@EnableAutoConfigurationImportSelector`，这就是Spring Boot自动化配置的“始作俑者”。
 

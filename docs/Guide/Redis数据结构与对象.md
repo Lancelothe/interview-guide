@@ -268,7 +268,7 @@ typedef struct zskiplistNode {
 
 `zskiplist` 结构的定义如下：
 
-```
+```c
 typedef struct zskiplist {
 
     // 表头节点和表尾节点
