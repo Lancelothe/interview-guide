@@ -1,0 +1,1000 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>gRPC · Interview-Guide</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="lancelot">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../../" />
+    
+    
+    <link rel="prev" href="Thrift-RPC.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Interview-Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Java相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Java基础.html">
+            
+                <a href="Java基础.html">
+            
+                    
+                    Java基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="Java集合.html">
+            
+                <a href="Java集合.html">
+            
+                    
+                    Java集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="Java并发.html">
+            
+                <a href="Java并发.html">
+            
+                    
+                    Java并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="Java类加载.html">
+            
+                <a href="Java类加载.html">
+            
+                    
+                    Java类加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="JVM.html">
+            
+                <a href="JVM.html">
+            
+                    
+                    JVM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="Spring的一些概念.html">
+            
+                <a href="Spring的一些概念.html">
+            
+                    
+                    Spring的一些概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="Spring复习.html">
+            
+                <a href="Spring复习.html">
+            
+                    
+                    Spring复习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="SpringBoot.html">
+            
+                <a href="SpringBoot.html">
+            
+                    
+                    SpringBoot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="Spring+IOC+容器源码分析.html">
+            
+                <a href="Spring+IOC+容器源码分析.html">
+            
+                    
+                    Spring+IOC+容器源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="Spring框架学习.html">
+            
+                <a href="Spring框架学习.html">
+            
+                    
+                    Spring框架学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="什么是伪共享.html">
+            
+                <a href="什么是伪共享.html">
+            
+                    
+                    什么是伪共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="序列化的底层怎么实现的.html">
+            
+                <a href="序列化的底层怎么实现的.html">
+            
+                    
+                    序列化的底层怎么实现的
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Redis相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="Redis整理.html">
+            
+                <a href="Redis整理.html">
+            
+                    
+                    Redis整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="Redis数据结构与对象.html">
+            
+                <a href="Redis数据结构与对象.html">
+            
+                    
+                    Redis数据结构与对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    数据库
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="MySQL整理.html">
+            
+                <a href="MySQL整理.html">
+            
+                    
+                    MySQL整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="Zookeeper.html">
+            
+                <a href="Zookeeper.html">
+            
+                    
+                    Zookeeper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="RabbitMQ整理.html">
+            
+                <a href="RabbitMQ整理.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Kafka
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="Kafka整理.html">
+            
+                <a href="Kafka整理.html">
+            
+                    
+                    Kafka整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="Kafka进阶.html">
+            
+                <a href="Kafka进阶.html">
+            
+                    
+                    Kafka进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="ElasticSearch整理.html">
+            
+                <a href="ElasticSearch整理.html">
+            
+                    
+                    ElasticSearch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    分布式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="架构设计.html">
+            
+                <a href="架构设计.html">
+            
+                    
+                    架构设计
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.1" data-path="分布式.html">
+            
+                <a href="分布式.html">
+            
+                    
+                    分布式相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.2" data-path="一致性哈希.html">
+            
+                <a href="一致性哈希.html">
+            
+                    
+                    一致性哈希
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.3" data-path="限流算法.html">
+            
+                <a href="限流算法.html">
+            
+                    
+                    限流算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.4" data-path="阿里Sentinel.html">
+            
+                <a href="阿里Sentinel.html">
+            
+                    
+                    阿里Sentinel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    系统设计
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.2.1" data-path="秒杀系统的设计.html">
+            
+                <a href="秒杀系统的设计.html">
+            
+                    
+                    秒杀系统设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    RPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.3.1" data-path="Thrift-RPC.html">
+            
+                <a href="Thrift-RPC.html">
+            
+                    
+                    Thrift-RPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.1.3.2" data-path="gRPC.html">
+            
+                <a href="gRPC.html">
+            
+                    
+                    gRPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="算法总结.html">
+            
+                <a href="算法总结.html">
+            
+                    
+                    算法总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.3.1" data-path="Elastic-Job原理.html">
+            
+                <a href="Elastic-Job原理.html">
+            
+                    
+                    Elastic-Job原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.4.1" data-path="../DesignPatterns/1-单例模式.html">
+            
+                <a href="../DesignPatterns/1-单例模式.html">
+            
+                    
+                    单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.2" data-path="../DesignPatterns/2-工厂模式.html">
+            
+                <a href="../DesignPatterns/2-工厂模式.html">
+            
+                    
+                    工厂模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.3" data-path="../DesignPatterns/6-模板方法模式.html">
+            
+                <a href="../DesignPatterns/6-模板方法模式.html">
+            
+                    
+                    模板方法模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.4" data-path="../DesignPatterns/4-策略模式.html">
+            
+                <a href="../DesignPatterns/4-策略模式.html">
+            
+                    
+                    策略模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.5" data-path="../DesignPatterns/7-观察者模式.html">
+            
+                <a href="../DesignPatterns/7-观察者模式.html">
+            
+                    
+                    观察者模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.6" data-path="../DesignPatterns/5-职责链模式.html">
+            
+                <a href="../DesignPatterns/5-职责链模式.html">
+            
+                    
+                    责任链模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    面试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.5.1" data-path="面试常见问题回答（主观题）.html">
+            
+                <a href="面试常见问题回答（主观题）.html">
+            
+                    
+                    面试常见问题回答（主观题）
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >gRPC</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>  GRPC&#x662F;google&#x5F00;&#x6E90;&#x7684;&#x4E00;&#x4E2A;&#x9AD8;&#x6027;&#x80FD;&#x3001;&#x8DE8;&#x8BED;&#x8A00;&#x7684;RPC&#x6846;&#x67B6;&#xFF0C;&#x57FA;&#x4E8E;HTTP2&#x534F;&#x8BAE;&#xFF0C;&#x57FA;&#x4E8E;protobuf 3.x&#xFF0C;&#x57FA;&#x4E8E;Netty 4.x +&#x3002;GRPC&#x4E0E;thrift&#x3001;avro-rpc&#x7B49;&#x5176;&#x5B9E;&#x5728;&#x603B;&#x4F53;&#x539F;&#x7406;&#x4E0A;&#x5E76;&#x6CA1;&#x6709;&#x592A;&#x5927;&#x7684;&#x533A;&#x522B;&#xFF0C;&#x7B80;&#x800C;&#x8A00;&#x4E4B;GRPC&#x5E76;&#x6CA1;&#x6709;&#x592A;&#x591A;&#x7A81;&#x7834;&#x6027;&#x7684;&#x521B;&#x65B0;&#x3002;&#xFF08;&#x5982;&#x4E0B;&#x63CF;&#x8FF0;&#xFF0C;&#x5747;&#x57FA;&#x4E8E;JAVA&#x8BED;&#x8A00;&#x7684;&#x5B9E;&#x73B0;&#xFF09;</p>
+<p>  &#x5BF9;&#x4E8E;&#x5F00;&#x53D1;&#x8005;&#x800C;&#x8A00;&#xFF1A;</p>
+<p>  1&#xFF09;&#x9700;&#x8981;&#x4F7F;&#x7528;protobuf&#x5B9A;&#x4E49;&#x63A5;&#x53E3;&#xFF0C;&#x5373;.proto&#x6587;&#x4EF6;</p>
+<p>  2&#xFF09;&#x7136;&#x540E;&#x4F7F;&#x7528;compile&#x5DE5;&#x5177;&#x751F;&#x6210;&#x7279;&#x5B9A;&#x8BED;&#x8A00;&#x7684;&#x6267;&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x6BD4;&#x5982;JAVA&#x3001;C/C++&#x3001;Python&#x7B49;&#x3002;&#x7C7B;&#x4F3C;&#x4E8E;thrift&#xFF0C;&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x8DE8;&#x8BED;&#x8A00;&#x95EE;&#x9898;&#x3002;</p>
+<p>  3&#xFF09;&#x542F;&#x52A8;&#x4E00;&#x4E2A;Server&#x7AEF;&#xFF0C;server&#x7AEF;&#x901A;&#x8FC7;&#x4FA6;&#x542C;&#x6307;&#x5B9A;&#x7684;port&#xFF0C;&#x6765;&#x7B49;&#x5F85;Client&#x94FE;&#x63A5;&#x8BF7;&#x6C42;&#xFF0C;&#x901A;&#x5E38;&#x4F7F;&#x7528;Netty&#x6765;&#x6784;&#x5EFA;&#xFF0C;GRPC&#x5185;&#x7F6E;&#x4E86;Netty&#x7684;&#x652F;&#x6301;&#x3002;</p>
+<p>  4&#xFF09;&#x542F;&#x52A8;&#x4E00;&#x4E2A;&#x6216;&#x8005;&#x591A;&#x4E2A;Client&#x7AEF;&#xFF0C;Client&#x4E5F;&#x662F;&#x57FA;&#x4E8E;Netty&#xFF0C;Client&#x901A;&#x8FC7;&#x4E0E;Server&#x5EFA;&#x7ACB;TCP&#x957F;&#x94FE;&#x63A5;&#xFF0C;&#x5E76;&#x53D1;&#x9001;&#x8BF7;&#x6C42;&#xFF1B;Request&#x4E0E;Response&#x5747;&#x88AB;&#x5C01;&#x88C5;&#x6210;HTTP2&#x7684;stream Frame&#xFF0C;&#x901A;&#x8FC7;Netty Channel&#x8FDB;&#x884C;&#x4EA4;&#x4E92;&#x3002;</p>
+<p>GRPC&#x7684;&#x7F3A;&#x70B9;:</p>
+<p> 1&#xFF09;GRPC&#x5C1A;&#x672A;&#x63D0;&#x4F9B;&#x8FDE;&#x63A5;&#x6C60;</p>
+<p>  2&#xFF09;&#x5C1A;&#x672A;&#x63D0;&#x4F9B;&#x201C;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x201D;&#x3001;&#x201C;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x201D;&#x673A;&#x5236;</p>
+<p>  3&#xFF09;&#x56E0;&#x4E3A;&#x57FA;&#x4E8E;HTTP2&#xFF0C;&#x7EDD;&#x5927;&#x90E8;&#x591A;&#x6570;HTTP Server&#x3001;Nginx&#x90FD;&#x5C1A;&#x4E0D;&#x652F;&#x6301;&#xFF0C;&#x5373;Nginx&#x4E0D;&#x80FD;&#x5C06;GRPC&#x8BF7;&#x6C42;&#x4F5C;&#x4E3A;HTTP&#x8BF7;&#x6C42;&#x6765;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#xFF0C;&#x800C;&#x662F;&#x4F5C;&#x4E3A;&#x666E;&#x901A;&#x7684;TCP&#x8BF7;&#x6C42;&#x3002;&#xFF08;nginx&#x5C06;&#x4F1A;&#x5728;1.9&#x7248;&#x672C;&#x652F;&#x6301;&#xFF09;</p>
+<p>  4&#xFF09;GRPC&#x5C1A;&#x4E0D;&#x6210;&#x719F;&#xFF0C;&#x6613;&#x7528;&#x6027;&#x8FD8;&#x4E0D;&#x662F;&#x5F88;&#x7406;&#x60F3;&#xFF1B;&#x5C31;&#x672C;&#x4EBA;&#x800C;&#x8A00;&#xFF0C;&#x6211;&#x8FD8;&#x662F;&#x5E0C;&#x671B;GRPC&#x80FD;&#x591F;&#x50CF;hessian&#x4E00;&#x6837;&#xFF1A;&#x65E0;IDL&#x6587;&#x4EF6;&#xFF0C;&#x65E0;&#x9700;&#x4EE3;&#x7801;&#x751F;&#x6210;&#xFF0C;&#x63A5;&#x53E3;&#x901A;&#x8FC7;HTTP&#x8868;&#x8FBE;&#x3002;</p>
+<p>  5&#xFF09;Spring&#x5BB9;&#x5668;&#x5C1A;&#x672A;&#x63D0;&#x4F9B;&#x6574;&#x5408;&#x3002;</p>
+<p>  &#x5728;&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;GRPC&#x5C1A;&#x672A;&#x5B8C;&#x5168;&#x63D0;&#x4F9B;&#x8FDE;&#x63A5;&#x6C60;&#x3001;&#x670D;&#x52A1;&#x81EA;&#x52A8;&#x53D1;&#x73B0;&#x3001;&#x8FDB;&#x7A0B;&#x5185;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7B49;&#x9AD8;&#x7EA7;&#x7279;&#x6027;&#xFF0C;&#x9700;&#x8981;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x989D;&#x5916;&#x7684;&#x5C01;&#x88C5;&#xFF1B;&#x6700;&#x5927;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5C31;&#x662F;GRPC&#x751F;&#x6210;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x8C03;&#x7528;&#x65B9;&#x5F0F;&#x5B9E;&#x5728;&#x662F;&#x4E0D;&#x592A;&#x4FBF;&#x6377;&#xFF08;JAVA&#xFF09;&#xFF0C;&#x6700;&#x8D77;&#x7801;&#x4E0E;thrift&#x76F8;&#x6BD4;&#x8FD8;&#x6709;&#x5DEE;&#x8DDD;&#xFF0C;&#x5E0C;&#x671B;&#x672A;&#x6765;&#x80FD;&#x591F;&#x6709;&#x6240;&#x6539;&#x8FDB;&#x3002;</p>
+<p><a href="https://www.it610.com/article/5898672.htm" target="_blank">GRPC&#x539F;&#x7406;&#x89E3;&#x6790; - it610.com</a></p>
+<p><a href="https://juejin.im/entry/59bb30f76fb9a00a616f1b73" target="_blank">gRPC&#x5BA2;&#x6237;&#x7AEF;&#x521B;&#x5EFA;&#x548C;&#x8C03;&#x7528;&#x539F;&#x7406;&#x89E3;&#x6790; - &#x540E;&#x7AEF; - &#x6398;&#x91D1;</a></p>
+<p><a href="http://jiangew.me/tags/#grpc" target="_blank">Tags | &#x642C;&#x7816;&#x5DE5;&#xB7;&#x7518;&#x7F57;</a></p>
+<p><a href="https://liuyazong.github.io/grpc-in-action/" target="_blank">GRpc&#x5B9E;&#x6218;&#x53CA;&#x539F;&#x7406;&#x5206;&#x6790; | grpc-in-action</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Thrift-RPC.html" class="navigation navigation-prev " aria-label="Previous page: Thrift-RPC">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../../" class="navigation navigation-next " aria-label="Next page: 算法">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"gRPC","level":"2.1.3.2","depth":3,"next":{"title":"算法","level":"2.2","depth":1,"path":"README.md","ref":"README.md","articles":[{"title":"算法总结","level":"2.2.1","depth":2,"path":"docs/Guide/算法总结.md","ref":"docs/Guide/算法总结.md","articles":[]}]},"previous":{"title":"Thrift-RPC","level":"2.1.3.1","depth":3,"path":"docs/Guide/Thrift-RPC.md","ref":"docs/Guide/Thrift-RPC.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-diy-introduction","back-to-top-button","chapter-fold","code","splitter","-lunr","-search","search-pro","pageview-count","anchor-navigation-ex","github"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"introduction-text":"介绍","chapter-fold":{},"github":{"url":"https://github.com/Lancelothe"},"splitter":{},"search-pro":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"pageview-count":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"lancelot","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Interview-Guide","language":"zh-hans","gitbook":"*","description":"Interview-Guide"},"file":{"path":"docs/Guide/gRPC.md","mtime":"2020-10-21T02:23:22.715Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-21T02:25:13.219Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

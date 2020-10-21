@@ -1,0 +1,1224 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>工厂模式 · Interview-Guide</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="lancelot">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="6-模板方法模式.html" />
+    
+    
+    <link rel="prev" href="1-单例模式.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Interview-Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Java相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Guide/Java基础.html">
+            
+                <a href="../Guide/Java基础.html">
+            
+                    
+                    Java基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../Guide/Java集合.html">
+            
+                <a href="../Guide/Java集合.html">
+            
+                    
+                    Java集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../Guide/Java并发.html">
+            
+                <a href="../Guide/Java并发.html">
+            
+                    
+                    Java并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../Guide/Java类加载.html">
+            
+                <a href="../Guide/Java类加载.html">
+            
+                    
+                    Java类加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../Guide/JVM.html">
+            
+                <a href="../Guide/JVM.html">
+            
+                    
+                    JVM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../Guide/Spring的一些概念.html">
+            
+                <a href="../Guide/Spring的一些概念.html">
+            
+                    
+                    Spring的一些概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="../Guide/Spring复习.html">
+            
+                <a href="../Guide/Spring复习.html">
+            
+                    
+                    Spring复习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../Guide/SpringBoot.html">
+            
+                <a href="../Guide/SpringBoot.html">
+            
+                    
+                    SpringBoot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="../Guide/Spring+IOC+容器源码分析.html">
+            
+                <a href="../Guide/Spring+IOC+容器源码分析.html">
+            
+                    
+                    Spring+IOC+容器源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="../Guide/Spring框架学习.html">
+            
+                <a href="../Guide/Spring框架学习.html">
+            
+                    
+                    Spring框架学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="../Guide/什么是伪共享.html">
+            
+                <a href="../Guide/什么是伪共享.html">
+            
+                    
+                    什么是伪共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="../Guide/序列化的底层怎么实现的.html">
+            
+                <a href="../Guide/序列化的底层怎么实现的.html">
+            
+                    
+                    序列化的底层怎么实现的
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Redis相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../Guide/Redis整理.html">
+            
+                <a href="../Guide/Redis整理.html">
+            
+                    
+                    Redis整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../Guide/Redis数据结构与对象.html">
+            
+                <a href="../Guide/Redis数据结构与对象.html">
+            
+                    
+                    Redis数据结构与对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    数据库
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../Guide/MySQL整理.html">
+            
+                <a href="../Guide/MySQL整理.html">
+            
+                    
+                    MySQL整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Guide/Zookeeper.html">
+            
+                <a href="../Guide/Zookeeper.html">
+            
+                    
+                    Zookeeper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Guide/RabbitMQ整理.html">
+            
+                <a href="../Guide/RabbitMQ整理.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Kafka
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../Guide/Kafka整理.html">
+            
+                <a href="../Guide/Kafka整理.html">
+            
+                    
+                    Kafka整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../Guide/Kafka进阶.html">
+            
+                <a href="../Guide/Kafka进阶.html">
+            
+                    
+                    Kafka进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../Guide/ElasticSearch整理.html">
+            
+                <a href="../Guide/ElasticSearch整理.html">
+            
+                    
+                    ElasticSearch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    分布式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="../Guide/架构设计.html">
+            
+                <a href="../Guide/架构设计.html">
+            
+                    
+                    架构设计
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.1" data-path="../Guide/分布式.html">
+            
+                <a href="../Guide/分布式.html">
+            
+                    
+                    分布式相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.2" data-path="../Guide/一致性哈希.html">
+            
+                <a href="../Guide/一致性哈希.html">
+            
+                    
+                    一致性哈希
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.3" data-path="../Guide/限流算法.html">
+            
+                <a href="../Guide/限流算法.html">
+            
+                    
+                    限流算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.4" data-path="../Guide/阿里Sentinel.html">
+            
+                <a href="../Guide/阿里Sentinel.html">
+            
+                    
+                    阿里Sentinel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    系统设计
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.2.1" data-path="../Guide/秒杀系统的设计.html">
+            
+                <a href="../Guide/秒杀系统的设计.html">
+            
+                    
+                    秒杀系统设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    RPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.3.1" data-path="../Guide/Thrift-RPC.html">
+            
+                <a href="../Guide/Thrift-RPC.html">
+            
+                    
+                    Thrift-RPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3.2" data-path="../Guide/gRPC.html">
+            
+                <a href="../Guide/gRPC.html">
+            
+                    
+                    gRPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="../Guide/算法总结.html">
+            
+                <a href="../Guide/算法总结.html">
+            
+                    
+                    算法总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.3.1" data-path="../Guide/Elastic-Job原理.html">
+            
+                <a href="../Guide/Elastic-Job原理.html">
+            
+                    
+                    Elastic-Job原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.4.1" data-path="1-单例模式.html">
+            
+                <a href="1-单例模式.html">
+            
+                    
+                    单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.4.2" data-path="2-工厂模式.html">
+            
+                <a href="2-工厂模式.html">
+            
+                    
+                    工厂模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.3" data-path="6-模板方法模式.html">
+            
+                <a href="6-模板方法模式.html">
+            
+                    
+                    模板方法模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.4" data-path="4-策略模式.html">
+            
+                <a href="4-策略模式.html">
+            
+                    
+                    策略模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.5" data-path="7-观察者模式.html">
+            
+                <a href="7-观察者模式.html">
+            
+                    
+                    观察者模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.6" data-path="5-职责链模式.html">
+            
+                <a href="5-职责链模式.html">
+            
+                    
+                    责任链模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    面试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.5.1" data-path="../Guide/面试常见问题回答（主观题）.html">
+            
+                <a href="../Guide/面试常见问题回答（主观题）.html">
+            
+                    
+                    面试常见问题回答（主观题）
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >工厂模式</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x7B80;&#x5355;&#x5DE5;&#x5382;&#xFF08;simple-factory&#xFF09;"><b></b>&#x7B80;&#x5355;&#x5DE5;&#x5382;&#xFF08;Simple Factory&#xFF09;</a></li><ul><li><span class="title-icon "></span><a href="#&#x666E;&#x901A;"><b></b>&#x666E;&#x901A;</a></li><li><span class="title-icon "></span><a href="#&#x591A;&#x4E2A;&#x65B9;&#x6CD5;"><b></b>&#x591A;&#x4E2A;&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x591A;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;"><b></b>&#x591A;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;</a></li></ul><li><span class="title-icon "></span><a href="#&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF08;factory-method&#xFF09;"><b></b>&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF08;Factory Method&#xFF09;</a></li><li><span class="title-icon "></span><a href="#&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#xFF08;abstract-factory&#xFF09;"><b></b>&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#xFF08;Abstract Factory&#xFF09;</a></li><ul><li><span class="title-icon "></span><a href="#&#x7EC4;&#x4EF6;"><b></b>&#x7EC4;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;"><b></b>&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;</a></li></ul></ul></ul></div><p>&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x5206;&#x4E3A;&#x4E09;&#x79CD;&#x66F4;&#x52A0;&#x7EC6;&#x5206;&#x7684;&#x7C7B;&#x578B;&#xFF1A;&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x3001;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x548C;&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x3002;&#x4E0D;&#x8FC7;&#xFF0C;&#x5728; GoF &#x7684;&#x300A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x300B;&#x4E00;&#x4E66;&#x4E2D;&#xFF0C;&#x5B83;&#x5C06;&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x770B;&#x4F5C;&#x662F;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#x7684;&#x4E00;&#x79CD;&#x7279;&#x4F8B;&#xFF0C;&#x6240;&#x4EE5;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x53EA;&#x88AB;&#x5206;&#x6210;&#x4E86;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x548C;&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x4E24;&#x7C7B;&#x3002;</p>
+<h2 id="&#x7B80;&#x5355;&#x5DE5;&#x5382;&#xFF08;simple-factory&#xFF09;"><a name="&#x7B80;&#x5355;&#x5DE5;&#x5382;&#xFF08;simple-factory&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x7B80;&#x5355;&#x5DE5;&#x5382;&#xFF08;simple-factory&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7B80;&#x5355;&#x5DE5;&#x5382;&#xFF08;Simple Factory&#xFF09;</h2>
+<p>&#x9996;&#x5148;&#xFF0C;&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x4E0D;&#x5C5E;&#x4E8E;23&#x79CD;GOF&#x56DB;&#x4EBA;&#x7EC4;&#xFF08;Gang of Four&#xFF09;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF0C;&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x4E00;&#x822C;&#x5206;&#x4E3A;&#xFF1A;&#x666E;&#x901A;&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x3001;&#x591A;&#x65B9;&#x6CD5;&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x3001;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x3002;</p>
+<h3 id="&#x666E;&#x901A;"><a name="&#x666E;&#x901A;" class="anchor-navigation-ex-anchor" href="#&#x666E;&#x901A;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x666E;&#x901A;</h3>
+<p>&#x5C31;&#x662F;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x5DE5;&#x5382;&#x7C7B;&#xFF0C;&#x5BF9;&#x5B9E;&#x73B0;&#x4E86;&#x540C;&#x4E00;&#x63A5;&#x53E3;&#x7684;&#x4E00;&#x4E9B;&#x7C7B;&#x8FDB;&#x884C;&#x5B9E;&#x4F8B;&#x7684;&#x521B;&#x5EFA;&#x3002;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span></span>;  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MailSender</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is mailsender!&quot;</span>);  
+    }  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SmsSender</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sender</span> </span>{  
+
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is sms sender!&quot;</span>);  
+    }  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendFactory</span> </span>{  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produce</span><span class="hljs-params">(String type)</span> </span>{  
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;mail&quot;</span>.equals(type)) {  
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MailSender();  
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;sms&quot;</span>.equals(type)) {  
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SmsSender();  
+        } <span class="hljs-keyword">else</span> {  
+            System.out.println(<span class="hljs-string">&quot;&#x8BF7;&#x8F93;&#x5165;&#x6B63;&#x786E;&#x7684;&#x7C7B;&#x578B;!&quot;</span>);  
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;  
+        }  
+    }  
+}
+</code></pre>
+<h3 id="&#x591A;&#x4E2A;&#x65B9;&#x6CD5;"><a name="&#x591A;&#x4E2A;&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x591A;&#x4E2A;&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x591A;&#x4E2A;&#x65B9;&#x6CD5;</h3>
+<p>&#x662F;&#x5BF9;&#x666E;&#x901A;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#x7684;&#x6539;&#x8FDB;&#xFF0C;&#x5728;&#x666E;&#x901A;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x4F20;&#x9012;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x51FA;&#x9519;&#xFF0C;&#x5219;&#x4E0D;&#x80FD;&#x6B63;&#x786E;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#xFF0C;&#x800C;&#x591A;&#x4E2A;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#x662F;&#x63D0;&#x4F9B;&#x591A;&#x4E2A;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF0C;&#x5206;&#x522B;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x3002;</p>
+<pre><code class="lang-java"><span class="hljs-comment">//&#x5C06;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x505A;&#x4E0B;&#x4FEE;&#x6539;&#xFF0C;&#x6539;&#x52A8;&#x4E0B;SendFactory&#x7C7B;&#x5C31;&#x884C;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendFactory</span> </span>{  
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produceMail</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MailSender();  
+    }  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produceSms</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SmsSender();  
+    }  
+}
+</code></pre>
+<h3 id="&#x591A;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;"><a name="&#x591A;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x591A;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x591A;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;</h3>
+<pre><code class="lang-java"><span class="hljs-comment">//&#x5C06;&#x4E0A;&#x9762;&#x7684;&#x591A;&#x4E2A;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#x91CC;&#x7684;&#x65B9;&#x6CD5;&#x7F6E;&#x4E3A;&#x9759;&#x6001;&#x7684;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x5B9E;&#x4F8B;&#xFF0C;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x5373;&#x53EF;&#x3002;</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendFactory</span> </span>{  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Sender <span class="hljs-title">produceMail</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MailSender();  
+    }  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Sender <span class="hljs-title">produceSms</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SmsSender();  
+    }  
+}
+</code></pre>
+<h2 id="&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF08;factory-method&#xFF09;"><a name="&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF08;factory-method&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF08;factory-method&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF08;Factory Method&#xFF09;</h2>
+<p>&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x6709;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#x5C31;&#x662F;&#xFF0C;&#x7C7B;&#x7684;&#x521B;&#x5EFA;&#x4F9D;&#x8D56;&#x5DE5;&#x5382;&#x7C7B;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x8981;&#x62D3;&#x5C55;&#x7A0B;&#x5E8F;&#xFF0C;&#x5FC5;&#x987B;&#x5BF9;&#x5DE5;&#x5382;&#x7C7B;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#xFF0C;&#x8FD9;&#x8FDD;&#x80CC;&#x4E86;&#x95ED;&#x5305;&#x539F;&#x5219;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x4ECE;&#x8BBE;&#x8BA1;&#x89D2;&#x5EA6;&#x8003;&#x8651;&#xFF0C;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5982;&#x4F55;&#x89E3;&#x51B3;&#xFF1F;&#x5C31;&#x7528;&#x5230;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5DE5;&#x5382;&#x63A5;&#x53E3;&#x548C;&#x521B;&#x5EFA;&#x591A;&#x4E2A;&#x5DE5;&#x5382;&#x5B9E;&#x73B0;&#x7C7B;&#xFF0C;&#x8FD9;&#x6837;&#x4E00;&#x65E6;&#x9700;&#x8981;&#x589E;&#x52A0;&#x65B0;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x76F4;&#x63A5;&#x589E;&#x52A0;&#x65B0;&#x7684;&#x5DE5;&#x5382;&#x7C7B;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x4E4B;&#x524D;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span></span>;  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MailSender</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sender</span> </span>{  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is mailsender!&quot;</span>);  
+    }  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SmsSender</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Sender</span> </span>{  
+
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Send</span><span class="hljs-params">()</span> </span>{  
+        System.out.println(<span class="hljs-string">&quot;this is sms sender!&quot;</span>);  
+    }  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendMailFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Provider</span> </span>{  
+
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produce</span><span class="hljs-params">()</span></span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MailSender();  
+    }  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SendSmsFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Provider</span></span>{  
+
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produce</span><span class="hljs-params">()</span> </span>{  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SmsSender();  
+    }  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Provider</span> </span>{  
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Sender <span class="hljs-title">produce</span><span class="hljs-params">()</span></span>;  
+}  
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>{  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{  
+        Provider provider = <span class="hljs-keyword">new</span> SendMailFactory();  
+        Sender sender = provider.produce();  
+        sender.Send();  
+    }  
+}
+</code></pre>
+<p>&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x6A21;&#x5F0F;&#x7684;&#x597D;&#x5904;&#x5C31;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x73B0;&#x5728;&#x60F3;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x529F;&#x80FD;&#xFF1A;&#x53D1;&#x53CA;&#x65F6;&#x4FE1;&#x606F;&#xFF0C;&#x5219;&#x53EA;&#x9700;&#x505A;&#x4E00;&#x4E2A;&#x5B9E;&#x73B0;&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;Sender&#x63A5;&#x53E3;&#xFF0C;&#x540C;&#x65F6;&#x505A;&#x4E00;&#x4E2A;&#x5DE5;&#x5382;&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;Provider&#x63A5;&#x53E3;&#xFF0C;&#x5C31;OK&#x4E86;&#xFF0C;&#x65E0;&#x9700;&#x53BB;&#x6539;&#x52A8;&#x73B0;&#x6210;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x8FD9;&#x6837;&#x505A;&#xFF0C;&#x62D3;&#x5C55;&#x6027;&#x8F83;&#x597D;&#xFF01;</p>
+<p>&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x5206;4&#x4E2A;&#x7EC4;&#x4EF6;&#xFF1A;</p>
+<p><strong>Product</strong>&#xFF1A;&#x5B9A;&#x4E49;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6240;&#x521B;&#x5EFA;&#x7684;&#x5BF9;&#x8C61;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5B9E;&#x9645;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x5BF9;&#x8C61;&#x7684;&#x63A5;&#x53E3;&#x3002;</p>
+<p>ConcreteProduct&#xFF1A;&#x5177;&#x4F53;&#x7684; Product &#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x5BF9;&#x8C61;&#x3002;</p>
+<p><strong>Creator</strong>&#xFF1A;&#x521B;&#x5EFA;&#x5668;&#xFF0C;&#x58F0;&#x660E;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF0C;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x901A;&#x5E38;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; Product &#x7C7B;&#x578B;&#x7684;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#xFF0C;&#x800C;&#x4E14;&#x591A;&#x662F;&#x62BD;&#x8C61;&#x65B9;&#x6CD5;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;Createor&#x91CC;&#x9762;&#x63D0;&#x4F9B;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x7684;&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;&#xFF0C;&#x8BA9;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x7F3A;&#x7701;&#x7684; Product &#x7C7B;&#x578B;&#x7684;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x3002;&#xFF08;&#x5BF9;&#x5E94;&#x4E0A;&#x9762;&#x7684;SendSmsFactory&#x3001;SendMailFactory&#xFF09;</p>
+<p>ConcreteCreator&#xFF1A;&#x5177;&#x4F53;&#x7684;&#x521B;&#x5EFA;&#x5668;&#x5BF9;&#x8C61;&#xFF0C;&#x8986;&#x76D6;&#x5B9E;&#x73B0; Creator &#x5B9A;&#x4E49;&#x7684;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;&#x5177;&#x4F53;&#x7684; Product &#x5B9E;&#x4F8B;&#x3002;</p>
+<h2 id="&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#xFF08;abstract-factory&#xFF09;"><a name="&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#xFF08;abstract-factory&#xFF09;" class="anchor-navigation-ex-anchor" href="#&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#xFF08;abstract-factory&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#xFF08;Abstract Factory&#xFF09;</h2>
+<p>&#x5047;&#x8BBE;&#x76EE;&#x524D;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x91CC;&#x9762;&#x6709;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x82F9;&#x679C;(apple)&#x548C;&#x9999;&#x8549;(banana),&#x90A3;&#x4E48;&#x4F60;&#x4F7F;&#x7528;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x5C31;&#x5DF2;&#x7ECF;&#x8DB3;&#x591F;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x5979;&#x4EEC;&#x5C5E;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;&#x54C1;&#x7C7B;&#xFF0C;&#x90FD;&#x5C5E;&#x4E8E;&#x6C34;&#x679C;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x83E0;&#x841D;&#x4EA7;&#x54C1;&#xFF0C;&#x4E5F;&#x53EA;&#x9700;&#x8981;&#x628A;&#x83E0;&#x841D;&#x52A0;&#x5165;&#x5230;&#x4F60;&#x7684;&#x6C34;&#x679C;&#x5DE5;&#x5382;&#x91CC;&#x9762;&#x5C31;&#x591F;&#x4E86;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x5982;&#x679C;&#x4F60;&#x7A0B;&#x5E8F;&#x91CC;&#x9762;&#x6709;&#x56DB;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x82F9;&#x679C;&#x6C41;&#xFF0C;&#x82F9;&#x679C;&#x6D3E;&#xFF0C;&#x9999;&#x8549;&#x6C41;&#xFF0C;&#x9999;&#x8549;&#x6D3E;&#xFF0C;&#x8FD9;&#x56DB;&#x4E2A;&#x5BF9;&#x8C61;&#x6B63;&#x597D;&#x6709;&#x660E;&#x786E;&#x7684;&#x5C42;&#x7EA7;&#x5173;&#x7CFB;&#xFF0C;&#x53EF;&#x4EE5;&#x62BD;&#x8C61;&#x4E3A;&#x4E24;&#x4E2A;&#x5C42;&#x7EA7;&#xFF0C;&#x82F9;&#x679C;&#xFF0C;&#x9999;&#x8549;&#xFF0C;&#x6216;&#x8005;&#x679C;&#x6C41;&#xFF0C;&#x6D3E;&#x3002;&#x8FD9;&#x65F6;&#x5019;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x660E;&#x663E;&#x5DF2;&#x7ECF;&#x4E0D;&#x9002;&#x7528;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x662F;&#x5BF9;&#x8C61;&#x90FD;&#x5B9E;&#x73B0;&#x4E86;&#x540C;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x4E86;&#x3002;</p>
+<p>&#x5C31;&#x662F;&#x628A;&#x5BF9;&#x8C61;&#x62BD;&#x8C61;&#x4E00;&#x4E0B;&#xFF0C;&#x628A;&#x8FD9;&#x56DB;&#x4E2A;&#x5BF9;&#x8C61;&#x62BD;&#x8C61;&#x4E3A;&#x4E24;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x4E00;&#x4E2A;&#x679C;&#x6C41;&#x63A5;&#x53E3;&#xFF0C;&#x4E00;&#x4E2A;&#x6D3E;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x7136;&#x540E;&#x518D;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x62BD;&#x8C61;&#x7684;&#x5DE5;&#x5382;&#xFF08;&#x62BD;&#x8C61;&#x7C7B;&#xFF09;abstractFactory&#xFF0C;&#x91CC;&#x9762;&#x751F;&#x4EA7;&#x62BD;&#x8C61;&#x7684;&#x5BF9;&#x8C61;&#xFF08;&#x4E5F;&#x5C31;&#x662F;&#x63A5;&#x53E3;&#xFF09;Juice&#xFF0C;Pie&#xFF0C;&#x5355;&#x770B;&#x8FD9;&#x4E2A;&#x7ED3;&#x6784;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x8981;&#x7528;&#x751F;&#x4EA7;&#x7684;&#x662F;&#x5BF9;&#x8C61;&#x800C;&#x4E0D;&#x662F;&#x63A5;&#x53E3;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x4E24;&#x4E2A;&#x5177;&#x4F53;&#x5DE5;&#x5382;&#xFF1A;</p>
+<p>&#x4E00;&#x4E2A;AppleFactory&#x7EE7;&#x627F;abstractFactory&#xFF0C;&#x5B9E;&#x73B0;&#x751F;&#x6210;Pie&#x7684;&#x65B9;&#x6CD5;&#x548C;&#x751F;&#x6210;Juice&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x751F;&#x6210;&#x5BF9;&#x8C61;AppleJuice&#x548C;ApplePie&#xFF0C;&#x4E00;&#x4E2A;BananaFactory&#x7EE7;&#x627F;abstractFactory&#xFF0C;&#x5B9E;&#x73B0;&#x751F;&#x6210;Pie&#x7684;&#x65B9;&#x6CD5;&#x548C;&#x751F;&#x6210;Juice&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x751F;&#x6210;&#x5BF9;&#x8C61;BananaJuice&#x548C;BananaPie&#xFF0C;</p>
+<p>&#x8FD9;&#x6837;&#x7684;&#x8BDD;&#xFF0C;&#x5BF9;&#x4E8E;&#x8C03;&#x7528;&#x8005;&#x6765;&#x8BF4;&#xFF0C;&#x6211;&#x5728;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x77E5;&#x9053;&#x6211;&#x64CD;&#x4F5C;&#x7684;&#x5BF9;&#x8C61;&#x662F;Pie&#x6216;&#x8005;&#x662F;Juice&#x5C31;&#x591F;&#x4E86;&#xFF0C;&#x8FD9;&#x6837;&#x964D;&#x4F4E;&#x4E86;&#x8026;&#x5408;&#x3002;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> abstractFactory;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String args[])</span></span>{
+        AbstractFactory factory1 = <span class="hljs-keyword">new</span> AppleFactory();
+        factory1.createJuice().desc();
+        factory1.createPie().desc();
+        <span class="hljs-comment">//&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x9700;&#x8981;&#x7684;&#x662F;applePie&#x548C;appleJuice&#x5BF9;&#x8C61;&#xFF0C;&#x73B0;&#x5728;&#x9700;&#x8981;&#x6362;&#x6210;bananaPie&#x548C;BananaJuice&#x5BF9;&#x8C61;</span>
+        <span class="hljs-comment">//&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x66FF;&#x6362;&#x5BF9;&#x5E94;&#x7684;&#x5B9E;&#x73B0;&#x5DE5;&#x5382;&#xFF08;&#x628A;new AppleFactory&#x6362;&#x6210;new BananFactory&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x8026;&#x5408;&#x6BD4;&#x8F83;&#x4F4E;&#xFF09;</span>
+        AbstractFactory factory2 = <span class="hljs-keyword">new</span> BananaFactory();
+        factory2.createJuice().desc();
+        factory2.createPie().desc();
+    }
+}
+
+<span class="hljs-comment">// &#x4E0B;&#x9762;&#x662F;&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#xFF0C;&#x751F;&#x4EA7;&#x5BF9;&#x8C61;&#x7684;&#x62BD;&#x8C61;&#x3002;</span>
+<span class="hljs-keyword">package</span> abstractFactory;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractFactory</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> Juice <span class="hljs-title">createJuice</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> Pie <span class="hljs-title">createPie</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-comment">// &#x4E0B;&#x9762;&#x662F;&#x5177;&#x4F53;&#x5DE5;&#x5382;&#x4E24;&#x4E2A;</span>
+<span class="hljs-keyword">package</span> abstractFactory;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppleFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractFactory</span></span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function">Juice <span class="hljs-title">createJuice</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AppleJuice();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function">Pie <span class="hljs-title">createPie</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ApplePie();
+    }
+}
+
+<span class="hljs-keyword">package</span> abstractFactory;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BananaFactory</span> <span class="hljs-keyword">extends</span>  <span class="hljs-title">AbstractFactory</span></span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function">Juice <span class="hljs-title">createJuice</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BananaJuice();
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function">Pie <span class="hljs-title">createPie</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BananaPie();
+    }
+}
+
+<span class="hljs-comment">// &#x4E0B;&#x9762;&#x662F;&#x5BF9;&#x8C61;&#x62BD;&#x8C61;&#x51FA;&#x6765;&#x7684;&#x63A5;&#x53E3;&#x4E24;&#x4E2A;</span>
+<span class="hljs-keyword">package</span> abstractFactory;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Juice</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">desc</span><span class="hljs-params">()</span></span>;
+}
+<span class="hljs-keyword">package</span> abstractFactory;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span>  <span class="hljs-title">Pie</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">desc</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-comment">// &#x6700;&#x540E;&#x662F;&#x6211;&#x4EEC;&#x8981;&#x751F;&#x4EA7;&#x7684;&#x56DB;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;</span>
+<span class="hljs-keyword">package</span> abstractFactory;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppleJuice</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Juice</span> </span>{
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">desc</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;&#x82F9;&#x679C;&#x6C41;.&quot;</span>);
+    }
+}
+
+<span class="hljs-keyword">package</span> abstractFactory;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApplePie</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Pie</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">desc</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;&#x82F9;&#x679C;&#x6D3E;&quot;</span>);
+    }
+}
+
+<span class="hljs-keyword">package</span> abstractFactory;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BananaJuice</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Juice</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">desc</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;&#x9999;&#x8549;&#x6C41;.&quot;</span>);
+    }
+}
+
+<span class="hljs-keyword">package</span> abstractFactory;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BananaPie</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Pie</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">desc</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;&#x9999;&#x8549;&#x6D3E;&quot;</span>);
+    }
+}
+</code></pre>
+<h3 id="&#x7EC4;&#x4EF6;"><a name="&#x7EC4;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x7EC4;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7EC4;&#x4EF6;</h3>
+<ul>
+<li>&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x7684;&#x529F;&#x80FD;&#x662F;&#x4E3A;&#x4E00;&#x7CFB;&#x5217;&#x76F8;&#x5173;&#x5BF9;&#x8C61;&#x6216;&#x76F8;&#x4E92;&#x4F9D;&#x8D56;&#x7684;&#x5BF9;&#x8C61;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x3002;</li>
+<li>&#x5B9E;&#x73B0;&#x6210;&#x63A5;&#x53E3;</li>
+<li>&#x4F7F;&#x7528;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;</li>
+</ul>
+<h3 id="&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;"><a name="&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;</h3>
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x5206;&#x79BB;&#x63A5;&#x53E3;&#x548C;&#x5B9E;&#x73B0;</li>
+<li>&#x4F7F;&#x5F97;&#x5207;&#x6362;&#x4EA7;&#x54C1;&#x7C07;&#x53D8;&#x5F97;&#x5BB9;&#x6613;</li>
+</ul>
+<p>&#x7F3A;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x4E0D;&#x592A;&#x5BB9;&#x6613;&#x6269;&#x5C55;&#x65B0;&#x7684;&#x4EA7;&#x54C1;</li>
+<li>&#x5BB9;&#x6613;&#x9020;&#x6210;&#x7C7B;&#x5C42;&#x6B21;&#x590D;&#x6742;</li>
+</ul>
+<p>&#x53C2;&#x8003;</p>
+<p><a href="https://www.cnblogs.com/fswhq/p/sjms.html#autoid-0-4-0" target="_blank">23&#x79CD;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x8BE6;&#x89E3; - &#x67AB;&#x6811;&#x6E7E;&#x6CB3;&#x6865; - &#x535A;&#x5BA2;&#x56ED;</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="1-单例模式.html" class="navigation navigation-prev " aria-label="Previous page: 单例模式">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="6-模板方法模式.html" class="navigation navigation-next " aria-label="Next page: 模板方法模式">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"工厂模式","level":"2.4.2","depth":2,"next":{"title":"模板方法模式","level":"2.4.3","depth":2,"path":"docs/DesignPatterns/6-模板方法模式.md","ref":"docs/DesignPatterns/6-模板方法模式.md","articles":[]},"previous":{"title":"单例模式","level":"2.4.1","depth":2,"path":"docs/DesignPatterns/1-单例模式.md","ref":"docs/DesignPatterns/1-单例模式.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-diy-introduction","back-to-top-button","chapter-fold","code","splitter","-lunr","-search","search-pro","pageview-count","anchor-navigation-ex","github"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"introduction-text":"介绍","chapter-fold":{},"github":{"url":"https://github.com/Lancelothe"},"splitter":{},"search-pro":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"pageview-count":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"lancelot","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Interview-Guide","language":"zh-hans","gitbook":"*","description":"Interview-Guide"},"file":{"path":"docs/DesignPatterns/2-工厂模式.md","mtime":"2020-10-21T02:23:22.700Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-21T02:25:13.219Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

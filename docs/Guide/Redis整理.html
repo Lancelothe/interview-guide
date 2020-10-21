@@ -1,0 +1,1354 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Redis整理 · Interview-Guide</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="lancelot">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Redis数据结构与对象.html" />
+    
+    
+    <link rel="prev" href="../../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Interview-Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Java相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Java基础.html">
+            
+                <a href="Java基础.html">
+            
+                    
+                    Java基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="Java集合.html">
+            
+                <a href="Java集合.html">
+            
+                    
+                    Java集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="Java并发.html">
+            
+                <a href="Java并发.html">
+            
+                    
+                    Java并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="Java类加载.html">
+            
+                <a href="Java类加载.html">
+            
+                    
+                    Java类加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="JVM.html">
+            
+                <a href="JVM.html">
+            
+                    
+                    JVM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="Spring的一些概念.html">
+            
+                <a href="Spring的一些概念.html">
+            
+                    
+                    Spring的一些概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="Spring复习.html">
+            
+                <a href="Spring复习.html">
+            
+                    
+                    Spring复习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="SpringBoot.html">
+            
+                <a href="SpringBoot.html">
+            
+                    
+                    SpringBoot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="Spring+IOC+容器源码分析.html">
+            
+                <a href="Spring+IOC+容器源码分析.html">
+            
+                    
+                    Spring+IOC+容器源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="Spring框架学习.html">
+            
+                <a href="Spring框架学习.html">
+            
+                    
+                    Spring框架学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="什么是伪共享.html">
+            
+                <a href="什么是伪共享.html">
+            
+                    
+                    什么是伪共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="序列化的底层怎么实现的.html">
+            
+                <a href="序列化的底层怎么实现的.html">
+            
+                    
+                    序列化的底层怎么实现的
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Redis相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.1" data-path="Redis整理.html">
+            
+                <a href="Redis整理.html">
+            
+                    
+                    Redis整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="Redis数据结构与对象.html">
+            
+                <a href="Redis数据结构与对象.html">
+            
+                    
+                    Redis数据结构与对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    数据库
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="MySQL整理.html">
+            
+                <a href="MySQL整理.html">
+            
+                    
+                    MySQL整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="Zookeeper.html">
+            
+                <a href="Zookeeper.html">
+            
+                    
+                    Zookeeper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="RabbitMQ整理.html">
+            
+                <a href="RabbitMQ整理.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Kafka
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="Kafka整理.html">
+            
+                <a href="Kafka整理.html">
+            
+                    
+                    Kafka整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="Kafka进阶.html">
+            
+                <a href="Kafka进阶.html">
+            
+                    
+                    Kafka进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="ElasticSearch整理.html">
+            
+                <a href="ElasticSearch整理.html">
+            
+                    
+                    ElasticSearch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    分布式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="架构设计.html">
+            
+                <a href="架构设计.html">
+            
+                    
+                    架构设计
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.1" data-path="分布式.html">
+            
+                <a href="分布式.html">
+            
+                    
+                    分布式相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.2" data-path="一致性哈希.html">
+            
+                <a href="一致性哈希.html">
+            
+                    
+                    一致性哈希
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.3" data-path="限流算法.html">
+            
+                <a href="限流算法.html">
+            
+                    
+                    限流算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.4" data-path="阿里Sentinel.html">
+            
+                <a href="阿里Sentinel.html">
+            
+                    
+                    阿里Sentinel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    系统设计
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.2.1" data-path="秒杀系统的设计.html">
+            
+                <a href="秒杀系统的设计.html">
+            
+                    
+                    秒杀系统设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    RPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.3.1" data-path="Thrift-RPC.html">
+            
+                <a href="Thrift-RPC.html">
+            
+                    
+                    Thrift-RPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3.2" data-path="gRPC.html">
+            
+                <a href="gRPC.html">
+            
+                    
+                    gRPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="算法总结.html">
+            
+                <a href="算法总结.html">
+            
+                    
+                    算法总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.3.1" data-path="Elastic-Job原理.html">
+            
+                <a href="Elastic-Job原理.html">
+            
+                    
+                    Elastic-Job原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.4.1" data-path="../DesignPatterns/1-单例模式.html">
+            
+                <a href="../DesignPatterns/1-单例模式.html">
+            
+                    
+                    单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.2" data-path="../DesignPatterns/2-工厂模式.html">
+            
+                <a href="../DesignPatterns/2-工厂模式.html">
+            
+                    
+                    工厂模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.3" data-path="../DesignPatterns/6-模板方法模式.html">
+            
+                <a href="../DesignPatterns/6-模板方法模式.html">
+            
+                    
+                    模板方法模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.4" data-path="../DesignPatterns/4-策略模式.html">
+            
+                <a href="../DesignPatterns/4-策略模式.html">
+            
+                    
+                    策略模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.5" data-path="../DesignPatterns/7-观察者模式.html">
+            
+                <a href="../DesignPatterns/7-观察者模式.html">
+            
+                    
+                    观察者模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.6" data-path="../DesignPatterns/5-职责链模式.html">
+            
+                <a href="../DesignPatterns/5-职责链模式.html">
+            
+                    
+                    责任链模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    面试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.5.1" data-path="面试常见问题回答（主观题）.html">
+            
+                <a href="面试常见问题回答（主观题）.html">
+            
+                    
+                    面试常见问题回答（主观题）
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Redis整理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x57FA;&#x7840;&#x7ED3;&#x6784;"><b></b>&#x57FA;&#x7840;&#x7ED3;&#x6784;</a></li><ul><li><span class="title-icon "></span><a href="#redis-&#x5E38;&#x7528;&#x7684;&#x7ED3;&#x6784;"><b></b>Redis &#x5E38;&#x7528;&#x7684;&#x7ED3;&#x6784;</a></li><li><span class="title-icon "></span><a href="#hash&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;"><b></b>Hash&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;</a></li><li><span class="title-icon "></span><a href="#zset&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;"><b></b>zset&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;</a></li></ul><li><span class="title-icon "></span><a href="#&#x7F13;&#x5B58;&#x6DD8;&#x6C70;&#x7B56;&#x7565;"><b></b>&#x7F13;&#x5B58;&#x6DD8;&#x6C70;&#x7B56;&#x7565;</a></li><li><span class="title-icon "></span><a href="#&#x7F13;&#x5B58;&#x96EA;&#x5D29;&#x3001;&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#x3001;&#x7F13;&#x5B58;&#x51FB;&#x7A7F;"><b></b>&#x7F13;&#x5B58;&#x96EA;&#x5D29;&#x3001;&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#x3001;&#x7F13;&#x5B58;&#x51FB;&#x7A7F;</a></li><ul><li><span class="title-icon "></span><a href="#&#x7F13;&#x5B58;&#x7A7F;&#x900F;"><b></b>&#x7F13;&#x5B58;&#x7A7F;&#x900F;</a></li><li><span class="title-icon "></span><a href="#&#x7F13;&#x5B58;&#x96EA;&#x5D29;"><b></b>&#x7F13;&#x5B58;&#x96EA;&#x5D29;</a></li><li><span class="title-icon "></span><a href="#&#x7F13;&#x5B58;&#x51FB;&#x7A7F;"><b></b>&#x7F13;&#x5B58;&#x51FB;&#x7A7F;</a></li></ul><li><span class="title-icon "></span><a href="#redis&#x4E3A;&#x4EC0;&#x4E48;&#x5FEB;&#xFF1F;"><b></b>Redis&#x4E3A;&#x4EC0;&#x4E48;&#x5FEB;&#xFF1F;</a></li><li><span class="title-icon "></span><a href="#&#x5206;&#x5E03;&#x5F0F;&#x9501;"><b></b>&#x5206;&#x5E03;&#x5F0F;&#x9501;</a></li><ul><li><span class="title-icon "></span><a href="#redis&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;"><b></b>Redis&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;</a></li><li><span class="title-icon "></span><a href="#zk&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;"><b></b>zk&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;</a></li><li><span class="title-icon "></span><a href="#&#x4E24;&#x8005;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x533A;&#x522B;"><b></b>&#x4E24;&#x8005;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x533A;&#x522B;</a></li></ul><li><span class="title-icon "></span><a href="#&#x96C6;&#x7FA4;"><b></b>&#x96C6;&#x7FA4;</a></li><ul><li><span class="title-icon "></span><a href="#&#x6301;&#x4E45;&#x5316;&#x7684;&#x539F;&#x7406;"><b></b>&#x6301;&#x4E45;&#x5316;&#x7684;&#x539F;&#x7406;</a></li><li><span class="title-icon "></span><a href="#&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;"><b></b>&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;</a></li><li><span class="title-icon "></span><a href="#&#x54E8;&#x5175;&#x6A21;&#x5F0F;&#x7684;&#x539F;&#x7406;"><b></b>&#x54E8;&#x5175;&#x6A21;&#x5F0F;&#x7684;&#x539F;&#x7406;</a></li><li><span class="title-icon "></span><a href="#redis-cluster&#x96C6;&#x7FA4;&#x7684;&#x539F;&#x7406;"><b></b>Redis Cluster&#x96C6;&#x7FA4;&#x7684;&#x539F;&#x7406;</a></li><li><span class="title-icon "></span><a href="#redis-sentinel-&#x548C;-redis-cluster&#x5BF9;&#x6BD4;"><b></b>Redis-Sentinel &#x548C; Redis Cluster&#x5BF9;&#x6BD4;</a></li></ul></ul></ul></div><h2 id="&#x57FA;&#x7840;&#x7ED3;&#x6784;"><a name="&#x57FA;&#x7840;&#x7ED3;&#x6784;" class="anchor-navigation-ex-anchor" href="#&#x57FA;&#x7840;&#x7ED3;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x57FA;&#x7840;&#x7ED3;&#x6784;</h2>
+<h3 id="redis-&#x5E38;&#x7528;&#x7684;&#x7ED3;&#x6784;"><a name="redis-&#x5E38;&#x7528;&#x7684;&#x7ED3;&#x6784;" class="anchor-navigation-ex-anchor" href="#redis-&#x5E38;&#x7528;&#x7684;&#x7ED3;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>Redis &#x5E38;&#x7528;&#x7684;&#x7ED3;&#x6784;</h3>
+<p><a href="https://redisbook.readthedocs.io/en/latest/index.html" target="_blank">Redis &#x8BBE;&#x8BA1;&#x4E0E;&#x5B9E;&#x73B0;&#xFF08;&#x7B2C;&#x4E00;&#x7248;&#xFF09; &#x2014; Redis &#x8BBE;&#x8BA1;&#x4E0E;&#x5B9E;&#x73B0;</a></p>
+<blockquote>
+<p>&#x67E5;&#x770B;&#x5E95;&#x5C42;&#x6570;&#x636E;&#x7F16;&#x7801;&#x547D;&#x4EE4;</p>
+<p>OBJECT ENCODING  <key></key></p>
+</blockquote>
+<h3 id="hash&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;"><a name="hash&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;" class="anchor-navigation-ex-anchor" href="#hash&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;"><i class="fa fa-link" aria-hidden="true"></i></a>Hash&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;</h3>
+<p><code>REDIS_HASH</code> &#xFF08;&#x54C8;&#x5E0C;&#x8868;&#xFF09;&#x662F; <a href="http://redis.readthedocs.org/en/latest/hash/hset.html#hset" target="_blank">HSET</a> &#x3001; <a href="http://redis.readthedocs.org/en/latest/hash/hlen.html#hlen" target="_blank">HLEN</a> &#x7B49;&#x547D;&#x4EE4;&#x7684;&#x64CD;&#x4F5C;&#x5BF9;&#x8C61;&#xFF0C; &#x5B83;&#x4F7F;&#x7528; <code>REDIS_ENCODING_ZIPLIST</code> &#x548C; <code>REDIS_ENCODING_HT</code> &#x4E24;&#x79CD;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#xFF0C;&#x5373;&#x5BF9;&#x5E94;&#x7684;<code>ziplist</code>&#x548C;<code>dict</code>&#x4E24;&#x4E2A;&#x7ED3;&#x6784;&#xFF0C;&#x4F46;&#x662F;&#x53EA;&#x4F1A;&#x4F7F;&#x7528;&#x5176;&#x4E2D;&#x7684;&#x4E00;&#x79CD;&#xFF0C;&#x5728;&#x6EE1;&#x8DB3;&#x4E00;&#x4E9B;&#x6761;&#x4EF6;&#x65F6;&#x4F1A;&#x4ECE;<code>ziplist</code>&#x8F6C;&#x6362;&#x4E3A;<code>dict</code></p>
+<ul>
+<li><code>REDIS_ENCODING_ZIPLIST</code>: </li>
+</ul>
+<p>&#x7A0B;&#x5E8F;&#x901A;&#x8FC7;&#x5C06;&#x952E;&#x548C;&#x503C;&#x4E00;&#x540C;&#x63A8;&#x5165;&#x538B;&#x7F29;&#x5217;&#x8868;&#xFF0C; &#x4ECE;&#x800C;&#x5F62;&#x6210;&#x4FDD;&#x5B58;&#x54C8;&#x5E0C;&#x8868;&#x6240;&#x9700;&#x7684;&#x952E;-&#x503C;&#x5BF9;&#x7ED3;&#x6784;&#x3002;</p>
+<p>&#x65B0;&#x6DFB;&#x52A0;&#x7684; key-value &#x5BF9;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230;&#x538B;&#x7F29;&#x5217;&#x8868;&#x7684;&#x8868;&#x5C3E;&#x3002;</p>
+<p>&#x5F53;&#x8FDB;&#x884C;&#x67E5;&#x627E;/&#x5220;&#x9664;&#x6216;&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#x65F6;&#xFF0C;&#x7A0B;&#x5E8F;&#x5148;&#x5B9A;&#x4F4D;&#x5230;&#x952E;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x901A;&#x8FC7;&#x5BF9;&#x952E;&#x7684;&#x4F4D;&#x7F6E;&#x6765;&#x5B9A;&#x4F4D;&#x503C;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<ul>
+<li><code>REDIS_ENCODING_HT</code>:</li>
+</ul>
+<p>&#x521B;&#x5EFA;&#x7A7A;&#x767D;&#x54C8;&#x5E0C;&#x8868;&#x65F6;&#xFF0C; &#x7A0B;&#x5E8F;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528; <code>REDIS_ENCODING_ZIPLIST</code> &#x7F16;&#x7801;&#xFF0C;&#x5F53;&#x6EE1;&#x8DB3;&#x4E0B;&#x9762;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x6761;&#x4EF6;&#x65F6;&#xFF0C;&#x7F16;&#x7801;&#x8F6C;&#x5316;&#x4E3A;<code>REDIS_ENCODING_HT</code>&#x3002;</p>
+<ol>
+<li>&#x54C8;&#x5E0C;&#x8868;&#x4E2D;&#x67D0;&#x4E2A;&#x952E;&#x6216;&#x67D0;&#x4E2A;&#x503C;&#x7684;&#x957F;&#x5EA6;&#x5927;&#x4E8E; <code>server.hash_max_ziplist_value</code> &#xFF08;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A; <code>64</code> &#xFF09;&#x3002;</li>
+<li>&#x538B;&#x7F29;&#x5217;&#x8868;&#x4E2D;&#x7684;&#x8282;&#x70B9;&#x6570;&#x91CF;&#x5927;&#x4E8E; <code>server.hash_max_ziplist_entries</code> &#xFF08;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A; <code>512</code> &#xFF09;&#x3002;</li>
+</ol>
+<h3 id="zset&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;"><a name="zset&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;" class="anchor-navigation-ex-anchor" href="#zset&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;"><i class="fa fa-link" aria-hidden="true"></i></a>zset&#x7684;&#x5E95;&#x5C42;&#x5B9E;&#x73B0;</h3>
+<p><code>REDIS_ZSET</code> &#xFF08;&#x6709;&#x5E8F;&#x96C6;&#xFF09;&#x662F; <a href="http://redis.readthedocs.org/en/latest/sorted_set/zadd.html#zadd" target="_blank">ZADD</a> &#x3001; <a href="http://redis.readthedocs.org/en/latest/sorted_set/zcount.html#zcount" target="_blank">ZCOUNT</a> &#x7B49;&#x547D;&#x4EE4;&#x7684;&#x64CD;&#x4F5C;&#x5BF9;&#x8C61;&#xFF0C; &#x5B83;&#x4F7F;&#x7528; <code>REDIS_ENCODING_ZIPLIST</code> &#x548C; <code>REDIS_ENCODING_SKIPLIST</code> &#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x7F16;&#x7801;&#xFF0C;&#x5373;&#x5BF9;&#x5E94;&#x7684;<code>ziplist</code>&#x548C;<code>skiplist</code>&#x4E24;&#x4E2A;&#x7ED3;&#x6784;&#xFF0C;&#x5176;&#x4E2D;<code>skiplist</code>&#x53C8;&#x662F;&#x7528;<code>dict</code>&#x548C;<code>zskiplist</code>&#x7EC4;&#x6210;&#x3002;</p>
+<h4 id="&#x7F16;&#x7801;&#x9009;&#x62E9;"><a name="&#x7F16;&#x7801;&#x9009;&#x62E9;" class="anchor-navigation-ex-anchor" href="#&#x7F16;&#x7801;&#x9009;&#x62E9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7F16;&#x7801;&#x9009;&#x62E9;</h4>
+<p>&#x5728;&#x901A;&#x8FC7; <a href="http://redis.readthedocs.org/en/latest/sorted_set/zadd.html#zadd" target="_blank">ZADD</a> &#x547D;&#x4EE4;&#x6DFB;&#x52A0;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x5230;&#x7A7A; <code>key</code> &#x65F6;&#xFF0C; &#x7A0B;&#x5E8F;&#x901A;&#x8FC7;&#x68C0;&#x67E5;&#x8F93;&#x5165;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x6765;&#x51B3;&#x5B9A;&#x8BE5;&#x521B;&#x5EFA;&#x4EC0;&#x4E48;&#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x7B26;&#x5408;&#x4EE5;&#x4E0B;&#x6761;&#x4EF6;&#x7684;&#x8BDD;&#xFF0C; &#x5C31;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; <code>REDIS_ENCODING_ZIPLIST</code> &#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;&#xFF1A;</p>
+<ul>
+<li>&#x670D;&#x52A1;&#x5668;&#x5C5E;&#x6027; <code>server.zset_max_ziplist_entries</code> &#x7684;&#x503C;&#x5927;&#x4E8E; <code>0</code> &#xFF08;&#x9ED8;&#x8BA4;&#x4E3A; <code>128</code> &#xFF09;&#x3002;</li>
+<li>&#x5143;&#x7D20;&#x7684; <code>member</code> &#x957F;&#x5EA6;&#x5C0F;&#x4E8E;&#x670D;&#x52A1;&#x5668;&#x5C5E;&#x6027; <code>server.zset_max_ziplist_value</code> &#x7684;&#x503C;&#xFF08;&#x9ED8;&#x8BA4;&#x4E3A; <code>64</code> &#xFF09;&#x3002;</li>
+</ul>
+<p>&#x5426;&#x5219;&#xFF0C;&#x7A0B;&#x5E8F;&#x5C31;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; <code>REDIS_ENCODING_SKIPLIST</code> &#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;&#x3002;</p>
+<h4 id="ziplist-&#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;"><a name="ziplist-&#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;" class="anchor-navigation-ex-anchor" href="#ziplist-&#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;"><i class="fa fa-link" aria-hidden="true"></i></a>ZIPLIST &#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;</h4>
+<p>&#x5F53;&#x4F7F;&#x7528; <code>REDIS_ENCODING_ZIPLIST</code> &#x7F16;&#x7801;&#x65F6;&#xFF0C; &#x6709;&#x5E8F;&#x96C6;&#x5C06;&#x5143;&#x7D20;&#x4FDD;&#x5B58;&#x5230; <code>ziplist</code> &#x6570;&#x636E;&#x7ED3;&#x6784;&#x91CC;&#x9762;&#x3002;</p>
+<p>&#x5176;&#x4E2D;&#xFF0C;&#x6BCF;&#x4E2A;&#x6709;&#x5E8F;&#x96C6;&#x5143;&#x7D20;&#x4EE5;&#x4E24;&#x4E2A;&#x76F8;&#x90BB;&#x7684; <code>ziplist</code> &#x8282;&#x70B9;&#x8868;&#x793A;&#xFF0C; &#x7B2C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x4FDD;&#x5B58;&#x5143;&#x7D20;&#x7684; <code>member</code> &#x57DF;&#xFF0C; &#x7B2C;&#x4E8C;&#x4E2A;&#x5143;&#x7D20;&#x4FDD;&#x5B58;&#x5143;&#x7D20;&#x7684; <code>score</code> &#x57DF;&#x3002;</p>
+<p>&#x591A;&#x4E2A;&#x5143;&#x7D20;&#x4E4B;&#x95F4;&#x6309; <code>score</code> &#x503C;&#x4ECE;&#x5C0F;&#x5230;&#x5927;&#x6392;&#x5E8F;&#xFF0C; &#x5982;&#x679C;&#x4E24;&#x4E2A;&#x5143;&#x7D20;&#x7684; <code>score</code> &#x76F8;&#x540C;&#xFF0C; &#x90A3;&#x4E48;&#x6309;&#x5B57;&#x5178;&#x5E8F;&#x5BF9; <code>member</code> &#x8FDB;&#x884C;&#x5BF9;&#x6BD4;&#xFF0C; &#x51B3;&#x5B9A;&#x90A3;&#x4E2A;&#x5143;&#x7D20;&#x6392;&#x5728;&#x524D;&#x9762;&#xFF0C; &#x90A3;&#x4E2A;&#x5143;&#x7D20;&#x6392;&#x5728;&#x540E;&#x9762;&#x3002;</p>
+<pre><code>          |&lt;--  element 1 --&gt;|&lt;--  element 2 --&gt;|&lt;--   .......   --&gt;|
+
++---------+---------+--------+---------+--------+---------+---------+---------+
+| ZIPLIST |         |        |         |        |         |         | ZIPLIST |
+| ENTRY   | member1 | score1 | member2 | score2 |   ...   |   ...   | ENTRY   |
+| HEAD    |         |        |         |        |         |         | END     |
++---------+---------+--------+---------+--------+---------+---------+---------+
+
+score1 &lt;= score2 &lt;= ...
+</code></pre><p>&#x867D;&#x7136;&#x5143;&#x7D20;&#x662F;&#x6309; <code>score</code> &#x57DF;&#x6709;&#x5E8F;&#x6392;&#x5E8F;&#x7684;&#xFF0C; &#x4F46;&#x5BF9; <code>ziplist</code> &#x7684;&#x8282;&#x70B9;&#x6307;&#x9488;&#x53EA;&#x80FD;&#x7EBF;&#x6027;&#x5730;&#x79FB;&#x52A8;&#xFF0C; &#x6240;&#x4EE5;&#x5728; <code>REDIS_ENCODING_ZIPLIST</code> &#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;&#x4E2D;&#xFF0C; &#x67E5;&#x627E;&#x67D0;&#x4E2A;&#x7ED9;&#x5B9A;&#x5143;&#x7D20;&#x7684;&#x590D;&#x6742;&#x5EA6;&#x4E3A; O(N)O(N) &#x3002;</p>
+<p>&#x6BCF;&#x6B21;&#x6267;&#x884C;&#x6DFB;&#x52A0;/&#x5220;&#x9664;/&#x66F4;&#x65B0;&#x64CD;&#x4F5C;&#x90FD;&#x9700;&#x8981;&#x6267;&#x884C;&#x4E00;&#x6B21;&#x67E5;&#x627E;&#x5143;&#x7D20;&#x7684;&#x64CD;&#x4F5C;&#xFF0C; &#x56E0;&#x6B64;&#x8FD9;&#x4E9B;&#x51FD;&#x6570;&#x7684;&#x590D;&#x6742;&#x5EA6;&#x90FD;&#x4E0D;&#x4F4E;&#x4E8E; O(N)O(N) &#xFF0C; &#x81F3;&#x4E8E;&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x7684;&#x5B9E;&#x9645;&#x590D;&#x6742;&#x5EA6;&#xFF0C; &#x53D6;&#x51B3;&#x4E8E;&#x5B83;&#x4EEC;&#x5E95;&#x5C42;&#x6240;&#x6267;&#x884C;&#x7684; <code>ziplist</code> &#x64CD;&#x4F5C;&#x3002;</p>
+<h4 id="skiplist-&#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;"><a name="skiplist-&#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;" class="anchor-navigation-ex-anchor" href="#skiplist-&#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;"><i class="fa fa-link" aria-hidden="true"></i></a>SKIPLIST &#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;</h4>
+<p>&#x5F53;&#x4F7F;&#x7528; <code>REDIS_ENCODING_SKIPLIST</code> &#x7F16;&#x7801;&#x65F6;&#xFF0C; &#x6709;&#x5E8F;&#x96C6;&#x5143;&#x7D20;&#x7531; <code>redis.h/zset</code> &#x7ED3;&#x6784;&#x6765;&#x4FDD;&#x5B58;&#xFF1A;</p>
+<pre><code>/*
+ * &#x6709;&#x5E8F;&#x96C6;
+ */
+typedef struct zset {
+
+    // &#x5B57;&#x5178;
+    dict *dict;
+
+    // &#x8DF3;&#x8DC3;&#x8868;
+    zskiplist *zsl;
+
+} zset;
+</code></pre><p><code>zset</code> &#x540C;&#x65F6;&#x4F7F;&#x7528;&#x5B57;&#x5178;&#x548C;&#x8DF3;&#x8DC3;&#x8868;&#x4E24;&#x4E2A;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x6765;&#x4FDD;&#x5B58;&#x6709;&#x5E8F;&#x96C6;&#x5143;&#x7D20;&#x3002;</p>
+<p><img src="https://image-hosting-lan.oss-cn-beijing.aliyuncs.com/redis-zset.png" alt="redis-zset"></p>
+<p>&#x5728;<code>Redis</code>&#x4E2D;&#xFF0C;<code>zset</code>&#x662F;&#x4E00;&#x4E2A;&#x590D;&#x5408;&#x7ED3;&#x6784;&#xFF1A;</p>
+<ul>
+<li><span style="color:#C00000"> &#x4F7F;&#x7528;<code>hash</code>&#x6765;&#x5B58;&#x50A8;<code>value</code>&#x548C;<code>score</code>&#x7684;&#x6620;&#x5C04;&#x5173;&#x7CFB;</span></li>
+<li><span style="color:#C00000"> &#x4F7F;&#x7528;&#x8DF3;&#x8DC3;&#x8868;&#x6765;&#x63D0;&#x4F9B;&#x6309;&#x7167;<code>score</code>&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x540C;&#x65F6;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;<code>score</code>&#x8303;&#x56F4;&#x6765;&#x83B7;&#x53D6;<code>value</code>&#x5217;&#x8868; </span></li>
+</ul>
+<p>&#x5176;&#x4E2D;&#xFF0C; &#x5143;&#x7D20;&#x7684;&#x6210;&#x5458;&#x7531;&#x4E00;&#x4E2A; <code>redisObject</code> &#x7ED3;&#x6784;&#x8868;&#x793A;&#xFF0C; &#x800C;&#x5143;&#x7D20;&#x7684; <code>score</code> &#x5219;&#x662F;&#x4E00;&#x4E2A; <code>double</code> &#x7C7B;&#x578B;&#x7684;&#x6D6E;&#x70B9;&#x6570;&#xFF0C; &#x5B57;&#x5178;&#x548C;&#x8DF3;&#x8DC3;&#x8868;&#x4E24;&#x4E2A;&#x7ED3;&#x6784;&#x901A;&#x8FC7;&#x5C06;&#x6307;&#x9488;&#x5171;&#x540C;&#x6307;&#x5411;&#x8FD9;&#x4E24;&#x4E2A;&#x503C;&#x6765;&#x8282;&#x7EA6;&#x7A7A;&#x95F4; &#xFF08;&#x4E0D;&#x7528;&#x6BCF;&#x4E2A;&#x5143;&#x7D20;&#x90FD;&#x590D;&#x5236;&#x4E24;&#x4EFD;&#xFF09;&#x3002;</p>
+<p>&#x4E0B;&#x56FE;&#x5C55;&#x793A;&#x4E86;&#x4E00;&#x4E2A; <code>REDIS_ENCODING_SKIPLIST</code> &#x7F16;&#x7801;&#x7684;&#x6709;&#x5E8F;&#x96C6;&#xFF1A;</p>
+<p><img src="https://redisbook.readthedocs.io/en/latest/_images/graphviz-66d218f87c15bc835d88c696af175d2ba39ae420.svg" alt=""></p>
+<p>&#x901A;&#x8FC7;&#x4F7F;&#x7528;&#x5B57;&#x5178;&#x7ED3;&#x6784;&#xFF0C; &#x5E76;&#x5C06; <code>member</code> &#x4F5C;&#x4E3A;&#x952E;&#xFF0C; <code>score</code> &#x4F5C;&#x4E3A;&#x503C;&#xFF0C; &#x6709;&#x5E8F;&#x96C6;&#x53EF;&#x4EE5;&#x5728; O(1) &#x590D;&#x6742;&#x5EA6;&#x5185;&#xFF1A;</p>
+<ul>
+<li>&#x68C0;&#x67E5;&#x7ED9;&#x5B9A; <code>member</code> &#x662F;&#x5426;&#x5B58;&#x5728;&#x4E8E;&#x6709;&#x5E8F;&#x96C6;&#xFF08;&#x88AB;&#x5F88;&#x591A;&#x5E95;&#x5C42;&#x51FD;&#x6570;&#x4F7F;&#x7528;&#xFF09;&#xFF1B;</li>
+<li>&#x53D6;&#x51FA; <code>member</code> &#x5BF9;&#x5E94;&#x7684; <code>score</code> &#x503C;&#xFF08;&#x5B9E;&#x73B0; <a href="http://redis.readthedocs.org/en/latest/sorted_set/zscore.html#zscore" target="_blank">ZSCORE</a> &#x547D;&#x4EE4;&#xFF09;&#x3002;</li>
+</ul>
+<p>&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C; &#x901A;&#x8FC7;&#x4F7F;&#x7528;&#x8DF3;&#x8DC3;&#x8868;&#xFF0C; &#x53EF;&#x4EE5;&#x8BA9;&#x6709;&#x5E8F;&#x96C6;&#x652F;&#x6301;&#x4EE5;&#x4E0B;&#x4E24;&#x79CD;&#x64CD;&#x4F5C;&#xFF1A;</p>
+<ul>
+<li>&#x5728; O(log&#x2061;N) &#x671F;&#x671B;&#x65F6;&#x95F4;&#x3001; O(N) &#x6700;&#x574F;&#x65F6;&#x95F4;&#x5185;&#x6839;&#x636E; <code>score</code> &#x5BF9; <code>member</code> &#x8FDB;&#x884C;&#x5B9A;&#x4F4D;&#xFF08;&#x88AB;&#x5F88;&#x591A;&#x5E95;&#x5C42;&#x51FD;&#x6570;&#x4F7F;&#x7528;&#xFF09;&#xFF1B;</li>
+<li>&#x8303;&#x56F4;&#x6027;&#x67E5;&#x627E;&#x548C;&#x5904;&#x7406;&#x64CD;&#x4F5C;&#xFF0C;&#x8FD9;&#x662F;&#xFF08;&#x9AD8;&#x6548;&#x5730;&#xFF09;&#x5B9E;&#x73B0; <a href="http://redis.readthedocs.org/en/latest/sorted_set/zrange.html#zrange" target="_blank">ZRANGE</a> &#x3001; <a href="http://redis.readthedocs.org/en/latest/sorted_set/zrank.html#zrank" target="_blank">ZRANK</a> &#x548C; <a href="http://redis.readthedocs.org/en/latest/sorted_set/zinterstore.html#zinterstore" target="_blank">ZINTERSTORE</a> &#x7B49;&#x547D;&#x4EE4;&#x7684;&#x5173;&#x952E;&#x3002;</li>
+</ul>
+<p>&#x901A;&#x8FC7;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x5B57;&#x5178;&#x548C;&#x8DF3;&#x8DC3;&#x8868;&#xFF0C; &#x6709;&#x5E8F;&#x96C6;&#x53EF;&#x4EE5;&#x9AD8;&#x6548;&#x5730;&#x5B9E;&#x73B0;&#x6309;&#x6210;&#x5458;&#x67E5;&#x627E;&#x548C;&#x6309;&#x987A;&#x5E8F;&#x67E5;&#x627E;&#x4E24;&#x79CD;&#x64CD;&#x4F5C;&#x3002;</p>
+<h4 id="&#x8DF3;&#x8DC3;&#x5217;&#x8868;&#x7684;&#x5B9E;&#x73B0;"><a name="&#x8DF3;&#x8DC3;&#x5217;&#x8868;&#x7684;&#x5B9E;&#x73B0;" class="anchor-navigation-ex-anchor" href="#&#x8DF3;&#x8DC3;&#x5217;&#x8868;&#x7684;&#x5B9E;&#x73B0;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8DF3;&#x8DC3;&#x5217;&#x8868;&#x7684;&#x5B9E;&#x73B0;</h4>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/27/164d9f96ed4e1a0d?w=1457&amp;h=273&amp;f=png&amp;s=24714" alt=""></p>
+<h4 id="&#x968F;&#x673A;&#x5C42;&#x6570;"><a name="&#x968F;&#x673A;&#x5C42;&#x6570;" class="anchor-navigation-ex-anchor" href="#&#x968F;&#x673A;&#x5C42;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x968F;&#x673A;&#x5C42;&#x6570;</h4>
+<p>&#x5BF9;&#x4E8E;&#x6BCF;&#x4E00;&#x4E2A;&#x65B0;&#x63D2;&#x5165;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x90FD;&#x9700;&#x8981;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7B97;&#x6CD5;&#x7ED9;&#x5B83;&#x5206;&#x914D;&#x4E00;&#x4E2A;&#x5408;&#x7406;&#x7684;&#x5C42;&#x6570;&#x3002;&#x76F4;&#x89C2;&#x4E0A;&#x671F;&#x671B;&#x7684;&#x76EE;&#x6807;&#x662F; 50% &#x7684; Level1&#xFF0C;25% &#x7684; Level2&#xFF0C;12.5% &#x7684; Level3&#xFF0C;&#x4E00;&#x76F4;&#x5230;&#x6700;&#x9876;&#x5C42;<code>2^-63</code>&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x91CC;&#x6BCF;&#x4E00;&#x5C42;&#x7684;&#x664B;&#x5347;&#x6982;&#x7387;&#x662F; 50%&#x3002;</p>
+<pre><code class="lang-c"><span class="hljs-comment">/* Returns a random level for the new skiplist node we are going to create.
+ * The return value of this function is between 1 and ZSKIPLIST_MAXLEVEL
+ * (both inclusive), with a powerlaw-alike distribution where higher
+ * levels are less likely to be returned. */</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">zslRandomLevel</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span> </span>{
+    <span class="hljs-keyword">int</span> level = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span> ((random()&amp;<span class="hljs-number">0xFFFF</span>) &lt; (ZSKIPLIST_P * <span class="hljs-number">0xFFFF</span>))
+        level += <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> (level&lt;ZSKIPLIST_MAXLEVEL) ? level : ZSKIPLIST_MAXLEVEL;
+}
+</code></pre>
+<p>&#x4E0D;&#x8FC7; Redis &#x6807;&#x51C6;&#x6E90;&#x7801;&#x4E2D;&#x7684;&#x664B;&#x5347;&#x6982;&#x7387;&#x53EA;&#x6709; 25%&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4EE3;&#x7801;&#x4E2D;&#x7684; ZSKIPLIST_P &#x7684;&#x503C;&#x3002;&#x6240;&#x4EE5;&#x5B98;&#x65B9;&#x7684;&#x8DF3;&#x8DC3;&#x5217;&#x8868;&#x66F4;&#x52A0;&#x7684;&#x6241;&#x5E73;&#x5316;&#xFF0C;&#x5C42;&#x9AD8;&#x76F8;&#x5BF9;&#x8F83;&#x4F4E;&#xFF0C;&#x5728;&#x5355;&#x4E2A;&#x5C42;&#x4E0A;&#x9700;&#x8981;&#x904D;&#x5386;&#x7684;&#x8282;&#x70B9;&#x6570;&#x91CF;&#x4F1A;&#x7A0D;&#x591A;&#x4E00;&#x70B9;&#x3002;</p>
+<p>&#x4E5F;&#x6B63;&#x662F;&#x56E0;&#x4E3A;&#x5C42;&#x6570;&#x4E00;&#x822C;&#x4E0D;&#x9AD8;&#xFF0C;&#x6240;&#x4EE5;&#x904D;&#x5386;&#x7684;&#x65F6;&#x5019;&#x4ECE;&#x9876;&#x5C42;&#x5F00;&#x59CB;&#x5F80;&#x4E0B;&#x904D;&#x5386;&#x4F1A;&#x975E;&#x5E38;&#x6D6A;&#x8D39;&#x3002;&#x8DF3;&#x8DC3;&#x5217;&#x8868;&#x4F1A;&#x8BB0;&#x5F55;&#x4E00;&#x4E0B;&#x5F53;&#x524D;&#x7684;&#x6700;&#x9AD8;&#x5C42;&#x6570;<code>maxLevel</code>&#xFF0C;&#x904D;&#x5386;&#x65F6;&#x4ECE;&#x8FD9;&#x4E2A; maxLevel &#x5F00;&#x59CB;&#x904D;&#x5386;&#x6027;&#x80FD;&#x5C31;&#x4F1A;&#x63D0;&#x9AD8;&#x5F88;&#x591A;&#x3002;</p>
+<p>&#x8DF3;&#x8DC3;&#x8868;&#x8282;&#x70B9;&#x7684;level&#x6570;&#x7EC4;&#x53EF;&#x4EE5;&#x5305;&#x542B;&#x591A;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x6BCF;&#x4E2A;&#x5143;&#x7D20;&#x90FD;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x6307;&#x5411;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x7684;&#x6307;&#x9488;&#xFF0C;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FD9;&#x4E9B;&#x5C42;&#x6765;&#x52A0;&#x5FEB;&#x8BBF;&#x95EE;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x7684;&#x901F;&#x5EA6;&#xFF0C;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x5C42;&#x7684;&#x6570;&#x91CF;&#x8D8A;&#x591A;&#xFF0C;&#x8BBF;&#x95EE;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x7684;&#x901F;&#x5EA6;&#x5C31;&#x8D8A;&#x5FEB;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x6BCF;&#x6B21;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x8DF3;&#x8DC3;&#x8868;&#x8282;&#x70B9;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x7A0B;&#x5E8F;&#x6839;&#x636E;<span style="color:#C00000" font-weight:bold="">&#x5E42;&#x6B21;&#x5B9A;&#x5F8B;(power law&#xFF0C;&#x8D8A;&#x5927;&#x7684;&#x6570;&#x51FA;&#x73B0;&#x7684;&#x6982;&#x7387;&#x8D8A;&#x5C0F;)</span>&#x968F;&#x673A;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x4ECB;&#x4E8E;1&#x548C;32&#x4E4B;&#x95F4;&#x7684;&#x503C;&#x4F5C;&#x4E3A;level&#x6570;&#x7EC4;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x8FD9;&#x4E2A;&#x5927;&#x5C0F;&#x5C31;&#x662F;&#x5C42;&#x7684;&#x201C;&#x9AD8;&#x5EA6;&#x201D;&#x3002;</p>
+<p>&#x2003;&#x2003;&#x4E0B;&#x56FE;&#x5206;&#x522B;&#x5C55;&#x793A;&#x4E86;&#x4E09;&#x4E2A;&#x9AD8;&#x5EA6;&#x4E3A;1&#x5C42;&#x3001;3&#x5C42;&#x548C;5&#x5C42;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x56E0;&#x4E3A;C&#x8BED;&#x8A00;&#x7684;&#x6570;&#x7EC4;&#x7D22;&#x5F15;&#x603B;&#x662F;&#x4ECE;0&#x5F00;&#x59CB;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x8282;&#x70B9;&#x7684;&#x7B2C;&#x4E00;&#x5C42;&#x662F;level[0]&#xFF0C;&#x800C;&#x7B2C;&#x4E8C;&#x5C42;&#x662F;level[1]&#xFF0C;&#x4F9D;&#x6B21;&#x7C7B;&#x63A8;&#x3002;</p>
+<p><img src="http://image-hosting-lan.oss-cn-beijing.aliyuncs.com/redis-high.png" alt="redis-level"></p>
+<h4 id="&#x5143;&#x7D20;&#x6392;&#x540D;"><a name="&#x5143;&#x7D20;&#x6392;&#x540D;" class="anchor-navigation-ex-anchor" href="#&#x5143;&#x7D20;&#x6392;&#x540D;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5143;&#x7D20;&#x6392;&#x540D;</h4>
+<p><img src="http://zhangtielei.com/assets/photos_redis/skiplist/redis_skiplist_example.png" alt=""></p>
+<p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x5728;&#x8FD9;&#x4E2A;skiplist&#x4E2D;&#x67E5;&#x627E;score=89.0&#x7684;&#x5143;&#x7D20;&#xFF08;&#x5373;Bob&#x7684;&#x6210;&#x7EE9;&#x6570;&#x636E;&#xFF09;&#xFF0C;&#x5728;&#x67E5;&#x627E;&#x8DEF;&#x5F84;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x8DE8;&#x57DF;&#x56FE;&#x4E2D;&#x6807;&#x7EA2;&#x7684;&#x6307;&#x9488;&#xFF0C;&#x8FD9;&#x4E9B;&#x6307;&#x9488;&#x4E0A;&#x9762;&#x7684;span&#x503C;&#x7D2F;&#x52A0;&#x8D77;&#x6765;&#xFF0C;&#x5C31;&#x5F97;&#x5230;&#x4E86;Bob&#x7684;&#x6392;&#x540D;(2+2+1)-1=4&#xFF08;&#x51CF;1&#x662F;&#x56E0;&#x4E3A;rank&#x503C;&#x4EE5;0&#x8D77;&#x59CB;&#xFF09;&#x3002;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x7B97;&#x7684;&#x662F;&#x4ECE;&#x5C0F;&#x5230;&#x5927;&#x7684;&#x6392;&#x540D;&#xFF0C;&#x800C;&#x5982;&#x679C;&#x8981;&#x7B97;&#x4ECE;&#x5927;&#x5230;&#x5C0F;&#x7684;&#x6392;&#x540D;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x7528;skiplist&#x957F;&#x5EA6;&#x51CF;&#x53BB;&#x67E5;&#x627E;&#x8DEF;&#x5F84;&#x4E0A;&#x7684;span&#x7D2F;&#x52A0;&#x503C;&#xFF0C;&#x5373;6-(2+2+1)=1&#x3002;</p>
+<p>&#x53EF;&#x89C1;&#xFF0C;&#x5728;&#x67E5;&#x627E;skiplist&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x901A;&#x8FC7;&#x7D2F;&#x52A0;span&#x503C;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x80FD;&#x5F88;&#x5BB9;&#x6613;&#x7B97;&#x51FA;&#x6392;&#x540D;&#x3002;&#x76F8;&#x53CD;&#xFF0C;&#x5982;&#x679C;&#x6307;&#x5B9A;&#x6392;&#x540D;&#x6765;&#x67E5;&#x627E;&#x6570;&#x636E;&#xFF08;&#x7C7B;&#x4F3C;zrange&#x548C;zrevrange&#x90A3;&#x6837;&#xFF09;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x65AD;&#x7D2F;&#x52A0;span&#x5E76;&#x65F6;&#x523B;&#x4FDD;&#x6301;&#x7D2F;&#x52A0;&#x503C;&#x4E0D;&#x8D85;&#x8FC7;&#x6307;&#x5B9A;&#x7684;&#x6392;&#x540D;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5C31;&#x80FD;&#x5F97;&#x5230;&#x4E00;&#x6761;O(log n)&#x7684;&#x67E5;&#x627E;&#x8DEF;&#x5F84;&#x3002;</p>
+<p><a href="https://zhuanlan.zhihu.com/p/109946103" target="_blank">Redis&#x8DF3;&#x8DC3;&#x8868; - &#x77E5;&#x4E4E;</a></p>
+<p><a href="https://juejin.im/post/5da1ca58e51d4577fc7b1c5a#heading-0" target="_blank">Redis &#x7684;&#x5E95;&#x5C42;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF08;&#x8DF3;&#x8DC3;&#x8868;&#xFF09; - &#x6398;&#x91D1;</a></p>
+<p><a href="https://elsef.com/2019/12/05/%E5%85%B3%E4%BA%8ESkipList/" target="_blank">&#x5173;&#x4E8E;SkipList&#x548C;Redis&#x7684;&#x5B9E;&#x73B0; - S.L&apos;s Blog | S.L Blog</a></p>
+<h4 id="redis&#x4E3A;&#x4EC0;&#x4E48;&#x91C7;&#x7528;&#x8DF3;&#x8868;&#x800C;&#x4E0D;&#x662F;&#x7EA2;&#x9ED1;&#x6811;"><a name="redis&#x4E3A;&#x4EC0;&#x4E48;&#x91C7;&#x7528;&#x8DF3;&#x8868;&#x800C;&#x4E0D;&#x662F;&#x7EA2;&#x9ED1;&#x6811;" class="anchor-navigation-ex-anchor" href="#redis&#x4E3A;&#x4EC0;&#x4E48;&#x91C7;&#x7528;&#x8DF3;&#x8868;&#x800C;&#x4E0D;&#x662F;&#x7EA2;&#x9ED1;&#x6811;"><i class="fa fa-link" aria-hidden="true"></i></a>redis&#x4E3A;&#x4EC0;&#x4E48;&#x91C7;&#x7528;&#x8DF3;&#x8868;&#x800C;&#x4E0D;&#x662F;&#x7EA2;&#x9ED1;&#x6811;</h4>
+<ul>
+<li><p>&#x5728;&#x505A;&#x8303;&#x56F4;&#x67E5;&#x627E;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5E73;&#x8861;&#x6811;&#x6BD4;skiplist&#x64CD;&#x4F5C;&#x8981;&#x590D;&#x6742;&#x3002;</p>
+</li>
+<li><p>&#x5E73;&#x8861;&#x6811;&#x9700;&#x8981;&#x4EE5;&#x4E2D;&#x5E8F;&#x904D;&#x5386;&#x7684;&#x987A;&#x5E8F;&#x7EE7;&#x7EED;&#x5BFB;&#x627E;&#x5176;&#x5B83;&#x4E0D;&#x8D85;&#x8FC7;&#x5927;&#x503C;&#x7684;&#x8282;&#x70B9;&#x3002;</p>
+</li>
+<li><p>skiplist&#x8FDB;&#x884C;&#x8303;&#x56F4;&#x67E5;&#x627E;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x5728;&#x627E;&#x5230;&#x5C0F;&#x503C;&#x4E4B;&#x540E;&#xFF0C;&#x5BF9;&#x7B2C;1&#x5C42;&#x94FE;&#x8868;&#x8FDB;&#x884C;&#x82E5;&#x5E72;&#x6B65;&#x7684;&#x904D;&#x5386;&#x5C31;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x3002;</p>
+</li>
+<li><p>&#x5E73;&#x8861;&#x6811;&#x7684;&#x63D2;&#x5165;&#x548C;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#x53EF;&#x80FD;&#x5F15;&#x53D1;&#x5B50;&#x6811;&#x7684;&#x8C03;&#x6574;&#xFF0C;&#x903B;&#x8F91;&#x590D;&#x6742;&#xFF0C;&#x800C;skiplist&#x7684;&#x63D2;&#x5165;&#x548C;&#x5220;&#x9664;&#x53EA;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x76F8;&#x90BB;&#x8282;&#x70B9;&#x7684;&#x6307;&#x9488;&#xFF0C;&#x64CD;&#x4F5C;&#x7B80;&#x5355;&#x53C8;&#x5FEB;&#x901F;&#x3002;</p>
+</li>
+<li><p>skiplist&#x9700;&#x8981;&#x66F4;&#x5C11;&#x7684;&#x6307;&#x9488;&#x5185;&#x5B58;&#x3002;&#x5E73;&#x5747;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x5305;&#x542B;1.33&#x4E2A;&#x6307;&#x9488;&#xFF0C;&#x6BD4;&#x5E73;&#x8861;&#x6811;&#x66F4;&#x6709;&#x4F18;&#x52BF;&#x3002;</p>
+</li>
+<li><p>&#x4ECE;&#x7B97;&#x6CD5;&#x5B9E;&#x73B0;&#x96BE;&#x5EA6;&#x4E0A;&#x6765;&#x6BD4;&#x8F83;&#xFF0C;skiplist&#x6BD4;&#x5E73;&#x8861;&#x6811;&#x8981;&#x7B80;&#x5355;&#x5F97;&#x591A;&#x3002;</p>
+</li>
+</ul>
+<p><a href="https://www.zhihu.com/question/20202931" target="_blank">&#x4E3A;&#x5565; redis &#x4F7F;&#x7528;&#x8DF3;&#x8868;(skiplist)&#x800C;&#x4E0D;&#x662F;&#x4F7F;&#x7528; red-black&#xFF1F; - &#x77E5;&#x4E4E;</a></p>
+<p><a href="https://blog.csdn.net/hebtu666/article/details/102556064" target="_blank">redis&#x2014;&#x2014;&#x4E3A;&#x4EC0;&#x4E48;&#x9009;&#x62E9;&#x4E86;&#x8DF3;&#x8868;&#x800C;&#x4E0D;&#x662F;&#x7EA2;&#x9ED1;&#x6811;&#xFF1F;_&#x6570;&#x636E;&#x5E93;_hebtu666-CSDN&#x535A;&#x5BA2;</a></p>
+<h2 id="&#x7F13;&#x5B58;&#x6DD8;&#x6C70;&#x7B56;&#x7565;"><a name="&#x7F13;&#x5B58;&#x6DD8;&#x6C70;&#x7B56;&#x7565;" class="anchor-navigation-ex-anchor" href="#&#x7F13;&#x5B58;&#x6DD8;&#x6C70;&#x7B56;&#x7565;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7F13;&#x5B58;&#x6DD8;&#x6C70;&#x7B56;&#x7565;</h2>
+<p>&#x91C7;&#x7528;&#x4E86; <code>&#x5B9A;&#x671F;&#x5220;&#x9664;</code>+<code>&#x60F0;&#x6027;&#x5220;&#x9664;</code> &#x7684;&#x7B56;&#x7565;</p>
+<p>&#x5B9A;&#x671F;&#x5220;&#x9664;&#xFF1A;</p>
+<p>Redis &#x9ED8;&#x8BA4;&#x4F1A;&#x6BCF;&#x79D2;&#x8FDB;&#x884C;&#x5341;&#x6B21;&#x8FC7;&#x671F;&#x626B;&#x63CF;&#xFF0C;&#x8FC7;&#x671F;&#x626B;&#x63CF;&#x4E0D;&#x4F1A;&#x904D;&#x5386;&#x8FC7;&#x671F;&#x5B57;&#x5178;&#x4E2D;&#x6240;&#x6709;&#x7684; key&#xFF0C;&#x800C;&#x662F;&#x91C7;&#x7528;&#x4E86;&#x4E00;&#x79CD;&#x7B80;&#x5355;&#x7684;&#x8D2A;&#x5FC3;&#x7B56;&#x7565;&#x3002;</p>
+<ol>
+<li>&#x4ECE;&#x8FC7;&#x671F;&#x5B57;&#x5178;&#x4E2D;&#x968F;&#x673A; 20 &#x4E2A; key&#xFF1B;</li>
+<li>&#x5220;&#x9664;&#x8FD9; 20 &#x4E2A; key &#x4E2D;&#x5DF2;&#x7ECF;&#x8FC7;&#x671F;&#x7684; key&#xFF1B;</li>
+<li>&#x5982;&#x679C;&#x8FC7;&#x671F;&#x7684; key &#x6BD4;&#x7387;&#x8D85;&#x8FC7; 1/4&#xFF0C;&#x90A3;&#x5C31;&#x91CD;&#x590D;&#x6B65;&#x9AA4; 1&#xFF1B;</li>
+</ol>
+<p>&#x540C;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x8FC7;&#x671F;&#x626B;&#x63CF;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x5FAA;&#x73AF;&#x8FC7;&#x5EA6;&#xFF0C;&#x5BFC;&#x81F4;&#x7EBF;&#x7A0B;&#x5361;&#x6B7B;&#x73B0;&#x8C61;&#xFF0C;&#x7B97;&#x6CD5;&#x8FD8;&#x589E;&#x52A0;&#x4E86;&#x626B;&#x63CF;&#x65F6;&#x95F4;&#x7684;&#x4E0A;&#x9650;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E0D;&#x4F1A;&#x8D85;&#x8FC7; 25ms&#x3002;</p>
+<p>Redis &#x5185;&#x5B58;&#x6DD8;&#x6C70;&#x7684;&#x673A;&#x5236;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#x65B9;&#x6848;&#x53EF;&#x4F9B;&#x9009;&#x62E9;&#xFF1A;</p>
+<ul>
+<li>volatile-lru&#xFF1A;&#x4ECE;&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x6DD8;&#x6C70;&#x6700;&#x8FD1;&#x6700;&#x5C11;&#x4F7F;&#x7528;&#x7684; key</li>
+<li>allkeys-lru&#xFF1A;&#x4ECE;&#x6240;&#x6709;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x6DD8;&#x6C70;&#x6700;&#x8FD1;&#x6700;&#x5C11;&#x4F7F;&#x7528;&#x7684;key</li>
+<li><strong>volatile-lfu&#xFF1A;&#x4ECE;&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x6DD8;&#x6C70;&#x6700;&#x4E0D;&#x5E38;&#x4F7F;&#x7528;&#x7684; key</strong></li>
+<li><strong>allkeys-lfu&#xFF1A;&#x4ECE;&#x6240;&#x6709;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x6DD8;&#x6C70;&#x6700;&#x4E0D;&#x5E38;&#x4F7F;&#x7528;&#x7684;key</strong></li>
+<li>volatile-random&#xFF1A;&#x4ECE;&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x968F;&#x673A;&#x9009;&#x53D6; key &#x6DD8;&#x6C70;</li>
+<li>allkyes-random&#xFF1A;&#x4ECE;&#x6240;&#x6709;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x968F;&#x673A;&#x9009;&#x53D6;key&#x6DD8;&#x6C70;</li>
+<li>volatile-ttl&#xFF1A;&#x4ECE;&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x7684;&#x6570;&#x636E;&#x96C6;&#x4E2D;&#x6DD8;&#x6C70;&#x5373;&#x5C06;&#x8FC7;&#x671F;&#x7684; key</li>
+<li>no-envicition&#xFF1A;&#x4E0D;&#x8FDB;&#x884C;&#x6DD8;&#x6C70;&#xFF0C;&#x53EA;&#x662F;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5199;&#x64CD;&#x4F5C;&#x9519;&#x8BEF;&#xFF0C;&#x8BFB;&#x548C;&#x5220;&#x9664;&#x52A8;&#x4F5C;&#x6B63;&#x5E38;</li>
+</ul>
+<h2 id="&#x7F13;&#x5B58;&#x96EA;&#x5D29;&#x3001;&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#x3001;&#x7F13;&#x5B58;&#x51FB;&#x7A7F;"><a name="&#x7F13;&#x5B58;&#x96EA;&#x5D29;&#x3001;&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#x3001;&#x7F13;&#x5B58;&#x51FB;&#x7A7F;" class="anchor-navigation-ex-anchor" href="#&#x7F13;&#x5B58;&#x96EA;&#x5D29;&#x3001;&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#x3001;&#x7F13;&#x5B58;&#x51FB;&#x7A7F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7F13;&#x5B58;&#x96EA;&#x5D29;&#x3001;&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#x3001;&#x7F13;&#x5B58;&#x51FB;&#x7A7F;</h2>
+<h3 id="&#x7F13;&#x5B58;&#x7A7F;&#x900F;"><a name="&#x7F13;&#x5B58;&#x7A7F;&#x900F;" class="anchor-navigation-ex-anchor" href="#&#x7F13;&#x5B58;&#x7A7F;&#x900F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7F13;&#x5B58;&#x7A7F;&#x900F;</h3>
+<p>&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#x662F;&#x6307;&#x67E5;&#x8BE2;&#x4E00;&#x4E2A;&#x4E00;&#x5B9A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x7531;&#x4E8E;&#x7F13;&#x5B58;&#x662F;&#x4E0D;&#x547D;&#x4E2D;&#x65F6;&#x88AB;&#x52A8;&#x5199;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x51FA;&#x4E8E;&#x5BB9;&#x9519;&#x8003;&#x8651;&#xFF0C;&#x5982;&#x679C;&#x4ECE;&#x5B58;&#x50A8;&#x5C42;&#x67E5;&#x4E0D;&#x5230;&#x6570;&#x636E;&#x5219;&#x4E0D;&#x5199;&#x5165;&#x7F13;&#x5B58;&#xFF0C;&#x8FD9;&#x5C06;&#x5BFC;&#x81F4;&#x8FD9;&#x4E2A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x6570;&#x636E;&#x6BCF;&#x6B21;&#x8BF7;&#x6C42;&#x90FD;&#x8981;&#x5230;&#x5B58;&#x50A8;&#x5C42;&#x53BB;&#x67E5;&#x8BE2;&#xFF0C;&#x5931;&#x53BB;&#x4E86;&#x7F13;&#x5B58;&#x7684;&#x610F;&#x4E49;&#x3002;&#x5728;&#x6D41;&#x91CF;&#x5927;&#x65F6;&#xFF0C;&#x53EF;&#x80FD;DB&#x5C31;&#x6302;&#x6389;&#x4E86;&#xFF0C;&#x8981;&#x662F;&#x6709;&#x4EBA;&#x5229;&#x7528;&#x4E0D;&#x5B58;&#x5728;&#x7684;key&#x9891;&#x7E41;&#x653B;&#x51FB;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x6F0F;&#x6D1E;&#x3002;</p>
+<blockquote>
+<p>&#x6709;&#x5F88;&#x591A;&#x79CD;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x5730;&#x89E3;&#x51B3;&#x7F13;&#x5B58;&#x7A7F;&#x900F;&#x95EE;&#x9898;&#x3002;</p>
+<ol>
+<li>&#x6700;&#x5E38;&#x89C1;&#x7684;&#x5219;&#x662F;&#x91C7;&#x7528;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#xFF0C;&#x5C06;&#x6240;&#x6709;&#x53EF;&#x80FD;&#x5B58;&#x5728;&#x7684;&#x6570;&#x636E;&#x54C8;&#x5E0C;&#x5230;&#x4E00;&#x4E2A;&#x8DB3;&#x591F;&#x5927;&#x7684;bitmap&#x4E2D;&#xFF0C;&#x4E00;&#x4E2A;&#x4E00;&#x5B9A;&#x4E0D;&#x5B58;&#x5728;&#x7684;&#x6570;&#x636E;&#x4F1A;&#x88AB; &#x8FD9;&#x4E2A;bitmap&#x62E6;&#x622A;&#x6389;&#xFF0C;&#x4ECE;&#x800C;&#x907F;&#x514D;&#x4E86;&#x5BF9;&#x5E95;&#x5C42;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#x7684;&#x67E5;&#x8BE2;&#x538B;&#x529B;&#x3002;&#x53E6;&#x5916;&#x4E5F;&#x6709;&#x4E00;&#x4E2A;&#x66F4;&#x4E3A;&#x7B80;&#x5355;&#x7C97;&#x66B4;&#x7684;&#x65B9;&#x6CD5;&#xFF08;&#x6211;&#x4EEC;&#x91C7;&#x7528;&#x7684;&#x5C31;&#x662F;&#x8FD9;&#x79CD;&#xFF09;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x67E5;&#x8BE2;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x4E3A;&#x7A7A;&#xFF08;&#x4E0D;&#x7BA1;&#x662F;&#x6570; &#x636E;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x8FD8;&#x662F;&#x7CFB;&#x7EDF;&#x6545;&#x969C;&#xFF09;&#xFF0C;&#x6211;&#x4EEC;&#x4ECD;&#x7136;&#x628A;&#x8FD9;&#x4E2A;&#x7A7A;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x7F13;&#x5B58;&#xFF0C;&#x4F46;&#x5B83;&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x4F1A;&#x5F88;&#x77ED;&#xFF0C;&#x6700;&#x957F;&#x4E0D;&#x8D85;&#x8FC7;&#x4E94;&#x5206;&#x949F;&#xFF1B;</li>
+<li>&#x52A0;&#x5F3A;&#x53C2;&#x6570;&#x6821;&#x9A8C;&#xFF1B;</li>
+<li>&#x5BF9;&#x4E0D;&#x5B58;&#x5728;&#x503C;&#x5B58;&#x50A8;&#x7A7A;&#x503C;&#xFF1B;</li>
+</ol>
+</blockquote>
+<h3 id="&#x7F13;&#x5B58;&#x96EA;&#x5D29;"><a name="&#x7F13;&#x5B58;&#x96EA;&#x5D29;" class="anchor-navigation-ex-anchor" href="#&#x7F13;&#x5B58;&#x96EA;&#x5D29;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7F13;&#x5B58;&#x96EA;&#x5D29;</h3>
+<p>&#x7F13;&#x5B58;&#x96EA;&#x5D29;&#x662F;&#x6307;&#x5728;&#x6211;&#x4EEC;&#x8BBE;&#x7F6E;&#x7F13;&#x5B58;&#x65F6;&#x91C7;&#x7528;&#x4E86;&#x76F8;&#x540C;&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;&#x5BFC;&#x81F4;&#x7F13;&#x5B58;&#x5728;&#x67D0;&#x4E00;&#x65F6;&#x523B;&#x540C;&#x65F6;&#x5931;&#x6548;&#xFF0C;&#x8BF7;&#x6C42;&#x5168;&#x90E8;&#x8F6C;&#x53D1;&#x5230;DB&#xFF0C;DB&#x77AC;&#x65F6;&#x538B;&#x529B;&#x8FC7;&#x91CD;&#x96EA;&#x5D29;&#x3002;</p>
+<blockquote>
+<p>&#x7F13;&#x5B58;&#x5931;&#x6548;&#x65F6;&#x7684;&#x96EA;&#x5D29;&#x6548;&#x5E94;&#x5BF9;&#x5E95;&#x5C42;&#x7CFB;&#x7EDF;&#x7684;&#x51B2;&#x51FB;&#x975E;&#x5E38;&#x53EF;&#x6015;&#x3002;&#x5927;&#x591A;&#x6570;&#x7CFB;&#x7EDF;&#x8BBE;&#x8BA1;&#x8005;&#x8003;&#x8651;&#x7528;&#x52A0;&#x9501;&#x6216;&#x8005;&#x961F;&#x5217;&#x7684;&#x65B9;&#x5F0F;&#x4FDD;&#x8BC1;&#x7F13;&#x5B58;&#x7684;&#x5355;&#x7EBF;&#x7A0B;(&#x8FDB;&#x7A0B;)&#x5199;&#xFF0C;&#x4ECE;&#x800C;&#x907F;&#x514D;&#x5931;&#x6548;&#x65F6;&#x5927;&#x91CF;&#x7684;&#x5E76;&#x53D1;&#x8BF7;&#x6C42;&#x843D;&#x5230;&#x5E95;&#x5C42;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#x4E0A;&#x3002;&#x8FD9;&#x91CC;&#x5206;&#x4EAB;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x65B9;&#x6848;&#x5C31;&#x662F;&#x5C06;&#x7F13;&#x5B58;&#x5931;&#x6548;&#x65F6;&#x95F4;&#x5206;&#x6563;&#x5F00;&#xFF0C;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x539F;&#x6709;&#x7684;&#x5931;&#x6548;&#x65F6;&#x95F4;&#x57FA;&#x7840;&#x4E0A;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x503C;&#xFF0C;&#x6BD4;&#x5982;1-5&#x5206;&#x949F;&#x968F;&#x673A;&#xFF0C;&#x8FD9;&#x6837;&#x6BCF;&#x4E00;&#x4E2A;&#x7F13;&#x5B58;&#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x7684;&#x91CD;&#x590D;&#x7387;&#x5C31;&#x4F1A;&#x964D;&#x4F4E;&#xFF0C;&#x5C31;&#x5F88;&#x96BE;&#x5F15;&#x53D1;&#x96C6;&#x4F53;&#x5931;&#x6548;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
+</blockquote>
+<h3 id="&#x7F13;&#x5B58;&#x51FB;&#x7A7F;"><a name="&#x7F13;&#x5B58;&#x51FB;&#x7A7F;" class="anchor-navigation-ex-anchor" href="#&#x7F13;&#x5B58;&#x51FB;&#x7A7F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7F13;&#x5B58;&#x51FB;&#x7A7F;</h3>
+<p>&#x5BF9;&#x4E8E;&#x4E00;&#x4E9B;&#x8BBE;&#x7F6E;&#x4E86;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x7684;key&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x4E9B;key&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x67D0;&#x4E9B;&#x65F6;&#x95F4;&#x70B9;&#x88AB;&#x8D85;&#x9AD8;&#x5E76;&#x53D1;&#x5730;&#x8BBF;&#x95EE;&#xFF0C;&#x662F;&#x4E00;&#x79CD;&#x975E;&#x5E38;&#x201C;&#x70ED;&#x70B9;&#x201D;&#x7684;&#x6570;&#x636E;&#x3002;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#xFF0C;&#x9700;&#x8981;&#x8003;&#x8651;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;&#x7F13;&#x5B58;&#x88AB;&#x201C;&#x51FB;&#x7A7F;&#x201D;&#x7684;&#x95EE;&#x9898;&#xFF0C;<strong>&#x8FD9;&#x4E2A;&#x548C;&#x7F13;&#x5B58;&#x96EA;&#x5D29;&#x7684;&#x533A;&#x522B;&#x5728;&#x4E8E;&#x8FD9;&#x91CC;&#x9488;&#x5BF9;&#x67D0;&#x4E00;key&#x7F13;&#x5B58;&#xFF0C;&#x524D;&#x8005;&#x5219;&#x662F;&#x5F88;&#x591A;key&#x3002;</strong> &#x7F13;&#x5B58;&#x5728;&#x67D0;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x8FC7;&#x671F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6070;&#x597D;&#x5728;&#x8FD9;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x5BF9;&#x8FD9;&#x4E2A;Key&#x6709;&#x5927;&#x91CF;&#x7684;&#x5E76;&#x53D1;&#x8BF7;&#x6C42;&#x8FC7;&#x6765;&#xFF0C;&#x8FD9;&#x4E9B;&#x8BF7;&#x6C42;&#x53D1;&#x73B0;&#x7F13;&#x5B58;&#x8FC7;&#x671F;&#x4E00;&#x822C;&#x90FD;&#x4F1A;&#x4ECE;&#x540E;&#x7AEF;DB&#x52A0;&#x8F7D;&#x6570;&#x636E;&#x5E76;&#x56DE;&#x8BBE;&#x5230;&#x7F13;&#x5B58;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x5927;&#x5E76;&#x53D1;&#x7684;&#x8BF7;&#x6C42;&#x53EF;&#x80FD;&#x4F1A;&#x77AC;&#x95F4;&#x628A;&#x540E;&#x7AEF;DB&#x538B;&#x57AE;&#x3002;</p>
+<blockquote>
+<ol>
+<li>&#x4F7F;&#x7528;&#x4E92;&#x65A5;&#x9501;(MUTEX KEY)
+&#x4E1A;&#x754C;&#x6BD4;&#x8F83;&#x5E38;&#x7528;&#x7684;&#x505A;&#x6CD5;&#xFF0C;&#x662F;&#x4F7F;&#x7528;mutex&#x3002;&#x7B80;&#x5355;&#x5730;&#x6765;&#x8BF4;&#xFF0C;&#x5C31;&#x662F;&#x5728;&#x7F13;&#x5B58;&#x5931;&#x6548;&#x7684;&#x65F6;&#x5019;&#xFF08;&#x5224;&#x65AD;&#x62FF;&#x51FA;&#x6765;&#x7684;&#x503C;&#x4E3A;&#x7A7A;&#xFF09;&#xFF0C;&#x4E0D;&#x662F;&#x7ACB;&#x5373;&#x53BB;load db&#xFF0C;&#x800C;&#x662F;&#x5148;&#x4F7F;&#x7528;&#x7F13;&#x5B58;&#x5DE5;&#x5177;&#x7684;&#x67D0;&#x4E9B;&#x5E26;&#x6210;&#x529F;&#x64CD;&#x4F5C;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x64CD;&#x4F5C;&#xFF08;&#x6BD4;&#x5982;Redis&#x7684;SETNX&#x6216;&#x8005;Memcache&#x7684;ADD&#xFF09;&#x53BB;set&#x4E00;&#x4E2A;mutex key&#xFF0C;&#x5F53;&#x64CD;&#x4F5C;&#x8FD4;&#x56DE;&#x6210;&#x529F;&#x65F6;&#xFF0C;&#x518D;&#x8FDB;&#x884C;load db&#x7684;&#x64CD;&#x4F5C;&#x5E76;&#x56DE;&#x8BBE;&#x7F13;&#x5B58;&#xFF1B;&#x5426;&#x5219;&#xFF0C;&#x5C31;&#x91CD;&#x8BD5;&#x6574;&#x4E2A;get&#x7F13;&#x5B58;&#x7684;&#x65B9;&#x6CD5;&#x3002;</li>
+<li>&#x201C;&#x63D0;&#x524D;&#x201D;&#x4F7F;&#x7528;&#x4E92;&#x65A5;&#x9501;(MUTEX KEY)
+&#x5728;value&#x5185;&#x90E8;&#x8BBE;&#x7F6E;1&#x4E2A;&#x8D85;&#x65F6;&#x503C;(timeout1), timeout1&#x6BD4;&#x5B9E;&#x9645;&#x7684;memcache timeout(timeout2)&#x5C0F;&#x3002;&#x5F53;&#x4ECE;cache&#x8BFB;&#x53D6;&#x5230;timeout1&#x53D1;&#x73B0;&#x5B83;&#x5DF2;&#x7ECF;&#x8FC7;&#x671F;&#x65F6;&#x5019;&#xFF0C;&#x9A6C;&#x4E0A;&#x5EF6;&#x957F;timeout1&#x5E76;&#x91CD;&#x65B0;&#x8BBE;&#x7F6E;&#x5230;cache&#x3002;&#x7136;&#x540E;&#x518D;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x52A0;&#x8F7D;&#x6570;&#x636E;&#x5E76;&#x8BBE;&#x7F6E;&#x5230;cache&#x4E2D;&#x3002;</li>
+<li>&#x201C;&#x6C38;&#x8FDC;&#x4E0D;&#x8FC7;&#x671F;&#x201D;
+&#x8FD9;&#x91CC;&#x7684;&#x201C;&#x6C38;&#x8FDC;&#x4E0D;&#x8FC7;&#x671F;&#x201D;&#x5305;&#x542B;&#x4E24;&#x5C42;&#x610F;&#x601D;&#xFF1A; (1) &#x4ECE;redis&#x4E0A;&#x770B;&#xFF0C;&#x786E;&#x5B9E;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;&#x8FD9;&#x5C31;&#x4FDD;&#x8BC1;&#x4E86;&#xFF0C;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x70ED;&#x70B9;key&#x8FC7;&#x671F;&#x95EE;&#x9898;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x201C;&#x7269;&#x7406;&#x201D;&#x4E0D;&#x8FC7;&#x671F;&#x3002; (2) &#x4ECE;&#x529F;&#x80FD;&#x4E0A;&#x770B;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x8FC7;&#x671F;&#xFF0C;&#x90A3;&#x4E0D;&#x5C31;&#x6210;&#x9759;&#x6001;&#x7684;&#x4E86;&#x5417;&#xFF1F;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x628A;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x5B58;&#x5728;key&#x5BF9;&#x5E94;&#x7684;value&#x91CC;&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x8981;&#x8FC7;&#x671F;&#x4E86;&#xFF0C;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x540E;&#x53F0;&#x7684;&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;&#x7F13;&#x5B58;&#x7684;&#x6784;&#x5EFA;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x201C;&#x903B;&#x8F91;&#x201D;&#x8FC7;&#x671F;</li>
+</ol>
+</blockquote>
+<h2 id="redis&#x4E3A;&#x4EC0;&#x4E48;&#x5FEB;&#xFF1F;"><a name="redis&#x4E3A;&#x4EC0;&#x4E48;&#x5FEB;&#xFF1F;" class="anchor-navigation-ex-anchor" href="#redis&#x4E3A;&#x4EC0;&#x4E48;&#x5FEB;&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>Redis&#x4E3A;&#x4EC0;&#x4E48;&#x5FEB;&#xFF1F;</h2>
+<p>&#x5355;&#x7EBF;&#x7A0B;&#x4E3A;&#x4EC0;&#x4E48;&#x5C31;&#x5FEB;&#x4E86;&#xFF1F;</p>
+<ul>
+<li>&#x7EAF;&#x5185;&#x5B58;</li>
+<li>&#x5355;&#x7EBF;&#x7A0B;&#xFF08;&#x539F;&#x5B50;&#x6027;&#x3001;&#x907F;&#x514D;&#x7EBF;&#x7A0B;&#x5207;&#x6362;&#x6D6A;&#x8D39;&#x8D44;&#x6E90;&#xFF09;</li>
+<li>IO&#x591A;&#x8DEF;&#x590D;&#x7528;</li>
+<li>&#x5408;&#x7406;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF08;dict&#xFF09;</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/58038188" target="_blank">Redis&#x4E3A;&#x4EC0;&#x4E48;&#x662F;&#x5355;&#x7EBF;&#x7A0B;&#xFF0C;&#x9AD8;&#x5E76;&#x53D1;&#x5FEB;&#x7684;3&#x5927;&#x539F;&#x56E0;&#x8BE6;&#x89E3; - &#x77E5;&#x4E4E;</a></p>
+<p><a href="https://blog.csdn.net/snoweaglelord/article/details/99681179" target="_blank">IO&#x591A;&#x8DEF;&#x590D;&#x7528;&#x548C;&#x7EBF;&#x7A0B;&#x6C60;&#x54EA;&#x4E2A;&#x6548;&#x7387;&#x66F4;&#x9AD8;&#xFF0C;&#x66F4;&#x6709;&#x4F18;&#x52BF;_Java_snoweaglelord&#x7684;&#x535A;&#x5BA2;-CSDN&#x535A;&#x5BA2;</a></p>
+<p><a href="https://www.jianshu.com/p/edd811de19b8" target="_blank">IO&#x591A;&#x8DEF;&#x590D;&#x7528;&#x548C;&#x7EBF;&#x7A0B;&#x6C60;&#x5728;&#x63D0;&#x9AD8;&#x5E76;&#x53D1;&#x6027;&#x4E0A;&#x5E94;&#x7528;&#x573A;&#x666F;&#x7684;&#x533A;&#x522B; - &#x7B80;&#x4E66;</a></p>
+<p><a href="https://www.zhihu.com/question/306267779/answer/570147888" target="_blank">IO&#x591A;&#x8DEF;&#x590D;&#x7528;&#x548C;&#x7EBF;&#x7A0B;&#x6C60;&#x54EA;&#x4E2A;&#x6548;&#x7387;&#x66F4;&#x9AD8;&#xFF0C;&#x66F4;&#x6709;&#x4F18;&#x52BF;&#xFF1F; - &#x77E5;&#x4E4E;</a></p>
+<h2 id="&#x5206;&#x5E03;&#x5F0F;&#x9501;"><a name="&#x5206;&#x5E03;&#x5F0F;&#x9501;" class="anchor-navigation-ex-anchor" href="#&#x5206;&#x5E03;&#x5F0F;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5206;&#x5E03;&#x5F0F;&#x9501;</h2>
+<h3 id="redis&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;"><a name="redis&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;" class="anchor-navigation-ex-anchor" href="#redis&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>Redis&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;</h3>
+<p>redis&#x7248;&#x672C;&#x5728;<strong>2.6.12</strong>&#x4E4B;&#x524D;&#xFF0C;set&#x662F;&#x4E0D;&#x652F;&#x6301;nx&#x53C2;&#x6570;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x8981;&#x5B8C;&#x6210;&#x4E00;&#x4E2A;&#x9501;&#xFF0C;&#x90A3;&#x4E48;&#x9700;&#x8981;&#x4E24;&#x6761;&#x547D;&#x4EE4;&#xFF1A;</p>
+<pre><code>1. setnx Test uuid
+2. expire Test 30
+</code></pre><p>&#x5373;&#x653E;&#x5165;Key&#x548C;&#x8BBE;&#x7F6E;&#x6709;&#x6548;&#x671F;&#xFF0C;&#x662F;&#x5206;&#x5F00;&#x7684;&#x4E24;&#x6B65;&#xFF0C;&#x7406;&#x8BBA;&#x4E0A;&#x4F1A;&#x51FA;&#x73B0;<strong>1</strong>&#x521A;&#x6267;&#x884C;&#x5B8C;&#xFF0C;&#x7A0B;&#x5E8F;&#x6302;&#x6389;&#xFF0C;&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x539F;&#x5B50;&#x6027;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x65E9;&#x5728;<strong>2013&#x5E74;</strong>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;7&#x5E74;&#x524D;&#xFF0C;Redis&#x5C31;&#x53D1;&#x5E03;&#x4E86;<strong>2.6.12</strong>&#x7248;&#x672C;&#xFF0C;&#x5E76;&#x4E14;&#x5B98;&#x7F51;(<a href="https://redis.io/commands/set" target="_blank">set&#x547D;&#x4EE4;&#x9875;</a>)&#xFF0C;&#x4E5F;&#x65E9;&#x65E9;&#x5C31;&#x8BF4;&#x660E;&#x4E86;&#x201C;SETNX, SETEX, PSETEX&#x53EF;&#x80FD;&#x5728;&#x672A;&#x6765;&#x7684;&#x7248;&#x672C;&#x4E2D;&#xFF0C;&#x4F1A;&#x5F03;&#x7528;&#x5E76;<strong>&#x6C38;&#x4E45;&#x5220;&#x9664;</strong>&#x201D;&#x3002;</p>
+<ul>
+<li><p>setnx</p>
+</li>
+<li><pre><code class="lang-bash">// NX&#x662F;&#x6307;&#x5982;&#x679C;key&#x4E0D;&#x5B58;&#x5728;&#x5C31;&#x6210;&#x529F;&#xFF0C;key&#x5B58;&#x5728;&#x8FD4;&#x56DE;<span class="hljs-literal">false</span>&#xFF0C;PX&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x8FC7;&#x671F;&#x65F6;&#x95F4; 
+// value&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x552F;&#x4E00;&#x7684;&#x5BA2;&#x6237;&#x7AEF;ID&#xFF0C;&#x6216;&#x8005;&#x7528;UUID&#x8FD9;&#x79CD;&#x968F;&#x673A;&#x6570;&#x3002;
+// &#x5F53;&#x89E3;&#x9501;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5148;&#x83B7;&#x53D6;value&#x5224;&#x65AD;&#x662F;&#x5426;&#x662F;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x52A0;&#x7684;&#x9501;&#xFF0C;&#x518D;&#x53BB;&#x5220;&#x9664;
+// &#x56E0;&#x4E3A;&#x6BCF;&#x6B21;get&#x548C;del&#x5E76;&#x975E;&#x539F;&#x5B50;&#x64CD;&#x4F5C;&#xFF0C;&#x8FD8;&#x662F;&#x6709;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;
+SET anyLock unique_value NX PX 30000
+</code></pre>
+</li>
+<li><p>Lua&#x811A;&#x672C;</p>
+<p>&#x4E00;&#x4E2A;&#x547D;&#x4EE4;(<strong>eval</strong>/<strong>evalsha</strong>)&#x53BB;&#x6267;&#x884C;&#x7684;&#xFF0C;&#x4E00;&#x6761;&#x547D;&#x4EE4;&#x6CA1;&#x6267;&#x884C;&#x5B8C;&#xFF0C;&#x5176;&#x4ED6;&#x5BA2;&#x6237;&#x7AEF;&#x662F;&#x770B;&#x4E0D;&#x5230;&#x7684;&#xFF0C;&#x4FDD;&#x8BC1;&#x539F;&#x5B50;&#x6027;&#x3002;</p>
+<pre><code class="lang-bash">-- lua&#x5220;&#x9664;&#x9501;&#xFF1A;
+-- KEYS&#x548C;ARGV&#x5206;&#x522B;&#x662F;&#x4EE5;&#x96C6;&#x5408;&#x65B9;&#x5F0F;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x5BF9;&#x5E94;&#x4E0A;&#x6587;&#x7684;Test&#x548C;uuid&#x3002;
+-- &#x5982;&#x679C;&#x5BF9;&#x5E94;&#x7684;value&#x7B49;&#x4E8E;&#x4F20;&#x5165;&#x7684;uuid&#x3002;
+<span class="hljs-keyword">if</span> redis.call(<span class="hljs-string">&apos;get&apos;</span>, KEYS[1]) == ARGV[1] 
+    <span class="hljs-keyword">then</span> 
+    -- &#x6267;&#x884C;&#x5220;&#x9664;&#x64CD;&#x4F5C;
+        <span class="hljs-built_in">return</span> redis.call(<span class="hljs-string">&apos;del&apos;</span>, KEYS[1]) 
+    <span class="hljs-keyword">else</span> 
+    -- &#x4E0D;&#x6210;&#x529F;&#xFF0C;&#x8FD4;&#x56DE;0
+        <span class="hljs-built_in">return</span> 0 
+end
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>&#x5F00;&#x6E90;&#x6846;&#x67B6;&#xFF1A;Redission&#x3001;RedLock</p>
+<pre><code>RedissonClient redisson = Redisson.create(config); 
+RLock lock = redisson.getLock(&quot;anyLock&quot;);  // RLock&#x662F;&#x53EF;&#x91CD;&#x5165;&#x9501;
+lock.lock(); 
+lock.unlock(); 
+
+---
+&#x5C31;&#x662F;&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x5B83;&#x7684; API &#x4E2D;&#x7684; Lock &#x548C; Unlock &#x5373;&#x53EF;&#x5B8C;&#x6210;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#xFF0C;&#x4ED6;&#x5E2E;&#x6211;&#x4EEC;&#x8003;&#x8651;&#x4E86;&#x5F88;&#x591A;&#x7EC6;&#x8282;&#xFF1A;
+
+Redisson &#x6240;&#x6709;&#x6307;&#x4EE4;&#x90FD;&#x901A;&#x8FC7; Lua &#x811A;&#x672C;&#x6267;&#x884C;&#xFF0C;Redis &#x652F;&#x6301; Lua &#x811A;&#x672C;&#x539F;&#x5B50;&#x6027;&#x6267;&#x884C;&#x3002;
+Redisson &#x8BBE;&#x7F6E;&#x4E00;&#x4E2A; Key &#x7684;&#x9ED8;&#x8BA4;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x4E3A; 30s&#xFF0C;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x6301;&#x6709;&#x4E00;&#x4E2A;&#x9501;&#x8D85;&#x8FC7;&#x4E86; 30s &#x600E;&#x4E48;&#x529E;&#xFF1F;
+Redisson &#x4E2D;&#x6709;&#x4E00;&#x4E2A; Watchdog &#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x7FFB;&#x8BD1;&#x8FC7;&#x6765;&#x5C31;&#x662F;&#x770B;&#x95E8;&#x72D7;&#xFF0C;&#x5B83;&#x4F1A;&#x5728;&#x4F60;&#x83B7;&#x53D6;&#x9501;&#x4E4B;&#x540E;&#xFF0C;&#x6BCF;&#x9694; 10s &#x5E2E;&#x4F60;&#x628A; Key &#x7684;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x8BBE;&#x4E3A; 30s&#x3002;
+&#x8FD9;&#x6837;&#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x7B97;&#x4E00;&#x76F4;&#x6301;&#x6709;&#x9501;&#x4E5F;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0; Key &#x8FC7;&#x671F;&#x4E86;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;&#x5230;&#x9501;&#x7684;&#x95EE;&#x9898;&#x4E86;&#x3002;
+
+Redisson &#x7684;&#x201C;&#x770B;&#x95E8;&#x72D7;&#x201D;&#x903B;&#x8F91;&#x4FDD;&#x8BC1;&#x4E86;&#x6CA1;&#x6709;&#x6B7B;&#x9501;&#x53D1;&#x751F;&#x3002;(&#x5982;&#x679C;&#x673A;&#x5668;&#x5B95;&#x673A;&#x4E86;&#xFF0C;&#x770B;&#x95E8;&#x72D7;&#x4E5F;&#x5C31;&#x6CA1;&#x4E86;&#x3002;&#x6B64;&#x65F6;&#x5C31;&#x4E0D;&#x4F1A;&#x5EF6;&#x957F; Key &#x7684;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#xFF0C;&#x5230;&#x4E86; 30s &#x4E4B;&#x540E;&#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x8FC7;&#x671F;&#x4E86;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5230;&#x9501;)
+
+&#x5728;redis&#x4E2D;&#x52A0;&#x9501;&#x6709;&#x4E24;&#x79CD;&#x601D;&#x8DEF;&#x3002;
+&#x4E00;&#x79CD;&#x662F;&#x8BBE;&#x7F6E;key&#x7684;&#x503C;&#xFF0C;&#x5E76;&#x4E14;&#x4E0D;&#x5BF9;key&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x3002;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x5982;&#x679C;&#x52A0;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x5728;&#x6CA1;&#x6709;&#x89E3;&#x9501;&#x4E4B;&#x524D;&#x5D29;&#x6E83;&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x9501;&#x4F1A;&#x51FA;&#x73B0;&#x6B7B;&#x9501;&#x7684;&#x72B6;&#x6001;&#x3002;
+&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x662F;&#x8BBE;&#x7F6E;key&#x7684;&#x503C;&#xFF0C;&#x5E76;&#x4E14;&#x5BF9;key&#x8BBE;&#x7F6E;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x3002;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x5982;&#x679C;&#x52A0;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x5728;&#x6CA1;&#x6709;&#x89E3;&#x9501;&#x4E4B;&#x524D;&#x5D29;&#x6E83;&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x9501;&#x5728;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x4E4B;&#x540E;&#x81EA;&#x7136;&#x89E3;&#x9501;&#xFF0C;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#x6B7B;&#x9501;&#x7684;&#x73B0;&#x8C61;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x6837;&#x4E5F;&#x5F15;&#x5165;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x5982;&#x679C;&#x52A0;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x5728;&#x8FC7;&#x671F;&#x65F6;&#x95F4;&#x4E4B;&#x5185;&#x6CA1;&#x6709;&#x5B8C;&#x6210;&#x64CD;&#x4F5C;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x9501;&#x5C31;&#x4F1A;&#x88AB;&#x53E6;&#x5916;&#x7684;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;&#xFF0C;&#x4ECE;&#x800C;&#x53D1;&#x751F;&#x540C;&#x65F6;&#x6709;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x5728;&#x4E34;&#x754C;&#x533A;&#x8FD0;&#x884C;&#x7684;&#x72B6;&#x51B5;&#x3002;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x53D1;&#x751F;&#xFF0C;Redisson&#x5185;&#x90E8;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x76D1;&#x63A7;&#x9501;&#x7684;&#x770B;&#x95E8;&#x72D7;&#xFF0C;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x5728;Redisson&#x5B9E;&#x4F8B;&#x88AB;&#x5173;&#x95ED;&#x524D;&#xFF0C;&#x4E0D;&#x65AD;&#x7684;&#x5EF6;&#x957F;&#x9501;&#x7684;&#x6709;&#x6548;&#x671F;&#x3002;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x770B;&#x95E8;&#x72D7;&#x7684;&#x68C0;&#x67E5;&#x9501;&#x7684;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x662F;30&#x79D2;&#x949F;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4FEE;&#x6539;Config.lockWatchdogTimeout&#x6765;&#x53E6;&#x884C;&#x6307;&#x5B9A;&#x3002;
+</code></pre><p><a href="https://blog.wangqi.love/articles/redis/Redisson%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0.html" target="_blank">Redisson&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x7684;&#x5B9E;&#x73B0; | wangqi&#x7684;blog</a></p>
+</li>
+</ul>
+<h3 id="zk&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;"><a name="zk&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;" class="anchor-navigation-ex-anchor" href="#zk&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>zk&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;</h3>
+<p>&#x5728; ZooKeeper &#x4E2D;&#xFF0C;&#x8282;&#x70B9;&#x7C7B;&#x578B;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x6301;&#x4E45;&#x8282;&#x70B9;&#xFF08;PERSISTENT &#xFF09;&#x3001;&#x4E34;&#x65F6;&#x8282;&#x70B9;&#xFF08;EPHEMERAL&#xFF09;&#xFF0C;&#x4EE5;&#x53CA;&#x65F6;&#x5E8F;&#x8282;&#x70B9;&#xFF08;SEQUENTIAL &#xFF09;&#xFF0C;&#x5177;&#x4F53;&#x5728;&#x8282;&#x70B9;&#x521B;&#x5EFA;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4E00;&#x822C;&#x662F;&#x7EC4;&#x5408;&#x4F7F;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x751F;&#x6210; 4 &#x79CD;&#x8282;&#x70B9;&#x7C7B;&#x578B;&#xFF1A;&#x6301;&#x4E45;&#x8282;&#x70B9;&#xFF08;PERSISTENT&#xFF09;&#xFF0C;&#x6301;&#x4E45;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#xFF08;PERSISTENT_SEQUENTIAL&#xFF09;&#xFF0C;&#x4E34;&#x65F6;&#x8282;&#x70B9;&#xFF08;EPHEMERAL&#xFF09;&#xFF0C;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#xFF08;EPHEMERAL_SEQUENTIAL&#xFF09;&#xFF1B;&#x5177;&#x4F53;&#x8282;&#x70B9;&#x542B;&#x4E49;&#xFF0C;&#x8C37;&#x6B4C;&#x4E4B;&#x3002;</p>
+<blockquote>
+<ol>
+<li><p>&#x5927;&#x5BB6;&#x90FD;&#x662F;&#x4E0A;&#x6765;&#x76F4;&#x63A5;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x9501;&#x8282;&#x70B9;&#x4E0B;&#x7684;&#x4E00;&#x4E2A;&#x63A5;&#x4E00;&#x4E2A;&#x7684;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;</p>
+</li>
+<li><p>&#x5982;&#x679C;&#x81EA;&#x5DF1;&#x4E0D;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x5C31;&#x5BF9;&#x81EA;&#x5DF1;&#x4E0A;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x52A0;&#x76D1;&#x542C;&#x5668;</p>
+</li>
+<li><p>&#x53EA;&#x8981;&#x4E0A;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x91CA;&#x653E;&#x9501;&#xFF0C;&#x81EA;&#x5DF1;&#x5C31;&#x6392;&#x5230;&#x524D;&#x9762;&#x53BB;&#x4E86;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x662F;&#x4E00;&#x4E2A;&#x6392;&#x961F;&#x673A;&#x5236;&#x3002;</p>
+</li>
+</ol>
+</blockquote>
+<p>&#x800C;&#x4E14;&#x7528;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x7684;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x7528;&#x610F;&#x5C31;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x521B;&#x5EFA;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x4E4B;&#x540E;&#xFF0C;&#x4E0D;&#x5C0F;&#x5FC3;&#x81EA;&#x5DF1;&#x5B95;&#x673A;&#x4E86;&#x4E5F;&#x6CA1;&#x5173;&#x7CFB;&#xFF0C;zk&#x611F;&#x77E5;&#x5230;&#x90A3;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x5B95;&#x673A;&#xFF0C;&#x4F1A;&#x81EA;&#x52A8;&#x5220;&#x9664;&#x5BF9;&#x5E94;&#x7684;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x81EA;&#x52A8;&#x91CA;&#x653E;&#x9501;&#xFF0C;&#x6216;&#x8005;&#x662F;&#x81EA;&#x52A8;&#x53D6;&#x6D88;&#x81EA;&#x5DF1;&#x7684;&#x6392;&#x961F;&#x3002;</p>
+<p><a href="https://www.cnblogs.com/cc11001100/p/10269494.html" target="_blank">zookeeper&#x7B14;&#x8BB0;&#x4E4B;&#x57FA;&#x4E8E;zk&#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501; - CC11001100 - &#x535A;&#x5BA2;&#x56ED;</a></p>
+<p><a href="https://juejin.im/post/5c01532ef265da61362232ed" target="_blank">&#x4E03;&#x5F20;&#x56FE;&#x5F7B;&#x5E95;&#x8BB2;&#x6E05;&#x695A;ZooKeeper&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x3010;&#x77F3;&#x6749;&#x7684;&#x67B6;&#x6784;&#x7B14;&#x8BB0;&#x3011; - &#x6398;&#x91D1;</a></p>
+<h3 id="&#x4E24;&#x8005;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x533A;&#x522B;"><a name="&#x4E24;&#x8005;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x533A;&#x522B;" class="anchor-navigation-ex-anchor" href="#&#x4E24;&#x8005;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x533A;&#x522B;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E24;&#x8005;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x533A;&#x522B;</h3>
+<p>&#x5BF9;&#x4E8E; Redis &#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x800C;&#x8A00;&#xFF0C;&#x5B83;&#x6709;&#x4EE5;&#x4E0B;&#x7F3A;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x5B83;&#x83B7;&#x53D6;&#x9501;&#x7684;&#x65B9;&#x5F0F;&#x7B80;&#x5355;&#x7C97;&#x66B4;&#xFF0C;&#x83B7;&#x53D6;&#x4E0D;&#x5230;&#x9501;&#x76F4;&#x63A5;&#x4E0D;&#x65AD;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9501;&#xFF0C;&#x6BD4;&#x8F83;&#x6D88;&#x8017;&#x6027;&#x80FD;&#x3002;</li>
+<li>&#x53E6;&#x5916;&#x6765;&#x8BF4;&#x7684;&#x8BDD;&#xFF0C;Redis &#x7684;&#x8BBE;&#x8BA1;&#x5B9A;&#x4F4D;&#x51B3;&#x5B9A;&#x4E86;&#x5B83;&#x7684;&#x6570;&#x636E;&#x5E76;&#x4E0D;&#x662F;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x7684;&#xFF0C;&#x5728;&#x67D0;&#x4E9B;&#x6781;&#x7AEF;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x73B0;&#x95EE;&#x9898;&#x3002;&#x9501;&#x7684;&#x6A21;&#x578B;&#x4E0D;&#x591F;&#x5065;&#x58EE;&#x3002;</li>
+<li>&#x5373;&#x4FBF;&#x4F7F;&#x7528; Redlock &#x7B97;&#x6CD5;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x5728;&#x67D0;&#x4E9B;&#x590D;&#x6742;&#x573A;&#x666F;&#x4E0B;&#xFF0C;&#x4E5F;&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x5176;&#x5B9E;&#x73B0; 100% &#x6CA1;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x5173;&#x4E8E; Redlock &#x7684;&#x8BA8;&#x8BBA;&#x53EF;&#x4EE5;&#x770B; How to do distributed locking&#x3002;</li>
+<li>Redis &#x5206;&#x5E03;&#x5F0F;&#x9501;&#xFF0C;&#x5176;&#x5B9E;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x4E0D;&#x65AD;&#x53BB;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9501;&#xFF0C;&#x6BD4;&#x8F83;&#x6D88;&#x8017;&#x6027;&#x80FD;&#x3002;</li>
+</ul>
+<p>&#x4F46;&#x662F;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#x4F7F;&#x7528; Redis &#x5B9E;&#x73B0;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5728;&#x5F88;&#x591A;&#x4F01;&#x4E1A;&#x4E2D;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#xFF0C;&#x800C;&#x4E14;&#x5927;&#x90E8;&#x5206;&#x60C5;&#x51B5;&#x4E0B;&#x90FD;&#x4E0D;&#x4F1A;&#x9047;&#x5230;&#x6240;&#x8C13;&#x7684;&#x201C;&#x6781;&#x7AEF;&#x590D;&#x6742;&#x573A;&#x666F;&#x201D;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x4F7F;&#x7528; Redis &#x4F5C;&#x4E3A;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x4E5F;&#x4E0D;&#x5931;&#x4E3A;&#x4E00;&#x79CD;&#x597D;&#x7684;&#x65B9;&#x6848;&#xFF0C;&#x6700;&#x91CD;&#x8981;&#x7684;&#x4E00;&#x70B9;&#x662F; Redis &#x7684;&#x6027;&#x80FD;&#x5F88;&#x9AD8;&#xFF0C;&#x53EF;&#x4EE5;&#x652F;&#x6491;&#x9AD8;&#x5E76;&#x53D1;&#x7684;&#x83B7;&#x53D6;&#x3001;&#x91CA;&#x653E;&#x9501;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E; ZK &#x5206;&#x5E03;&#x5F0F;&#x9501;&#x800C;&#x8A00;:</p>
+<ul>
+<li>ZK &#x5929;&#x751F;&#x8BBE;&#x8BA1;&#x5B9A;&#x4F4D;&#x5C31;&#x662F;&#x5206;&#x5E03;&#x5F0F;&#x534F;&#x8C03;&#xFF0C;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x3002;&#x9501;&#x7684;&#x6A21;&#x578B;&#x5065;&#x58EE;&#x3001;&#x7B80;&#x5355;&#x6613;&#x7528;&#x3001;&#x9002;&#x5408;&#x505A;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x83B7;&#x53D6;&#x4E0D;&#x5230;&#x9501;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x5668;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x4E0D;&#x7528;&#x4E00;&#x76F4;&#x8F6E;&#x8BE2;&#xFF0C;&#x6027;&#x80FD;&#x6D88;&#x8017;&#x8F83;&#x5C0F;&#x3002;</li>
+</ul>
+<p>&#x4F46;&#x662F; ZK &#x4E5F;&#x6709;&#x5176;&#x7F3A;&#x70B9;&#xFF1A;&#x5982;&#x679C;&#x6709;&#x8F83;&#x591A;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x9891;&#x7E41;&#x7684;&#x7533;&#x8BF7;&#x52A0;&#x9501;&#x3001;&#x91CA;&#x653E;&#x9501;&#xFF0C;&#x5BF9;&#x4E8E; ZK &#x96C6;&#x7FA4;&#x7684;&#x538B;&#x529B;&#x4F1A;&#x6BD4;&#x8F83;&#x5927;&#x3002;</p>
+<h2 id="&#x96C6;&#x7FA4;"><a name="&#x96C6;&#x7FA4;" class="anchor-navigation-ex-anchor" href="#&#x96C6;&#x7FA4;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x96C6;&#x7FA4;</h2>
+<h3 id="&#x6301;&#x4E45;&#x5316;&#x7684;&#x539F;&#x7406;"><a name="&#x6301;&#x4E45;&#x5316;&#x7684;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x6301;&#x4E45;&#x5316;&#x7684;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6301;&#x4E45;&#x5316;&#x7684;&#x539F;&#x7406;</h3>
+<h3 id="&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;"><a name="&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x539F;&#x7406;</h3>
+<h3 id="&#x54E8;&#x5175;&#x6A21;&#x5F0F;&#x7684;&#x539F;&#x7406;"><a name="&#x54E8;&#x5175;&#x6A21;&#x5F0F;&#x7684;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x54E8;&#x5175;&#x6A21;&#x5F0F;&#x7684;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x54E8;&#x5175;&#x6A21;&#x5F0F;&#x7684;&#x539F;&#x7406;</h3>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06; Redis Sentinel &#x96C6;&#x7FA4;&#x770B;&#x6210;&#x662F;&#x4E00;&#x4E2A; ZooKeeper &#x96C6;&#x7FA4;&#xFF0C;&#x5B83;&#x662F;&#x96C6;&#x7FA4;&#x9AD8;&#x53EF;&#x7528;&#x7684;&#x5FC3;&#x810F;&#xFF0C;&#x5B83;&#x4E00;&#x822C;&#x662F;&#x7531; 3&#xFF5E;5 &#x4E2A;&#x8282;&#x70B9;&#x7EC4;&#x6210;&#xFF0C;&#x8FD9;&#x6837;&#x6302;&#x4E86;&#x4E2A;&#x522B;&#x8282;&#x70B9;&#x96C6;&#x7FA4;&#x8FD8;&#x53EF;&#x4EE5;&#x6B63;&#x5E38;&#x8FD0;&#x8F6C;&#x3002;</p>
+<p>&#x5B83;&#x8D1F;&#x8D23;&#x6301;&#x7EED;&#x76D1;&#x63A7;&#x4E3B;&#x4ECE;&#x8282;&#x70B9;&#x7684;&#x5065;&#x5EB7;&#xFF0C;&#x5F53;&#x4E3B;&#x8282;&#x70B9;&#x6302;&#x6389;&#x65F6;&#xFF0C;&#x81EA;&#x52A8;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x6700;&#x4F18;&#x7684;&#x4ECE;&#x8282;&#x70B9;&#x5207;&#x6362;&#x4E3A;&#x4E3B;&#x8282;&#x70B9;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x6765;&#x8FDE;&#x63A5;&#x96C6;&#x7FA4;&#x65F6;&#xFF0C;&#x4F1A;&#x9996;&#x5148;&#x8FDE;&#x63A5; sentinel&#xFF0C;&#x901A;&#x8FC7; sentinel &#x6765;&#x67E5;&#x8BE2;&#x4E3B;&#x8282;&#x70B9;&#x7684;&#x5730;&#x5740;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x53BB;&#x8FDE;&#x63A5;&#x4E3B;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x4EA4;&#x4E92;&#x3002;&#x5F53;&#x4E3B;&#x8282;&#x70B9;&#x53D1;&#x751F;&#x6545;&#x969C;&#x65F6;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x4F1A;&#x91CD;&#x65B0;&#x5411; sentinel &#x8981;&#x5730;&#x5740;&#xFF0C;sentinel &#x4F1A;&#x5C06;&#x6700;&#x65B0;&#x7684;&#x4E3B;&#x8282;&#x70B9;&#x5730;&#x5740;&#x544A;&#x8BC9;&#x5BA2;&#x6237;&#x7AEF;&#x3002;&#x5982;&#x6B64;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5C06;&#x65E0;&#x9700;&#x91CD;&#x542F;&#x5373;&#x53EF;&#x81EA;&#x52A8;&#x5B8C;&#x6210;&#x8282;&#x70B9;&#x5207;&#x6362;&#x3002;</p>
+<h4 id="&#x6D88;&#x606F;&#x4E22;&#x5931;&#x600E;&#x4E48;&#x5904;&#x7406;"><a name="&#x6D88;&#x606F;&#x4E22;&#x5931;&#x600E;&#x4E48;&#x5904;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x6D88;&#x606F;&#x4E22;&#x5931;&#x600E;&#x4E48;&#x5904;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D88;&#x606F;&#x4E22;&#x5931;&#x600E;&#x4E48;&#x5904;&#x7406;</h4>
+<p>Redis &#x4E3B;&#x4ECE;&#x91C7;&#x7528;&#x5F02;&#x6B65;&#x590D;&#x5236;&#xFF0C;&#x610F;&#x5473;&#x7740;&#x5F53;&#x4E3B;&#x8282;&#x70B9;&#x6302;&#x6389;&#x65F6;&#xFF0C;&#x4ECE;&#x8282;&#x70B9;&#x53EF;&#x80FD;&#x6CA1;&#x6709;&#x6536;&#x5230;&#x5168;&#x90E8;&#x7684;&#x540C;&#x6B65;&#x6D88;&#x606F;&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x672A;&#x540C;&#x6B65;&#x7684;&#x6D88;&#x606F;&#x5C31;&#x4E22;&#x5931;&#x4E86;&#x3002;&#x5982;&#x679C;&#x4E3B;&#x4ECE;&#x5EF6;&#x8FDF;&#x7279;&#x522B;&#x5927;&#xFF0C;&#x90A3;&#x4E48;&#x4E22;&#x5931;&#x7684;&#x6570;&#x636E;&#x5C31;&#x53EF;&#x80FD;&#x4F1A;&#x7279;&#x522B;&#x591A;&#x3002;Sentinel &#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x6D88;&#x606F;&#x5B8C;&#x5168;&#x4E0D;&#x4E22;&#x5931;&#xFF0C;&#x4F46;&#x662F;&#x4E5F;&#x5C3D;&#x53EF;&#x80FD;&#x4FDD;&#x8BC1;&#x6D88;&#x606F;&#x5C11;&#x4E22;&#x5931;&#x3002;&#x5B83;&#x6709;&#x4E24;&#x4E2A;&#x9009;&#x9879;&#x53EF;&#x4EE5;&#x9650;&#x5236;&#x4E3B;&#x4ECE;&#x5EF6;&#x8FDF;&#x8FC7;&#x5927;&#x3002;</p>
+<pre><code>min-slaves-to-write 1
+min-slaves-max-lag 10
+</code></pre><p>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x8868;&#x793A;&#x4E3B;&#x8282;&#x70B9;&#x5FC5;&#x987B;&#x81F3;&#x5C11;&#x6709;&#x4E00;&#x4E2A;&#x4ECE;&#x8282;&#x70B9;&#x5728;&#x8FDB;&#x884C;&#x6B63;&#x5E38;&#x590D;&#x5236;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x505C;&#x6B62;&#x5BF9;&#x5916;&#x5199;&#x670D;&#x52A1;&#xFF0C;&#x4E27;&#x5931;&#x53EF;&#x7528;&#x6027;&#x3002;</p>
+<p>&#x4F55;&#x4E3A;&#x6B63;&#x5E38;&#x590D;&#x5236;&#xFF0C;&#x4F55;&#x4E3A;&#x5F02;&#x5E38;&#x590D;&#x5236;&#xFF1F;&#x8FD9;&#x4E2A;&#x5C31;&#x662F;&#x7531;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x63A7;&#x5236;&#x7684;&#xFF0C;&#x5B83;&#x7684;&#x5355;&#x4F4D;&#x662F;&#x79D2;&#xFF0C;&#x8868;&#x793A;&#x5982;&#x679C; 10s &#x6CA1;&#x6709;&#x6536;&#x5230;&#x4ECE;&#x8282;&#x70B9;&#x7684;&#x53CD;&#x9988;&#xFF0C;&#x5C31;&#x610F;&#x5473;&#x7740;&#x4ECE;&#x8282;&#x70B9;&#x540C;&#x6B65;&#x4E0D;&#x6B63;&#x5E38;&#xFF0C;&#x8981;&#x4E48;&#x7F51;&#x7EDC;&#x65AD;&#x5F00;&#x4E86;&#xFF0C;&#x8981;&#x4E48;&#x4E00;&#x76F4;&#x6CA1;&#x6709;&#x7ED9;&#x53CD;&#x9988;&#x3002;</p>
+<h3 id="redis-cluster&#x96C6;&#x7FA4;&#x7684;&#x539F;&#x7406;"><a name="redis-cluster&#x96C6;&#x7FA4;&#x7684;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#redis-cluster&#x96C6;&#x7FA4;&#x7684;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>Redis Cluster&#x96C6;&#x7FA4;&#x7684;&#x539F;&#x7406;</h3>
+<p>RedisCluster &#x662F; Redis &#x7684;&#x4EB2;&#x513F;&#x5B50;&#xFF0C;&#x5B83;&#x662F; Redis &#x4F5C;&#x8005;&#x81EA;&#x5DF1;&#x63D0;&#x4F9B;&#x7684; Redis &#x96C6;&#x7FA4;&#x5316;&#x65B9;&#x6848;&#x3002;</p>
+<p>&#x76F8;&#x5BF9;&#x4E8E; Codis &#x7684;&#x4E0D;&#x540C;&#xFF0C;&#x5B83;&#x662F;&#x53BB;&#x4E2D;&#x5FC3;&#x5316;&#x7684;&#xFF0C;&#x5982;&#x56FE;&#x6240;&#x793A;&#xFF0C;&#x8BE5;&#x96C6;&#x7FA4;&#x6709;&#x4E09;&#x4E2A; Redis &#x8282;&#x70B9;&#x7EC4;&#x6210;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x8D1F;&#x8D23;&#x6574;&#x4E2A;&#x96C6;&#x7FA4;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x6570;&#x636E;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x8D1F;&#x8D23;&#x7684;&#x6570;&#x636E;&#x591A;&#x5C11;&#x53EF;&#x80FD;&#x4E0D;&#x4E00;&#x6837;&#x3002;&#x8FD9;&#x4E09;&#x4E2A;&#x8282;&#x70B9;&#x76F8;&#x4E92;&#x8FDE;&#x63A5;&#x7EC4;&#x6210;&#x4E00;&#x4E2A;&#x5BF9;&#x7B49;&#x7684;&#x96C6;&#x7FA4;&#xFF0C;&#x5B83;&#x4EEC;&#x4E4B;&#x95F4;&#x901A;&#x8FC7;&#x4E00;&#x79CD;&#x7279;&#x6B8A;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x534F;&#x8BAE;&#x76F8;&#x4E92;&#x4EA4;&#x4E92;&#x96C6;&#x7FA4;&#x4FE1;&#x606F;&#x3002;</p>
+<p>Redis Cluster &#x5C06;&#x6240;&#x6709;&#x6570;&#x636E;&#x5212;&#x5206;&#x4E3A; 16384 &#x7684; slots&#xFF0C;&#x5B83;&#x6BD4; Codis &#x7684; 1024 &#x4E2A;&#x69FD;&#x5212;&#x5206;&#x7684;&#x66F4;&#x4E3A;&#x7CBE;&#x7EC6;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x8D1F;&#x8D23;&#x5176;&#x4E2D;&#x4E00;&#x90E8;&#x5206;&#x69FD;&#x4F4D;&#x3002;&#x69FD;&#x4F4D;&#x7684;&#x4FE1;&#x606F;&#x5B58;&#x50A8;&#x4E8E;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x4E2D;&#xFF0C;&#x5B83;&#x4E0D;&#x50CF; Codis&#xFF0C;&#x5B83;&#x4E0D;&#x9700;&#x8981;&#x53E6;&#x5916;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x5B58;&#x50A8;&#x6765;&#x5B58;&#x50A8;&#x8282;&#x70B9;&#x69FD;&#x4F4D;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x5F53; Redis Cluster &#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x6765;&#x8FDE;&#x63A5;&#x96C6;&#x7FA4;&#x65F6;&#xFF0C;&#x5B83;&#x4E5F;&#x4F1A;&#x5F97;&#x5230;&#x4E00;&#x4EFD;&#x96C6;&#x7FA4;&#x7684;&#x69FD;&#x4F4D;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x3002;&#x8FD9;&#x6837;&#x5F53;&#x5BA2;&#x6237;&#x7AEF;&#x8981;&#x67E5;&#x627E;&#x67D0;&#x4E2A; key &#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5B9A;&#x4F4D;&#x5230;&#x76EE;&#x6807;&#x8282;&#x70B9;&#x3002;</p>
+<p>&#x8FD9;&#x70B9;&#x4E0D;&#x540C;&#x4E8E; Codis&#xFF0C;Codis &#x9700;&#x8981;&#x901A;&#x8FC7; Proxy &#x6765;&#x5B9A;&#x4F4D;&#x76EE;&#x6807;&#x8282;&#x70B9;&#xFF0C;RedisCluster &#x662F;&#x76F4;&#x63A5;&#x5B9A;&#x4F4D;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x4E3A;&#x4E86;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5B9A;&#x4F4D;&#x67D0;&#x4E2A;&#x5177;&#x4F53;&#x7684; key &#x6240;&#x5728;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x5B83;&#x5C31;&#x9700;&#x8981;&#x7F13;&#x5B58;&#x69FD;&#x4F4D;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF0C;&#x8FD9;&#x6837;&#x624D;&#x53EF;&#x4EE5;&#x51C6;&#x786E;&#x5FEB;&#x901F;&#x5730;&#x5B9A;&#x4F4D;&#x5230;&#x76F8;&#x5E94;&#x7684;&#x8282;&#x70B9;&#x3002;&#x540C;&#x65F6;&#x56E0;&#x4E3A;&#x69FD;&#x4F4D;&#x7684;&#x4FE1;&#x606F;&#x53EF;&#x80FD;&#x4F1A;&#x5B58;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x670D;&#x52A1;&#x5668;&#x4E0D;&#x4E00;&#x81F4;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x7EA0;&#x6B63;&#x673A;&#x5236;&#x6765;&#x5B9E;&#x73B0;&#x69FD;&#x4F4D;&#x4FE1;&#x606F;&#x7684;&#x6821;&#x9A8C;&#x8C03;&#x6574;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;RedisCluster &#x7684;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x4F1A;&#x5C06;&#x96C6;&#x7FA4;&#x7684;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x6301;&#x4E45;&#x5316;&#x5230;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x6240;&#x4EE5;&#x5FC5;&#x987B;&#x786E;&#x4FDD;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x662F;&#x53EF;&#x5199;&#x7684;&#xFF0C;&#x800C;&#x4E14;&#x5C3D;&#x91CF;&#x4E0D;&#x8981;&#x4F9D;&#x9760;&#x4EBA;&#x5DE5;&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</p>
+<ul>
+<li><p><strong>&#x69FD;&#x4F4D;&#x5B9A;&#x4F4D;&#x7B97;&#x6CD5;</strong></p>
+</li>
+<li><p><strong>&#x8DF3;&#x8F6C;</strong></p>
+</li>
+<li><p><strong>&#x8FC1;&#x79FB;</strong></p>
+<p>&#x8FC1;&#x79FB;&#x6570;&#x636E;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x72B6;&#x6001;&#xFF0C;<code>importing</code>&#x548C;<code>migrating</code></p>
+<p><strong>&#x4ECE;&#x6E90;&#x8282;&#x70B9;&#x83B7;&#x53D6;&#x5185;&#x5BB9; =&gt; &#x5B58;&#x5230;&#x76EE;&#x6807;&#x8282;&#x70B9; =&gt; &#x4ECE;&#x6E90;&#x8282;&#x70B9;&#x5220;&#x9664;&#x5185;&#x5BB9;</strong></p>
+<p>&#x5728;&#x8FC1;&#x79FB;&#x671F;&#x95F4;&#x6709;&#x6570;&#x636E;&#x8BBF;&#x95EE;&#xFF0C;&#x5148;&#x8BBF;&#x95EE;&#x65E7;&#x8282;&#x70B9;&#xFF0C;&#x6CA1;&#x6709;&#x7684;&#x8BDD;&#x53D1;<code>asking</code>&#x72B6;&#x6001;&#xFF0C;&#x8BE2;&#x95EE;&#x6570;&#x636E;&#x5B9E;&#x9645;&#x5728;&#x54EA;&#x4E2A;&#x8282;&#x70B9;</p>
+</li>
+<li><p><strong>&#x6269;&#x5BB9;</strong></p>
+<ol>
+<li>&#x542F;&#x52A8;&#x65B0;&#x7684;redis&#x4E3B;&#x8282;&#x70B9;</li>
+<li>&#x5C06;&#x65B0;&#x7684;redis&#x4E3B;&#x8282;&#x70B9;&#x52A0;&#x5165;cluster&#x96C6;&#x7FA4;</li>
+<li>&#x5206;&#x7247;hash&#x69FD;&#xFF08;&#x53EF;&#x4EE5;&#x4ECE;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x6216;&#x8005;&#x6240;&#x6709;&#x8282;&#x70B9;&#x5206;&#x51FA;&#x6307;&#x5B9A;&#x7684;slot&#x4E2A;&#x6570;&#xFF09;</li>
+</ol>
+</li>
+<li><p><strong>&#x7F29;&#x5BB9;</strong></p>
+<ol>
+<li>&#x628A;&#x9700;&#x4E0B;&#x7EBF;&#x7684;redis&#x4E3B;&#x8282;&#x70B9;&#xFF08;&#x6E90;&#x8282;&#x70B9;&#xFF09;&#x4E0A;&#x7684;hash &#x69FD;&#x5747;&#x5300;&#x7684;&#x79FB;&#x5230;&#x5176;&#x4ED6;&#x4E3B;&#x8282;&#x70B9;(&#x76EE;&#x6807;&#x8282;&#x70B9;)&#x4E0A;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5168;&#x90E8;&#x79FB;&#x5230;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;</li>
+<li>&#x4ECE;cluster&#x4E2D;&#x79FB;&#x9664;&#x9700;&#x4E0B;&#x7EBF;&#x7684;redis&#x4E3B;&#x8282;&#x70B9;</li>
+<li>&#x505C;&#x6B62;&#x5DF2;&#x79FB;&#x9664;&#x7684;redis&#x4E3B;&#x8282;&#x70B9;</li>
+</ol>
+</li>
+<li><p><strong>&#x5BB9;&#x9519;</strong></p>
+<p>&#x4E3B;&#x8282;&#x70B9;&#x9700;&#x8981;&#x6709;&#x4ECE;&#x8282;&#x70B9;&#x5728;&#x4E3B;&#x8282;&#x70B9;&#x6302;&#x4E86;&#x7684;&#x65F6;&#x5019;&#x66FF;&#x6362;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x4ECE;&#x8282;&#x70B9;&#x7684;&#x8BDD;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x914D;&#x7F6E;&#x53EF;&#x4EE5;&#x5141;&#x8BB8;&#x90E8;&#x5206;&#x8282;&#x70B9;&#x6545;&#x969C;&#xFF0C;&#x5176;&#x5B83;&#x8282;&#x70B9;&#x8FD8;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x63D0;&#x4F9B;&#x5BF9;&#x5916;&#x8BBF;&#x95EE;</p>
+</li>
+</ul>
+<p><a href="https://www.cnblogs.com/PatrickLiu/p/8473135.html" target="_blank">Redis&#x8FDB;&#x9636;&#x5B9E;&#x8DF5;&#x4E4B;&#x5341;&#x4E8C; Redis&#x7684;Cluster&#x96C6;&#x7FA4;&#x52A8;&#x6001;&#x6269;&#x5BB9; - &#x53EF;&#x5747;&#x53EF;&#x53EF; - &#x535A;&#x5BA2;&#x56ED;</a></p>
+<p><a href="http://www.dataguru.cn/article-14564-1.html" target="_blank">&#x6D45;&#x6790;Redis&#x5206;&#x5E03;&#x5F0F;&#x96C6;&#x7FA4;&#x503E;&#x659C;&#x95EE;&#x9898; - Nosql-&#x70BC;&#x6570;&#x6210;&#x91D1;-Dataguru&#x4E13;&#x4E1A;&#x6570;&#x636E;&#x5206;&#x6790;&#x793E;&#x533A;</a></p>
+<p><a href="https://blog.csdn.net/zsj777/article/details/80235568" target="_blank">Redis&#x96C6;&#x7FA4;&#x6269;&#x5BB9;&#x548C;&#x7F29;&#x5BB9;_&#x6570;&#x636E;&#x5E93;_zsj777&#x7684;&#x4E13;&#x680F;-CSDN&#x535A;&#x5BA2;</a></p>
+<p><a href="https://www.cnblogs.com/jiangz222/p/7679298.html" target="_blank">Redis Cluster &#x96C6;&#x7FA4;&#x6269;&#x5BB9;&#x4E0E;&#x6536;&#x7F29; - jiangz222 - &#x535A;&#x5BA2;&#x56ED;</a></p>
+<p><a href="https://my.oschina.net/ranxi/blog/1058086" target="_blank">redis&#x96C6;&#x7FA4;cluster&#x642D;&#x5EFA;&#xFF0C;&#x6269;&#x5BB9;&#x7F29;&#x5BB9; - &#x71C3;&#x7280;&#x7684;&#x4E2A;&#x4EBA;&#x7A7A;&#x95F4; - OSCHINA</a></p>
+<p><a href="https://blog.csdn.net/men_wen/article/details/72896682#" target="_blank">Redis &#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#xFF08;&#x5341;&#x4E94;&#xFF09;Redis Cluster &#x96C6;&#x7FA4;&#x6269;&#x5BB9;&#x4E0E;&#x6536;&#x7F29;_&#x6570;&#x636E;&#x5E93;_men_wen&#x7684;&#x535A;&#x5BA2;-CSDN&#x535A;&#x5BA2;</a></p>
+<p><a href="https://my.oschina.net/ranxi/blog/1058086" target="_blank">redis&#x96C6;&#x7FA4;cluster&#x642D;&#x5EFA;&#xFF0C;&#x6269;&#x5BB9;&#x7F29;&#x5BB9; - &#x71C3;&#x7280;&#x7684;&#x4E2A;&#x4EBA;&#x7A7A;&#x95F4; - OSCHINA</a></p>
+<h4 id="&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5206;16384&#x4E2A;slot-"><a name="&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5206;16384&#x4E2A;slot-" class="anchor-navigation-ex-anchor" href="#&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5206;16384&#x4E2A;slot-"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5206;16384&#x4E2A;slot ?</h4>
+<ol>
+<li>&#x5982;&#x679C;&#x69FD;&#x4F4D;&#x4E3A;65536&#xFF0C;&#x53D1;&#x9001;&#x5FC3;&#x8DF3;&#x4FE1;&#x606F;&#x7684;&#x6D88;&#x606F;&#x5934;&#x8FBE;8k&#xFF0C;&#x53D1;&#x9001;&#x7684;&#x5FC3;&#x8DF3;&#x5305;&#x8FC7;&#x4E8E;&#x5E9E;&#x5927;&#x3002;</li>
+</ol>
+<p>&#x5728;&#x6D88;&#x606F;&#x5934;&#x4E2D;&#xFF0C;&#x6700;&#x5360;&#x7A7A;&#x95F4;&#x7684;&#x662F; myslots[CLUSTER_SLOTS/8]&#x3002;&#x5F53;&#x69FD;&#x4F4D;&#x4E3A;65536&#x65F6;&#xFF0C;&#x8FD9;&#x5757;&#x7684;&#x5927;&#x5C0F;&#x662F;: 65536&#xF7;8=8kb&#x56E0;&#x4E3A;&#x6BCF;&#x79D2;&#x949F;&#xFF0C;redis&#x8282;&#x70B9;&#x9700;&#x8981;&#x53D1;&#x9001;&#x4E00;&#x5B9A;&#x6570;&#x91CF;&#x7684;ping&#x6D88;&#x606F;&#x4F5C;&#x4E3A;&#x5FC3;&#x8DF3;&#x5305;&#xFF0C;&#x5982;&#x679C;&#x69FD;&#x4F4D;&#x4E3A;65536&#xFF0C;&#x8FD9;&#x4E2A;ping&#x6D88;&#x606F;&#x7684;&#x6D88;&#x606F;&#x5934;&#x592A;&#x5927;&#x4E86;&#xFF0C;&#x6D6A;&#x8D39;&#x5E26;&#x5BBD;&#x3002;</p>
+<ol>
+<li>redis&#x7684;&#x96C6;&#x7FA4;&#x4E3B;&#x8282;&#x70B9;&#x6570;&#x91CF;&#x57FA;&#x672C;&#x4E0D;&#x53EF;&#x80FD;&#x8D85;&#x8FC7;1000&#x4E2A;&#x3002;</li>
+</ol>
+<p>&#x5982;&#x4E0A;&#x6240;&#x8FF0;&#xFF0C;&#x96C6;&#x7FA4;&#x8282;&#x70B9;&#x8D8A;&#x591A;&#xFF0C;&#x5FC3;&#x8DF3;&#x5305;&#x7684;&#x6D88;&#x606F;&#x4F53;&#x5185;&#x643A;&#x5E26;&#x7684;&#x6570;&#x636E;&#x8D8A;&#x591A;&#x3002;&#x5982;&#x679C;&#x8282;&#x70B9;&#x8FC7;1000&#x4E2A;&#xFF0C;&#x4E5F;&#x4F1A;&#x5BFC;&#x81F4;&#x7F51;&#x7EDC;&#x62E5;&#x5835;&#x3002;&#x56E0;&#x6B64;redis&#x4F5C;&#x8005;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;redis cluster&#x8282;&#x70B9;&#x6570;&#x91CF;&#x8D85;&#x8FC7;1000&#x4E2A;&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x5BF9;&#x4E8E;&#x8282;&#x70B9;&#x6570;&#x5728;1000&#x4EE5;&#x5185;&#x7684;redis cluster&#x96C6;&#x7FA4;&#xFF0C;16384&#x4E2A;&#x69FD;&#x4F4D;&#x591F;&#x7528;&#x4E86;&#x3002;&#x6CA1;&#x6709;&#x5FC5;&#x8981;&#x62D3;&#x5C55;&#x5230;65536&#x4E2A;&#x3002;</p>
+<ol>
+<li>&#x69FD;&#x4F4D;&#x8D8A;&#x5C0F;&#xFF0C;&#x8282;&#x70B9;&#x5C11;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x538B;&#x7F29;&#x7387;&#x9AD8;&#x3002;</li>
+</ol>
+<p>Redis&#x4E3B;&#x8282;&#x70B9;&#x7684;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x4E2D;&#xFF0C;&#x5B83;&#x6240;&#x8D1F;&#x8D23;&#x7684;&#x54C8;&#x5E0C;&#x69FD;&#x662F;&#x901A;&#x8FC7;&#x4E00;&#x5F20;bitmap&#x7684;&#x5F62;&#x5F0F;&#x6765;&#x4FDD;&#x5B58;&#x7684;&#xFF0C;&#x5728;&#x4F20;&#x8F93;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4F1A;&#x5BF9;bitmap&#x8FDB;&#x884C;&#x538B;&#x7F29;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;bitmap&#x7684;&#x586B;&#x5145;&#x7387;slots / N&#x5F88;&#x9AD8;&#x7684;&#x8BDD;(N&#x8868;&#x793A;&#x8282;&#x70B9;&#x6570;)&#xFF0C;bitmap&#x7684;&#x538B;&#x7F29;&#x7387;&#x5C31;&#x5F88;&#x4F4E;&#x3002;&#x5982;&#x679C;&#x8282;&#x70B9;&#x6570;&#x5F88;&#x5C11;&#xFF0C;&#x800C;&#x54C8;&#x5E0C;&#x69FD;&#x6570;&#x91CF;&#x5F88;&#x591A;&#x7684;&#x8BDD;&#xFF0C;bitmap&#x7684;&#x538B;&#x7F29;&#x7387;&#x5C31;&#x5F88;&#x4F4E;&#x3002;&#x800C;16384&#xF7;8=2kb&#xFF0C;&#x600E;&#x4E48;&#x6837;&#xFF0C;&#x795E;&#x5947;&#x4E0D;&#xFF01;</p>
+<p>&#x7EFC;&#x4E0A;&#x6240;&#x8FF0;&#xFF0C;&#x4F5C;&#x8005;&#x51B3;&#x5B9A;&#x53D6;16384&#x4E2A;&#x69FD;&#xFF0C;&#x4E0D;&#x591A;&#x4E0D;&#x5C11;&#xFF0C;&#x521A;&#x521A;&#x597D;&#xFF01;</p>
+<h3 id="redis-sentinel-&#x548C;-redis-cluster&#x5BF9;&#x6BD4;"><a name="redis-sentinel-&#x548C;-redis-cluster&#x5BF9;&#x6BD4;" class="anchor-navigation-ex-anchor" href="#redis-sentinel-&#x548C;-redis-cluster&#x5BF9;&#x6BD4;"><i class="fa fa-link" aria-hidden="true"></i></a>Redis-Sentinel &#x548C; Redis Cluster&#x5BF9;&#x6BD4;</h3>
+<p><strong>Redis-Sentinel</strong></p>
+<p>Redis-Sentinel(&#x54E8;&#x5175;&#x6A21;&#x5F0F;)&#x662F;Redis&#x5B98;&#x65B9;&#x63A8;&#x8350;&#x7684;&#x9AD8;&#x53EF;&#x7528;&#x6027;(HA)&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x5F53;&#x7528;Redis&#x505A;Master-slave&#x7684;&#x9AD8;&#x53EF;&#x7528;&#x65B9;&#x6848;&#x65F6;&#xFF0C;&#x5047;&#x5982;master&#x5B95;&#x673A;&#x4E86;&#xFF0C;Redis&#x672C;&#x8EAB;(&#x5305;&#x62EC;&#x5B83;&#x7684;&#x5F88;&#x591A;&#x5BA2;&#x6237;&#x7AEF;)&#x90FD;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;&#x81EA;&#x52A8;&#x8FDB;&#x884C;&#x4E3B;&#x5907;&#x5207;&#x6362;&#xFF0C;&#x800C;Redis-sentinel&#x672C;&#x8EAB;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x8FD0;&#x884C;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x5B83;&#x80FD;&#x76D1;&#x63A7;&#x591A;&#x4E2A;master-slave&#x96C6;&#x7FA4;&#xFF0C;&#x53D1;&#x73B0;master&#x5B95;&#x673A;&#x540E;&#x80FD;&#x8FDB;&#x884C;&#x81EA;&#x61C2;&#x5207;&#x6362;&#x3002;</p>
+<p>&#x4F18;&#x70B9;</p>
+<p>1&#x3001;Master &#x72B6;&#x6001;&#x76D1;&#x6D4B;</p>
+<p>2&#x3001;&#x5982;&#x679C;Master &#x5F02;&#x5E38;&#xFF0C;&#x5219;&#x4F1A;&#x8FDB;&#x884C;Master-slave &#x8F6C;&#x6362;&#xFF0C;&#x5C06;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;Slave&#x4F5C;&#x4E3A;Master&#xFF0C;&#x5C06;&#x4E4B;&#x524D;&#x7684;Master&#x4F5C;&#x4E3A;Slave </p>
+<p>3&#x3001;Master-Slave&#x5207;&#x6362;&#x540E;&#xFF0C;master_redis.conf&#x3001;slave_redis.conf&#x548C;sentinel.conf&#x7684;&#x5185;&#x5BB9;&#x90FD;&#x4F1A;&#x53D1;&#x751F;&#x6539;&#x53D8;&#xFF0C;&#x5373;master_redis.conf&#x4E2D;&#x4F1A;&#x591A;&#x4E00;&#x884C;slaveof&#x7684;&#x914D;&#x7F6E;&#xFF0C;sentinel.conf&#x7684;&#x76D1;&#x63A7;&#x76EE;&#x6807;&#x4F1A;&#x968F;&#x4E4B;&#x8C03;&#x6362;</p>
+<p>&#x7F3A;&#x70B9;&#xFF1A;</p>
+<p>1&#x3001;&#x5982;&#x679C;&#x662F;&#x4ECE;&#x8282;&#x70B9;&#x4E0B;&#x7EBF;&#x4E86;&#xFF0C;sentinel&#x662F;&#x4E0D;&#x4F1A;&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x6545;&#x969C;&#x8F6C;&#x79FB;&#x7684;&#xFF0C;&#x8FDE;&#x63A5;&#x4ECE;&#x8282;&#x70B9;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x4E5F;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x5230;&#x65B0;&#x7684;&#x53EF;&#x7528;&#x4ECE;&#x8282;&#x70B9;</p>
+<p>2&#x3001;&#x65E0;&#x6CD5;&#x5B9E;&#x73B0;&#x52A8;&#x6001;&#x6269;&#x5BB9;</p>
+<p><strong>Redis Cluster</strong></p>
+<p>&#x4F7F;&#x7528;Redis Sentinel &#x6A21;&#x5F0F;&#x67B6;&#x6784;&#x7684;&#x7F13;&#x5B58;&#x4F53;&#x7CFB;&#xFF0C;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x968F;&#x7740;&#x4E1A;&#x52A1;&#x7684;&#x589E;&#x52A0;&#x4E0D;&#x53EF;&#x907F;&#x514D;&#x7684;&#x8981;&#x5BF9;Redis&#x8FDB;&#x884C;&#x6269;&#x5BB9;&#xFF0C;&#x719F;&#x77E5;&#x7684;&#x6269;&#x5BB9;&#x65B9;&#x5F0F;&#x6709;&#x4E24;&#x79CD;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x5782;&#x76F4;&#x6269;&#x5BB9;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x6C34;&#x5E73;&#x6269;&#x5BB9;&#x3002;&#x5782;&#x76F4;&#x6269;&#x5BB9;&#x8868;&#x793A;&#x901A;&#x8FC7;&#x52A0;&#x5185;&#x5B58;&#x65B9;&#x5F0F;&#x6765;&#x589E;&#x52A0;&#x6574;&#x4E2A;&#x7F13;&#x5B58;&#x4F53;&#x7CFB;&#x7684;&#x5BB9;&#x91CF;&#x6BD4;&#x5982;&#x5C06;&#x7F13;&#x5B58;&#x5927;&#x5C0F;&#x7531;2G&#x8C03;&#x6574;&#x5230;4G,&#x8FD9;&#x79CD;&#x6269;&#x5BB9;&#x4E0D;&#x9700;&#x8981;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x652F;&#x6301;&#xFF1B;&#x6C34;&#x5E73;&#x6269;&#x5BB9;&#x8868;&#x793A;&#x8868;&#x793A;&#x901A;&#x8FC7;&#x589E;&#x52A0;&#x8282;&#x70B9;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x589E;&#x52A0;&#x6574;&#x4E2A;&#x7F13;&#x5B58;&#x4F53;&#x7CFB;&#x7684;&#x5BB9;&#x91CF;&#x6BD4;&#x5982;&#x672C;&#x6765;&#x6709;1&#x4E2A;&#x8282;&#x70B9;&#x53D8;&#x6210;2&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x8FD9;&#x79CD;&#x6269;&#x5BB9;&#x65B9;&#x5F0F;&#x9700;&#x8981;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x652F;&#x6301;&#x3002;&#x5782;&#x76F4;&#x6269;&#x5BB9;&#x770B;&#x4F3C;&#x6700;&#x4FBF;&#x6377;&#x7684;&#x6269;&#x5BB9;&#xFF0C;&#x4F46;&#x662F;&#x53D7;&#x5230;&#x673A;&#x5668;&#x7684;&#x9650;&#x5236;&#xFF0C;&#x4E00;&#x4E2A;&#x673A;&#x5668;&#x7684;&#x5185;&#x5B58;&#x662F;&#x6709;&#x9650;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5782;&#x76F4;&#x6269;&#x5BB9;&#x5230;&#x4E00;&#x5B9A;&#x9636;&#x6BB5;&#x4E0D;&#x53EF;&#x907F;&#x514D;&#x7684;&#x8981;&#x8FDB;&#x884C;&#x6C34;&#x5E73;&#x6269;&#x5BB9;&#xFF0C;&#x5982;&#x679C;&#x9884;&#x7559;&#x51FA;&#x5F88;&#x591A;&#x8282;&#x70B9;&#x611F;&#x89C9;&#x53C8;&#x662F;&#x5BF9;&#x8D44;&#x6E90;&#x7684;&#x4E00;&#x79CD;&#x6D6A;&#x8D39;&#x56E0;&#x4E3A;&#x5BF9;&#x4E1A;&#x52A1;&#x7684;&#x53D1;&#x5C55;&#x8D8B;&#x52BF;&#x5F88;&#x5FEB;&#x9884;&#x6D4B;&#x3002;<strong>Redis Sentinel &#x6C34;&#x5E73;&#x6269;&#x5BB9;&#x4E00;&#x76F4;&#x90FD;&#x662F;&#x7A0B;&#x5E8F;&#x733F;&#x5FC3;&#x4E2D;&#x7684;&#x75DB;&#x70B9;&#xFF0C;&#x56E0;&#x4E3A;&#x6C34;&#x5E73;&#x6269;&#x5BB9;&#x7275;&#x6D89;&#x5230;&#x6570;&#x636E;&#x7684;&#x8FC1;&#x79FB;</strong>&#x3002;&#x8FC1;&#x79FB;&#x8FC7;&#x7A0B;&#x4E00;&#x65B9;&#x9762;&#x8981;&#x4FDD;&#x8BC1;&#x81EA;&#x5DF1;&#x7684;&#x4E1A;&#x52A1;&#x662F;&#x53EF;&#x7528;&#x7684;&#xFF0C;&#x4E00;&#x65B9;&#x9762;&#x8981;&#x4FDD;&#x8BC1;&#x5C3D;&#x91CF;&#x4E0D;&#x4E22;&#x5931;&#x6570;&#x636E;&#x6240;&#x4EE5;&#x6570;&#x636E;&#x80FD;&#x4E0D;&#x8FC1;&#x79FB;&#x5C31;&#x5C3D;&#x91CF;&#x4E0D;&#x8FC1;&#x79FB;&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;Redis Cluster&#x5C31;&#x5E94;&#x8FD0;&#x800C;&#x751F;&#x4E86;&#x3002;</p>
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<p>1&#x3001;&#x6709;&#x6548;&#x7684;&#x89E3;&#x51B3;&#x4E86;redis&#x5728;&#x5206;&#x5E03;&#x5F0F;&#x65B9;&#x9762;&#x7684;&#x9700;&#x6C42;</p>
+<p>2&#x3001;&#x9047;&#x5230;&#x5355;&#x673A;&#x5185;&#x5B58;&#xFF0C;&#x5E76;&#x53D1;&#x548C;&#x6D41;&#x91CF;&#x74F6;&#x9888;&#x7B49;&#x95EE;&#x9898;&#x65F6;&#xFF0C;&#x53EF;&#x91C7;&#x7528;Cluster&#x65B9;&#x6848;&#x8FBE;&#x5230;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7684;&#x76EE;&#x7684;</p>
+<p>3&#x3001;&#x53EF;&#x5B9E;&#x73B0;&#x52A8;&#x6001;&#x6269;&#x5BB9;</p>
+<p>4&#x3001;P2P&#x6A21;&#x5F0F;&#xFF0C;&#x65E0;&#x4E2D;&#x5FC3;&#x5316;</p>
+<p>5&#x3001;&#x901A;&#x8FC7;Gossip&#x534F;&#x8BAE;&#x540C;&#x6B65;&#x8282;&#x70B9;&#x4FE1;&#x606F;</p>
+<p>6&#x3001;&#x81EA;&#x52A8;&#x6545;&#x969C;&#x8F6C;&#x79FB;&#x3001;Slot&#x8FC1;&#x79FB;&#x4E2D;&#x6570;&#x636E;&#x53EF;&#x7528;</p>
+<p>&#x7F3A;&#x70B9;&#xFF1A;</p>
+<p>1&#x3001;&#x67B6;&#x6784;&#x6BD4;&#x8F83;&#x65B0;&#xFF0C;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;&#x8F83;&#x5C11;</p>
+<p>2&#x3001;&#x4E3A;&#x4E86;&#x6027;&#x80FD;&#x63D0;&#x5347;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x7F13;&#x5B58;&#x8DEF;&#x7531;&#x8868;&#x4FE1;&#x606F;</p>
+<p>3&#x3001;&#x8282;&#x70B9;&#x53D1;&#x73B0;&#x3001;reshard&#x64CD;&#x4F5C;&#x4E0D;&#x591F;&#x81EA;&#x52A8;&#x5316;</p>
+<blockquote>
+<p>Redis Sentinal&#x7740;&#x773C;&#x4E8E;&#x9AD8;&#x53EF;&#x7528;&#xFF0C;&#x5728;master&#x5B95;&#x673A;&#x65F6;&#x4F1A;&#x81EA;&#x52A8;&#x5C06;slave&#x63D0;&#x5347;&#x4E3A;master&#xFF0C;&#x7EE7;&#x7EED;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x3002;</p>
+<p>Redis Cluster&#x7740;&#x773C;&#x4E8E;&#x6269;&#x5C55;&#x6027;&#xFF0C;&#x5728;&#x5355;&#x4E2A;redis&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;Cluster&#x8FDB;&#x884C;&#x5206;&#x7247;&#x5B58;&#x50A8;&#x3002;</p>
+</blockquote>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../../" class="navigation navigation-prev " aria-label="Previous page: Redis相关">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Redis数据结构与对象.html" class="navigation navigation-next " aria-label="Next page: Redis数据结构与对象">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redis整理","level":"1.3.1","depth":2,"next":{"title":"Redis数据结构与对象","level":"1.3.2","depth":2,"path":"docs/Guide/Redis数据结构与对象.md","ref":"docs/Guide/Redis数据结构与对象.md","articles":[]},"previous":{"title":"Redis相关","level":"1.3","depth":1,"path":"README.md","ref":"README.md","articles":[{"title":"Redis整理","level":"1.3.1","depth":2,"path":"docs/Guide/Redis整理.md","ref":"docs/Guide/Redis整理.md","articles":[]},{"title":"Redis数据结构与对象","level":"1.3.2","depth":2,"path":"docs/Guide/Redis数据结构与对象.md","ref":"docs/Guide/Redis数据结构与对象.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-diy-introduction","back-to-top-button","chapter-fold","code","splitter","-lunr","-search","search-pro","pageview-count","anchor-navigation-ex","github"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"introduction-text":"介绍","chapter-fold":{},"github":{"url":"https://github.com/Lancelothe"},"splitter":{},"search-pro":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"pageview-count":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"lancelot","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Interview-Guide","language":"zh-hans","gitbook":"*","description":"Interview-Guide"},"file":{"path":"docs/Guide/Redis整理.md","mtime":"2020-10-21T02:23:22.711Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-21T02:25:13.219Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

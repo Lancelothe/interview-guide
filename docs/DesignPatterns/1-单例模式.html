@@ -1,0 +1,1088 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>单例模式 · Interview-Guide</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="lancelot">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="2-工厂模式.html" />
+    
+    
+    <link rel="prev" href="../../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Interview-Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Java相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../Guide/Java基础.html">
+            
+                <a href="../Guide/Java基础.html">
+            
+                    
+                    Java基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../Guide/Java集合.html">
+            
+                <a href="../Guide/Java集合.html">
+            
+                    
+                    Java集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../Guide/Java并发.html">
+            
+                <a href="../Guide/Java并发.html">
+            
+                    
+                    Java并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../Guide/Java类加载.html">
+            
+                <a href="../Guide/Java类加载.html">
+            
+                    
+                    Java类加载
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../Guide/JVM.html">
+            
+                <a href="../Guide/JVM.html">
+            
+                    
+                    JVM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../Guide/Spring的一些概念.html">
+            
+                <a href="../Guide/Spring的一些概念.html">
+            
+                    
+                    Spring的一些概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="../Guide/Spring复习.html">
+            
+                <a href="../Guide/Spring复习.html">
+            
+                    
+                    Spring复习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../Guide/SpringBoot.html">
+            
+                <a href="../Guide/SpringBoot.html">
+            
+                    
+                    SpringBoot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="../Guide/Spring+IOC+容器源码分析.html">
+            
+                <a href="../Guide/Spring+IOC+容器源码分析.html">
+            
+                    
+                    Spring+IOC+容器源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.10" data-path="../Guide/Spring框架学习.html">
+            
+                <a href="../Guide/Spring框架学习.html">
+            
+                    
+                    Spring框架学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.11" data-path="../Guide/什么是伪共享.html">
+            
+                <a href="../Guide/什么是伪共享.html">
+            
+                    
+                    什么是伪共享
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.12" data-path="../Guide/序列化的底层怎么实现的.html">
+            
+                <a href="../Guide/序列化的底层怎么实现的.html">
+            
+                    
+                    序列化的底层怎么实现的
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Redis相关
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../Guide/Redis整理.html">
+            
+                <a href="../Guide/Redis整理.html">
+            
+                    
+                    Redis整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../Guide/Redis数据结构与对象.html">
+            
+                <a href="../Guide/Redis数据结构与对象.html">
+            
+                    
+                    Redis数据结构与对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    数据库
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../Guide/MySQL整理.html">
+            
+                <a href="../Guide/MySQL整理.html">
+            
+                    
+                    MySQL整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    中间件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Guide/Zookeeper.html">
+            
+                <a href="../Guide/Zookeeper.html">
+            
+                    
+                    Zookeeper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Guide/RabbitMQ整理.html">
+            
+                <a href="../Guide/RabbitMQ整理.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Kafka
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../Guide/Kafka整理.html">
+            
+                <a href="../Guide/Kafka整理.html">
+            
+                    
+                    Kafka整理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../Guide/Kafka进阶.html">
+            
+                <a href="../Guide/Kafka进阶.html">
+            
+                    
+                    Kafka进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../Guide/ElasticSearch整理.html">
+            
+                <a href="../Guide/ElasticSearch整理.html">
+            
+                    
+                    ElasticSearch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    分布式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="../Guide/架构设计.html">
+            
+                <a href="../Guide/架构设计.html">
+            
+                    
+                    架构设计
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.1" data-path="../Guide/分布式.html">
+            
+                <a href="../Guide/分布式.html">
+            
+                    
+                    分布式相关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.2" data-path="../Guide/一致性哈希.html">
+            
+                <a href="../Guide/一致性哈希.html">
+            
+                    
+                    一致性哈希
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.3" data-path="../Guide/限流算法.html">
+            
+                <a href="../Guide/限流算法.html">
+            
+                    
+                    限流算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.4" data-path="../Guide/阿里Sentinel.html">
+            
+                <a href="../Guide/阿里Sentinel.html">
+            
+                    
+                    阿里Sentinel
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    系统设计
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.2.1" data-path="../Guide/秒杀系统的设计.html">
+            
+                <a href="../Guide/秒杀系统的设计.html">
+            
+                    
+                    秒杀系统设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    RPC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.3.1" data-path="../Guide/Thrift-RPC.html">
+            
+                <a href="../Guide/Thrift-RPC.html">
+            
+                    
+                    Thrift-RPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3.2" data-path="../Guide/gRPC.html">
+            
+                <a href="../Guide/gRPC.html">
+            
+                    
+                    gRPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="../Guide/算法总结.html">
+            
+                <a href="../Guide/算法总结.html">
+            
+                    
+                    算法总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.3.1" data-path="../Guide/Elastic-Job原理.html">
+            
+                <a href="../Guide/Elastic-Job原理.html">
+            
+                    
+                    Elastic-Job原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="2.4.1" data-path="1-单例模式.html">
+            
+                <a href="1-单例模式.html">
+            
+                    
+                    单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.2" data-path="2-工厂模式.html">
+            
+                <a href="2-工厂模式.html">
+            
+                    
+                    工厂模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.3" data-path="6-模板方法模式.html">
+            
+                <a href="6-模板方法模式.html">
+            
+                    
+                    模板方法模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.4" data-path="4-策略模式.html">
+            
+                <a href="4-策略模式.html">
+            
+                    
+                    策略模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.5" data-path="7-观察者模式.html">
+            
+                <a href="7-观察者模式.html">
+            
+                    
+                    观察者模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.6" data-path="5-职责链模式.html">
+            
+                <a href="5-职责链模式.html">
+            
+                    
+                    责任链模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    面试
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.5.1" data-path="../Guide/面试常见问题回答（主观题）.html">
+            
+                <a href="../Guide/面试常见问题回答（主观题）.html">
+            
+                    
+                    面试常见问题回答（主观题）
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >单例模式</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;"><b></b>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;</a></li><li><span class="title-icon "></span><a href="#&#x997F;&#x6C49;&#x5F0F;"><b></b>&#x997F;&#x6C49;&#x5F0F;</a></li><li><span class="title-icon "></span><a href="#&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7684;&#x61D2;&#x6C49;&#x5F0F;"><b></b>&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7684;&#x61D2;&#x6C49;&#x5F0F;</a></li><li><span class="title-icon "></span><a href="#&#x53CC;&#x91CD;&#x6821;&#x9A8C;&#x9501;&#x61D2;&#x6C49;&#x5F0F;"><b></b>&#x53CC;&#x91CD;&#x6821;&#x9A8C;&#x9501;&#x61D2;&#x6C49;&#x5F0F;</a></li><ul><li><span class="title-icon "></span><a href="#volatile&#x4F5C;&#x7528;"><b></b>volatile&#x4F5C;&#x7528;</a></li></ul><li><span class="title-icon "></span><a href="#&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;"><b></b>&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;</a></li><li><span class="title-icon "></span><a href="#&#x679A;&#x4E3E;"><b></b>&#x679A;&#x4E3E;</a></li><li><span class="title-icon "></span><a href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;"><b></b>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;</a></li></ul></ul></div><h2 id="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;"><a name="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;</h2>
+<p><a href="https://blog.csdn.net/yeyazhishang/article/details/90445330" target="_blank">&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#xFF1A;&#x5355;&#x4F8B;&#x6A21;&#x5F0F; (&#x5173;&#x4E8E;&#x997F;&#x6C49;&#x5F0F;&#x548C;&#x61D2;&#x6C49;&#x5F0F;)_Java_&#x859B;&#x5609;&#x6D9B;&#x7684;&#x535A;&#x5BA2;-CSDN&#x535A;&#x5BA2;</a></p>
+<h2 id="&#x997F;&#x6C49;&#x5F0F;"><a name="&#x997F;&#x6C49;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x997F;&#x6C49;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x997F;&#x6C49;&#x5F0F;</h2>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> Singleton INSTANCE = <span class="hljs-keyword">new</span> Singleton();
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span></span>{}
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">return</span> INSTANCE;
+    }
+
+}
+</code></pre>
+<ul>
+<li>&#x666E;&#x901A;&#x7684;&#x61D2;&#x6C49;&#x5F0F; (&#x7EBF;&#x7A0B;&#x4E0D;&#x5B89;&#x5168;&#xFF0C;&#x4E0D;&#x53EF;&#x7528;)</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton instance = <span class="hljs-keyword">null</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>{
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>) {
+            instance = <span class="hljs-keyword">new</span> Singleton();
+        }
+        <span class="hljs-keyword">return</span> instance;
+    }
+
+}
+</code></pre>
+<p>&#x8FD9;&#x662F;&#x61D2;&#x6C49;&#x5F0F;&#x4E2D;&#x6700;&#x7B80;&#x5355;&#x7684;&#x4E00;&#x79CD;&#x5199;&#x6CD5;&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x65B9;&#x6CD5;&#x7B2C;&#x4E00;&#x6B21;&#x88AB;&#x8BBF;&#x95EE;&#x65F6;&#x624D;&#x4F1A;&#x5B9E;&#x4F8B;&#x5316;&#xFF0C;&#x8FBE;&#x5230;&#x4E86;&#x61D2;&#x52A0;&#x8F7D;&#x7684;&#x6548;&#x679C;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#x6709;&#x4E2A;&#x81F4;&#x547D;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5C31;&#x662F;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x5B89;&#x5168;&#x95EE;&#x9898;&#x3002;&#x5047;&#x8BBE;&#x5BF9;&#x8C61;&#x8FD8;&#x6CA1;&#x88AB;&#x5B9E;&#x4F8B;&#x5316;&#xFF0C;&#x7136;&#x540E;&#x6709;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x591A;&#x6B21;&#x5B9E;&#x4F8B;&#x5316;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#x4E0D;&#x53EF;&#x91C7;&#x7528;&#x3002;</p>
+<h2 id="&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7684;&#x61D2;&#x6C49;&#x5F0F;"><a name="&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7684;&#x61D2;&#x6C49;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7684;&#x61D2;&#x6C49;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7684;&#x61D2;&#x6C49;&#x5F0F;</h2>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton instance = <span class="hljs-keyword">null</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>{
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>) {
+            instance = <span class="hljs-keyword">new</span> Singleton();
+        }
+        <span class="hljs-keyword">return</span> instance;
+    }
+
+}
+</code></pre>
+<p>&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#x662F;&#x5BF9;getInstance()&#x52A0;&#x4E86;&#x9501;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x4FDD;&#x8BC1;&#x4E86;&#x540C;&#x4E00;&#x65F6;&#x523B;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#x5E76;&#x83B7;&#x5F97;&#x5B9E;&#x4F8B;&#xFF0C;&#x4F46;&#x662F;&#x7F3A;&#x70B9;&#x4E5F;&#x5F88;&#x660E;&#x663E;&#xFF0C;&#x56E0;&#x4E3A;synchronized&#x662F;&#x4FEE;&#x9970;&#x6574;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#x90FD;&#x8981;&#x8FDB;&#x884C;&#x540C;&#x6B65;&#xFF0C;&#x800C;&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x53EA;&#x6267;&#x884C;&#x4E00;&#x6B21;&#x5B9E;&#x4F8B;&#x5316;&#x4EE3;&#x7801;&#x5C31;&#x591F;&#x4E86;&#xFF0C;&#x6BCF;&#x6B21;&#x90FD;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x663E;&#x7136;&#x6548;&#x7387;&#x4F4E;&#x4E0B;&#xFF0C;&#x4E3A;&#x4E86;&#x6539;&#x8FDB;&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#xFF0C;&#x5C31;&#x6709;&#x4E86;&#x4E0B;&#x9762;&#x7684;&#x53CC;&#x91CD;&#x68C0;&#x67E5;&#x61D2;&#x6C49;&#x5F0F;&#x3002;</p>
+<h2 id="&#x53CC;&#x91CD;&#x6821;&#x9A8C;&#x9501;&#x61D2;&#x6C49;&#x5F0F;"><a name="&#x53CC;&#x91CD;&#x6821;&#x9A8C;&#x9501;&#x61D2;&#x6C49;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x53CC;&#x91CD;&#x6821;&#x9A8C;&#x9501;&#x61D2;&#x6C49;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53CC;&#x91CD;&#x6821;&#x9A8C;&#x9501;&#x61D2;&#x6C49;&#x5F0F;</h2>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">volatile</span> Singleton instance;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>{}
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>) {
+            <span class="hljs-keyword">synchronized</span> (Singleton.class) {
+                <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>) {
+                    instance = <span class="hljs-keyword">new</span> Singleton();
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> instance;
+    }
+
+}
+</code></pre>
+<p>&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#x7528;&#x4E86;&#x4E24;&#x4E2A;if&#x5224;&#x65AD;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;Double-Check&#xFF0C;&#x5E76;&#x4E14;&#x540C;&#x6B65;&#x7684;&#x4E0D;&#x662F;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x662F;&#x4EE3;&#x7801;&#x5757;&#xFF0C;&#x6548;&#x7387;&#x8F83;&#x9AD8;&#xFF0C;&#x662F;&#x5BF9;&#x7B2C;&#x4E09;&#x79CD;&#x5199;&#x6CD5;&#x7684;&#x6539;&#x8FDB;&#x3002;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x505A;&#x4E24;&#x6B21;&#x5224;&#x65AD;&#x5462;&#xFF1F;&#x8FD9;&#x662F;&#x4E3A;&#x4E86;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x8003;&#x8651;&#xFF0C;&#x8FD8;&#x662F;&#x90A3;&#x4E2A;&#x573A;&#x666F;&#xFF0C;&#x5BF9;&#x8C61;&#x8FD8;&#x6CA1;&#x5B9E;&#x4F8B;&#x5316;&#xFF0C;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;A&#x548C;B&#x540C;&#x65F6;&#x8BBF;&#x95EE;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x5E76;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;if&#x5224;&#x65AD;&#x8BED;&#x53E5;&#xFF0C;&#x8FD9;&#x65F6;&#x7EBF;&#x7A0B;A&#x5148;&#x8FDB;&#x5165;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x4E2D;&#x5B9E;&#x4F8B;&#x5316;&#x5BF9;&#x8C61;&#xFF0C;&#x7ED3;&#x675F;&#x4E4B;&#x540E;&#x7EBF;&#x7A0B;B&#x4E5F;&#x8FDB;&#x5165;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x7B2C;&#x4E8C;&#x4E2A;if&#x5224;&#x65AD;&#x8BED;&#x53E5;&#xFF0C;&#x90A3;&#x4E48;&#x7EBF;&#x7A0B;B&#x4E5F;&#x540C;&#x6837;&#x4F1A;&#x6267;&#x884C;&#x5B9E;&#x4F8B;&#x5316;&#x5BF9;&#x8C61;&#x7684;&#x64CD;&#x4F5C;&#x4E86;&#x3002;</p>
+<h3 id="volatile&#x4F5C;&#x7528;"><a name="volatile&#x4F5C;&#x7528;" class="anchor-navigation-ex-anchor" href="#volatile&#x4F5C;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>volatile&#x4F5C;&#x7528;</h3>
+<p>&#x7981;&#x6B62;&#x6307;&#x4EE4;&#x91CD;&#x6392;&#x5E8F;&#x3002;&#x6211;&#x4EEC;&#x77E5;&#x9053;new Singleton()&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x539F;&#x5B50;&#x64CD;&#x4F5C;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x53EF;&#x80FD;&#x4F1A;&#x91CD;&#x6392;&#x5E8F;&#x3010;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53EF;&#x80FD;&#x5728;&#x6574;&#x4E2A;&#x5BF9;&#x8C61;&#x521D;&#x59CB;&#x5316;&#x5B8C;&#x6210;&#x524D;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#xFF0C;&#x5373;&#x8D4B;&#x503C;&#x64CD;&#x4F5C;&#xFF08;&#x53EA;&#x662F;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x5F00;&#x8F9F;&#x4E00;&#x7247;&#x5B58;&#x50A8;&#x533A;&#x57DF;&#x540E;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x5185;&#x5B58;&#x7684;&#x5F15;&#x7528;&#xFF09;&#x5728;&#x521D;&#x59CB;&#x5316;&#x5BF9;&#x8C61;&#x524D;&#x5B8C;&#x6210;&#x3011;&#x3002;&#x800C;&#x7EBF;&#x7A0B;B&#x5728;&#x7EBF;&#x7A0B;A&#x8D4B;&#x503C;&#x5B8C;&#x65F6;&#x5224;&#x65AD;instance&#x5C31;&#x4E0D;&#x4E3A;null&#x4E86;&#xFF0C;&#x6B64;&#x65F6;B&#x62FF;&#x5230;&#x7684;&#x5C06;&#x662F;&#x4E00;&#x4E2A;&#x6CA1;&#x6709;&#x521D;&#x59CB;&#x5316;&#x5B8C;&#x6210;&#x7684;&#x534A;&#x6210;&#x54C1;&#x3002;</p>
+<p>&#x4FDD;&#x8BC1;&#x53EF;&#x89C1;&#x6027;&#x3002;&#x7EBF;&#x7A0B;A&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#x5185;&#x521B;&#x5EFA;&#x4E86;&#x5B9E;&#x4F8B;&#xFF0C;&#x4F46;&#x6B64;&#x65F6;&#x8FD8;&#x672A;&#x540C;&#x6B65;&#x5230;&#x4E3B;&#x5B58;&#x4E2D;&#xFF1B;&#x6B64;&#x65F6;&#x7EBF;&#x7A0B;B&#x5728;&#x4E3B;&#x5B58;&#x4E2D;&#x5224;&#x65AD;instance&#x8FD8;&#x662F;null&#xFF0C;&#x90A3;&#x4E48;&#x7EBF;&#x7A0B;B&#x53C8;&#x5C06;&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#x4E2D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x521B;&#x5EFA;&#x4E86;&#x591A;&#x4E2A;&#x5B9E;&#x4F8B;&#x3002;</p>
+<h2 id="&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;"><a name="&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;" class="anchor-navigation-ex-anchor" href="#&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;</h2>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>{}
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingletonInstance</span> </span>{
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Singleton INSTANCE = <span class="hljs-keyword">new</span> Singleton();
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> SingletonInstance.INSTANCE;
+    }
+
+}
+</code></pre>
+<h2 id="&#x679A;&#x4E3E;"><a name="&#x679A;&#x4E3E;" class="anchor-navigation-ex-anchor" href="#&#x679A;&#x4E3E;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x679A;&#x4E3E;</h2>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Singleton {
+    INSTANCE;
+}
+</code></pre>
+<h2 id="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;"><a name="&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7684;&#x4F18;&#x7F3A;&#x70B9;</h2>
+<ul>
+<li>&#x4F18;&#x70B9;<br>&#x5355;&#x4F8B;&#x7C7B;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF0C;&#x8282;&#x7701;&#x4E86;&#x5185;&#x5B58;&#x8D44;&#x6E90;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E00;&#x4E9B;&#x9700;&#x8981;&#x9891;&#x7E41;&#x521B;&#x5EFA;&#x9500;&#x6BC1;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4F7F;&#x7528;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x53EF;&#x4EE5;&#x63D0;&#x9AD8;&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#xFF1B;</li>
+</ul>
+<p>  &#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x53EF;&#x4EE5;&#x5728;&#x7CFB;&#x7EDF;&#x8BBE;&#x7F6E;&#x5168;&#x5C40;&#x7684;&#x8BBF;&#x95EE;&#x70B9;&#xFF0C;&#x4F18;&#x5316;&#x548C;&#x5171;&#x4EAB;&#x6570;&#x636E;&#xFF0C;&#x4F8B;&#x5982;&#x524D;&#x9762;&#x8BF4;&#x7684;Web&#x5E94;&#x7528;&#x7684;&#x9875;&#x9762;&#x8BA1;&#x6570;&#x5668;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x5B9E;&#x73B0;&#x8BA1;&#x6570;&#x503C;&#x7684;&#x4FDD;&#x5B58;&#x3002;</p>
+<ul>
+<li>&#x7F3A;&#x70B9;<br>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x4E00;&#x822C;&#x6CA1;&#x6709;&#x63A5;&#x53E3;&#xFF0C;&#x6269;&#x5C55;&#x7684;&#x8BDD;&#x9664;&#x4E86;&#x4FEE;&#x6539;&#x4EE3;&#x7801;&#x57FA;&#x672C;&#x4E0A;&#x6CA1;&#x6709;&#x5176;&#x4ED6;&#x9014;&#x5F84;&#x3002;</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../../" class="navigation navigation-prev " aria-label="Previous page: 设计模式">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="2-工厂模式.html" class="navigation navigation-next " aria-label="Next page: 工厂模式">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"单例模式","level":"2.4.1","depth":2,"next":{"title":"工厂模式","level":"2.4.2","depth":2,"path":"docs/DesignPatterns/2-工厂模式.md","ref":"docs/DesignPatterns/2-工厂模式.md","articles":[]},"previous":{"title":"设计模式","level":"2.4","depth":1,"path":"README.md","ref":"README.md","articles":[{"title":"单例模式","level":"2.4.1","depth":2,"path":"docs/DesignPatterns/1-单例模式.md","ref":"docs/DesignPatterns/1-单例模式.md","articles":[]},{"title":"工厂模式","level":"2.4.2","depth":2,"path":"docs/DesignPatterns/2-工厂模式.md","ref":"docs/DesignPatterns/2-工厂模式.md","articles":[]},{"title":"模板方法模式","level":"2.4.3","depth":2,"path":"docs/DesignPatterns/6-模板方法模式.md","ref":"docs/DesignPatterns/6-模板方法模式.md","articles":[]},{"title":"策略模式","level":"2.4.4","depth":2,"path":"docs/DesignPatterns/4-策略模式.md","ref":"docs/DesignPatterns/4-策略模式.md","articles":[]},{"title":"观察者模式","level":"2.4.5","depth":2,"path":"docs/DesignPatterns/7-观察者模式.md","ref":"docs/DesignPatterns/7-观察者模式.md","articles":[]},{"title":"责任链模式","level":"2.4.6","depth":2,"path":"docs/DesignPatterns/5-职责链模式.md","ref":"docs/DesignPatterns/5-职责链模式.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-diy-introduction","back-to-top-button","chapter-fold","code","splitter","-lunr","-search","search-pro","pageview-count","anchor-navigation-ex","github"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"introduction-text":"介绍","chapter-fold":{},"github":{"url":"https://github.com/Lancelothe"},"splitter":{},"search-pro":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":false,"showLevel":false},"back-to-top-button":{},"pageview-count":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"lancelot","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Interview-Guide","language":"zh-hans","gitbook":"*","description":"Interview-Guide"},"file":{"path":"docs/DesignPatterns/1-单例模式.md","mtime":"2020-10-21T02:23:22.700Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-10-21T02:25:13.219Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
