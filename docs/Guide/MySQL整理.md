@@ -182,12 +182,22 @@ select * from orders_history where type = 8 and id >= (
 
 
 
+#### 索引合并
+
+
+
+#### 索引下推
+
+
+
 ### 创建索引的原则
 
-- 列的离散型：
+- 列的离散型（区分度）：
 离散型的计算公式：count(distinct col) : count(col)，离散型越高，选择型越好。
 - 最左匹配原则并且优先创建联合索引原则
 - 覆盖索引
+
+[两个字段都建立了索引，会使用哪一个？\_诚\-CSDN博客](https://blog.csdn.net/qq_22771739/article/details/85853620)
 
 #### 前缀索引
 
@@ -566,6 +576,8 @@ SQL线程负责读取relay log中的内容，解析成具体的操作并执行�
 
 ## 锁
 
+如果没有索引，所以update会锁表，如果加了索引，就会锁行。
+
 ### 锁粒度
 
 `mysql`不同存储引擎支持的锁粒度不同, InnoDB存储引擎支持表锁及行锁, InnoDB存储引擎可支持三种行锁定方式, 默认加锁方式是next-key 锁。
@@ -682,6 +694,10 @@ InnoDB使用间隙锁的目的有两个：
 [解决死锁之路（终结篇） \- 再见死锁 \- aneasystone's blog](https://www.aneasystone.com/archives/2018/04/solving-dead-locks-four.html)
 
 [MySQL死锁解决之道 \- 知乎](https://zhuanlan.zhihu.com/p/67793185)
+
+[Mysql加锁过程详解\_天空之城\-CSDN博客](https://blog.csdn.net/u013215018/article/details/71404891/)
+
+[超全面MySQL语句加锁分析（上篇）](https://mp.weixin.qq.com/s?__biz=MzIxNTQ3NDMzMw==&mid=2247484169&idx=1&sn=f06eac890ea0f0810cedd6a2ca62fdd3&chksm=97968afba0e103ed979f2c0e75448cc78c42b094a895e1d43eb9cd81da97c013146621e422ea&mpshare=1&scene=1&srcid=0507C8YERMtN2m9C6kVZQRGY&key=32072adf498bfba6443021c2f8cf21ac34f9e8758039b75b8bd36764ea4d2ed0b676dbe44de7c56f7b2a914d05ec470ab3d10009cd1e0027fcdef0a39eee46d4005416d5efcc82de0c93483ede44e009&ascene=1&uin=MTkzMDgwMzIwMg%3D%3D&devicetype=Windows+7&version=62060739&lang=zh_CN&pass_ticket=Rraaoi1fSttNIAGIPdfJnw14Ov34WD2duMypnFm0NWzVomD0DH5tOZe2P5ltpYyy)
 
 
 
@@ -827,7 +843,7 @@ mysql> select * from a_table union all select * from b_table;
 
 [在线数据迁移的一点想法\_嗯。\-CSDN博客](https://blog.csdn.net/u011686226/article/details/86511329)
 
-
+[分库分表？如何做到永不迁移数据和避免热点？](https://mp.weixin.qq.com/s/jL3J4gA4AwW2vQX1SDxytA)
 
 
 

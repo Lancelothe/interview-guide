@@ -255,14 +255,46 @@ Redis 内存淘汰的机制有以下几种方案可供选择：
 
 ### Redis如何实现分布式锁
 
+redis版本在**2.6.12**之前，set是不支持nx参数的，如果想要完成一个锁，那么需要两条命令：
+
+```
+1. setnx Test uuid
+2. expire Test 30
+```
+
+即放入Key和设置有效期，是分开的两步，理论上会出现**1**刚执行完，程序挂掉，无法保证原子性。
+
+但是早在**2013年**，也就是7年前，Redis就发布了**2.6.12**版本，并且官网([set命令页](https://redis.io/commands/set))，也早早就说明了“SETNX, SETEX, PSETEX可能在未来的版本中，会弃用并**永久删除**”。
+
 - setnx
 
-- ```text
+- ```bash
   // NX是指如果key不存在就成功，key存在返回false，PX可以指定过期时间 
+  // value设置一个唯一的客户端ID，或者用UUID这种随机数。
+  // 当解锁的时候，先获取value判断是否是当前线程加的锁，再去删除
+// 因为每次get和del并非原子操作，还是有线程安全问题
   SET anyLock unique_value NX PX 30000
   ```
-
+  
 - Lua脚本
+
+  一个命令(**eval**/**evalsha**)去执行的，一条命令没执行完，其他客户端是看不到的，保证原子性。
+
+  ```bash
+  -- lua删除锁：
+  -- KEYS和ARGV分别是以集合方式传入的参数，对应上文的Test和uuid。
+  -- 如果对应的value等于传入的uuid。
+  if redis.call('get', KEYS[1]) == ARGV[1] 
+      then 
+  	-- 执行删除操作
+          return redis.call('del', KEYS[1]) 
+      else 
+  	-- 不成功，返回0
+          return 0 
+  end
+  ```
+
+  
 
 - 开源框架：Redission、RedLock
 
